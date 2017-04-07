@@ -6,6 +6,7 @@ import { AngularFireModule } from 'angularfire2';
 
 // custom components
 import { AppComponent } from './app.component';
+import { FirebaseComponent } from './firebase.component';
 
 export const firebaseConfig = {
 	apiKey: "AIzaSyBFJvuE_iTUVOsOnNeD12wEcTS7yphWlag",
@@ -18,7 +19,8 @@ export const firebaseConfig = {
 
 @NgModule({
 	declarations: [
-		AppComponent
+		AppComponent,
+		FirebaseComponent
 	],
 	imports: [
 		BrowserModule,
