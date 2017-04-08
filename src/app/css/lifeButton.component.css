@@ -1,0 +1,38 @@
+/* styling for life buttons */
+/* Main file for variables throughout the app */
+/* Colors */
+/* Shadows */
+/* Extensions */
+.button, .life-gain, .life-loss {
+  cursor: pointer;
+  color: white;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 0;
+  margin: 0;
+  height: 50px;
+  width: 100px;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0px 3px 5px #999;
+  transition: box-shadow .2s ease; }
+  .button:focus, .life-gain:focus, .life-loss:focus {
+    outline: 0; }
+
+.life-gain {
+  background-color: #5fa65d;
+  width: 40px;
+  height: 40px; }
+  .life-gain:hover {
+    box-shadow: 0 0 6px #5fa65d, 0px 3px 5px #999; }
+  .life-gain:active {
+    box-shadow: inset 0px 0px 20px #777; }
+
+.life-loss {
+  background-color: #d94e4e;
+  width: 40px;
+  height: 40px; }
+  .life-loss:hover {
+    box-shadow: 0 0 6px #d94e4e, 0px 3px 5px #999; }
+  .life-loss:active {
+    box-shadow: inset 0px 0px 20px #777; }

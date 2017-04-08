@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { AngularFire, FirebaseAuthState, FirebaseObjectObservable } from 'angularfire2';
 
+// custom components
+import { LifeButtonComponent } from './lifeButton.component';
+
 @Component({
 	selector: 'firebase',
 	styleUrls: ['./css/firebase.component.css'],
@@ -9,8 +12,9 @@ import { AngularFire, FirebaseAuthState, FirebaseObjectObservable } from 'angula
 		<button [ngClass]="chooseClass()" (click)="(isActive ? logout() : login())">{{(isActive ? 'Logout' : 'Login')}}</button>
 		<div>The user id is {{ (af.auth | async)?.uid }}</div>
 		<div>{{(isActive ? 'Welcome' : 'Please sign in.')}}</div>
-		<button class="life-gain">+5</button>
-		<button class="life-lose">-5</button>
+		<life-button value=-5></life-button><life-button value=-1></life-button>
+		<life-button value=1></life-button><life-button value=5></life-button>
+
 	`
 })
 

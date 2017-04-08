@@ -1,0 +1,34 @@
+/* styling for life buttons */
+
+@import 'variables';
+
+.life-gain {
+	@extend .button;
+	background-color: $mtgGreen;
+	width: 40px;
+	height: 40px;
+
+	&:hover {
+		box-shadow: 0 0 6px $mtgGreen, $basicShadow;
+	}
+
+	&:active {
+		box-shadow: $buttonPress;
+	}
+}
+
+.life-loss {
+	@extend .button;
+	background-color: $mtgRed;
+	width: 40px;
+	height: 40px;
+
+	&:hover {
+		box-shadow: 0 0 6px $mtgRed, $basicShadow;
+	}
+
+	&:active {
+		box-shadow: $buttonPress;
+
+	}
+}
