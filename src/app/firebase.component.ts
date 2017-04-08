@@ -6,8 +6,8 @@ import { AngularFire, FirebaseAuthState, FirebaseObjectObservable } from 'angula
 	styleUrls: ['./css/firebase.component.css'],
 	template:
 	`
-		<button [ngClass]="chooseStyle()" (click)="(isActive ? logout() : login())">{{(isActive ? 'Logout' : 'Login')}}</button>
-		<div>The user id is {{ (af.auth | async)?.google?.displayName }}</div>
+		<button [ngClass]="chooseClass()" (click)="(isActive ? logout() : login())">{{(isActive ? 'Logout' : 'Login')}}</button>
+		<div>The user id is {{ (af.auth | async)?.uid }}</div>
 		<div>{{(isActive ? 'Welcome' : 'Please sign in.')}}</div>
 		<button class="life-gain">+5</button>
 		<button class="life-lose">-5</button>
@@ -50,7 +50,7 @@ export class FirebaseComponent {
 		console.log(user);
 	}
 
-	chooseStyle():string {
+	chooseClass():string {
 		return this.isActive ? 'logout' : 'login';
 	}
 
