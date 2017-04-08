@@ -8,7 +8,9 @@
     "start": "ng serve",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build:sass": "node-sass src/app/sass/ -o src/app/css/",
+    "watch:sass": "npm run build:sass && node-sass src/app/sass/ -wo src/app/css/"
   },
   "private": true,
   "dependencies": {
@@ -38,10 +40,12 @@
     "karma": "~1.4.1",
     "karma-chrome-launcher": "~2.0.0",
     "karma-cli": "~1.0.1",
+    "karma-coverage-istanbul-reporter": "^0.2.0",
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
-    "karma-coverage-istanbul-reporter": "^0.2.0",
+    "node-sass": "^4.5.2",
     "protractor": "~5.1.0",
+    "sass-loader": "^6.0.3",
     "ts-node": "~2.0.0",
     "tslint": "~4.4.2",
     "typescript": "~2.0.0"

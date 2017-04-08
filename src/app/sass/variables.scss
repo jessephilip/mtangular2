@@ -1,0 +1,34 @@
+/* Main file for variables throughout the app */
+
+/* Colors */
+$mtgBlue: #548dbf;
+$mtgGreen: #5fa65d;
+$mtgBlack: #3f4038;
+$mtgWhite: #d9bfa0;
+$mtgRed: #d94e4e;
+
+/* Shadows */
+$basicShadow: 0px 3px 5px #999;
+// $buttonHover: ;
+$buttonPress: inset 0px 0px 20px #777;
+
+/* Extensions */
+
+.button {
+	cursor: pointer;
+	color: white;
+	font-weight: 600;
+	letter-spacing: .6px;
+	padding: 0;
+	margin: 0;
+	height: 50px;
+	width: 100px;
+	border-radius: 10px;
+	border: none;
+	box-shadow: $basicShadow;
+
+	&:focus {
+		outline: 0;
+	}
+
+}
