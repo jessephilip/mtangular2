@@ -12,7 +12,6 @@ import { MtgApiService } from './services/mtgApi.service';
 				*ngFor="let card of cards"
 				[card]="card">
 			</mtg-card>
-			<button (click)="getFeldon()">Get Feldon</button>
 		</main>
 	`
 })

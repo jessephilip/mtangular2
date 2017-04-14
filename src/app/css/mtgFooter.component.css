@@ -23,10 +23,15 @@ footer {
   align-items: center;
   background-color: #d9bfa0;
   display: flex;
-  justify-content: center; }
-  footer h1 {
-    color: #3f4038;
-    margin-left: 5px;
-    margin-right: 5px; }
-  footer life-button {
-    margin: 5px; }
+  justify-content: space-between; }
+  footer .life-panel {
+    align-items: center;
+    display: flex;
+    justify-content: center; }
+    footer .life-panel h1 {
+      color: #3f4038;
+      cursor: pointer;
+      font-size: 4em;
+      margin: 0 10px; }
+    footer .life-panel life-button {
+      margin: 5px; }

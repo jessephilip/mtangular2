@@ -1,27 +1,21 @@
-import { Component, Input, OnInit } from '@angular/core';
-
-// services
-import { LifeButtonService } from './services/lifeButton.service';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 // classes
-import { Life } from './types/life';
 import { Value } from './types/value';
 
 @Component({
-	providers: [LifeButtonService],
 	selector: 'life-button',
 	styleUrls: ['./css/lifeButton.component.css'],
 	template:
 	`
-		<button class={{className}} (click)="clickButton()">{{text}}</button>
+		<button class={{className}} (click)="clickButton(value)">{{text}}</button>
 	`
 })
 
 export class LifeButtonComponent implements OnInit {
-	constructor(public lbs: LifeButtonService){}
 
 	@Input() value: number;
-	@Input() life: number;
+	@Output() clicked = new EventEmitter<number>();
 
 	private buttonValue = new Value;
 	private className:string;
@@ -31,8 +25,8 @@ export class LifeButtonComponent implements OnInit {
 
 		// set the buttonValue equal to the value passed by the parent
 		this.buttonValue.value = this.value;
-		console.log(this.life);
 
+		// style the buttons based on its value
 		if (this.value < 0) {
 			this.className = 'life-loss';
 			this.text = `${this.value}`;
@@ -43,7 +37,9 @@ export class LifeButtonComponent implements OnInit {
 		}
 	}
 
-	private clickButton():void {
-		console.log('clicked');
+	clickButton(value:number):void {
+
+		// emit this buttons value to be captured by its parent
+		this.clicked.emit(value);
 	}
 }

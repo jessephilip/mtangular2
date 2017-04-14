@@ -6,16 +6,25 @@ footer {
 	align-items: center;
 	background-color: $mtgWhite;
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
 
-	h1 {
-		color: $mtgBlack;
-		margin-left: 5px;
-		margin-right: 5px;
-	}
+	.life-panel {
 
-	life-button {
-		margin: 5px;
+		align-items: center;
+		display: flex;
+		justify-content: center;
+
+		h1 {
+			color: $mtgBlack;
+			cursor: pointer;
+			font-size: 4em;
+			margin: 0 10px;
+		}
+
+		life-button {
+			margin: 5px;
+		}
+
 	}
 
 

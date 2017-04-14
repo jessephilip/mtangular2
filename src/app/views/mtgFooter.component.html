@@ -1,8 +1,24 @@
 <!-- mtgFooter.component.html -->
 <footer>
-	<life-button [life]="playerLife.life" [value]=-5></life-button>
-	<life-button [life]="playerLife.life" [value]=-1></life-button>
-	<h1>{{playerLife.life}}</h1>
-	<life-button [life]="playerLife.life" [value]=1></life-button>
-	<life-button [life]="playerLife.life" [value]=5></life-button>
+	<div>
+		<div class="tool-panel">
+			tools
+		</div>
+	</div>
+	<div class="life-panel">
+		<life-button
+			*ngFor="let value of pos"
+			[value]="value"
+			(clicked)="clicked($event)">
+		</life-button>
+		<h1>{{playerLife.life}}</h1>
+		<life-button
+			*ngFor="let value of neg"
+			[value]="value"
+			(clicked)="clicked($event)">
+		</life-button>
+	</div>
+	<div>
+		<div class="other-panel"></div>
+	</div>
 </footer>
