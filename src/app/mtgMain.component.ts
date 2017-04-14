@@ -5,15 +5,8 @@ import { MtgApiService } from './services/mtgApi.service';
 	providers: [MtgApiService],
 	selector: 'mtg-main',
 	styleUrls: ['./css/mtgMain.component.css'],
-	template:
-	`
-		<main>
-			<mtg-card
-				*ngFor="let card of cards"
-				[card]="card">
-			</mtg-card>
-		</main>
-	`
+	templateUrl: './views/mtgMain.component.html'
+
 })
 
 export class MtgMainComponent {
