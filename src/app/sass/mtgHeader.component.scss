@@ -1,0 +1,34 @@
+/* style for header */
+@import "variables";
+
+header {
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 100%;
+
+	div {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		a {
+			cursor: pointer;
+		}
+
+		h1 {
+			color: $mtgBlack;
+			margin: 0;
+		}
+
+		p {
+			color: $mtgBlack;
+			margin: 0;
+		}
+
+		i {
+			color: $mtgBlack;
+		}
+	}
+}

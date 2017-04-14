@@ -11,9 +11,6 @@ import { LifeButtonComponent } from './lifeButton.component';
 	`
 		<button [ngClass]="chooseClass()" (click)="(isActive ? logout() : login())">{{(isActive ? 'Logout' : 'Login')}}</button>
 		<div>The user id is {{ (af.auth | async)?.uid }}</div>
-		<div>{{(isActive ? 'Welcome' : 'Please sign in.')}}</div>
-		<life-button value=-5></life-button><life-button value=-1></life-button>
-		<life-button value=1></life-button><life-button value=5></life-button>
 
 	`
 })

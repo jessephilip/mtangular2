@@ -1,0 +1,41 @@
+/* style for header */
+/* Main file for variables throughout the app */
+/* Colors */
+/* Shadows */
+/* Extensions */
+.button {
+  cursor: pointer;
+  color: White;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 0;
+  margin: 0;
+  height: 50px;
+  width: 100px;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0px 3px 5px #999;
+  transition: box-shadow .2s ease; }
+  .button:focus {
+    outline: 0; }
+
+header {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%; }
+  header div {
+    display: flex;
+    flex-direction: column;
+    align-items: center; }
+    header div a {
+      cursor: pointer; }
+    header div h1 {
+      color: #3f4038;
+      margin: 0; }
+    header div p {
+      color: #3f4038;
+      margin: 0; }
+    header div i {
+      color: #3f4038; }

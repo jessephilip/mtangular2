@@ -2,12 +2,22 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { RouterModule, Routes } from '@angular/router';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
+import { Angular2FontAwesomeModule } from 'angular2-font-awesome/angular2-font-awesome';
 
 // custom components
 import { AppComponent } from './app.component';
 import { FirebaseComponent } from './firebase.component';
 import { LifeButtonComponent } from './lifeButton.component';
+import { MtgHeaderComponent } from './mtgHeader.component';
+import { MtgMainComponent } from './mtgMain.component';
+import { MtgFooterComponent } from './mtgFooter.component';
+import { LeftSliderComponent } from './leftSlider.component';
+import { RightSliderComponent } from './rightSlider.component';
+import { MtgCardComponent } from './mtgCard.component';
+import { CardResultsComponent } from './cardResults.component';
+import { PlayerCardComponent } from './playerCard.component';
 
 // const for permanent config to firebase
 export const firebaseConfig = {
@@ -25,17 +35,34 @@ const firebaseAuthConfig = {
 	method: AuthMethods.Redirect
 };
 
+// for Routes
+const routes: Routes = [
+	{ path: 'cardResults', component: CardResultsComponent },
+	{ path: '', redirectTo: '', pathMatch: 'full'},
+	{ path: '', component: AppComponent }
+	// { path: '**', component: FourOFourComponent }
+];
+
 @NgModule({
 	declarations: [
 		AppComponent,
 		FirebaseComponent,
-		LifeButtonComponent
+		LifeButtonComponent,
+		MtgHeaderComponent,
+		MtgMainComponent,
+		MtgFooterComponent,
+		LeftSliderComponent,
+		RightSliderComponent,
+		MtgCardComponent,
+		CardResultsComponent,
+		PlayerCardComponent
 	],
 	imports: [
 		BrowserModule,
 		FormsModule,
 		HttpModule,
-		AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig)
+		AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
+		RouterModule.forRoot(routes)
 	],
 	providers: [],
 	bootstrap: [AppComponent]

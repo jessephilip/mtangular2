@@ -1,0 +1,23 @@
+/* footer styling */
+
+@import "variables";
+
+footer {
+	align-items: center;
+	background-color: $mtgWhite;
+	display: flex;
+	justify-content: center;
+
+	h1 {
+		color: $mtgBlack;
+		margin-left: 5px;
+		margin-right: 5px;
+	}
+
+	life-button {
+		margin: 5px;
+	}
+
+
+
+}

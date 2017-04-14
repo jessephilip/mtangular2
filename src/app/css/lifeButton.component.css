@@ -5,7 +5,7 @@
 /* Extensions */
 .button, .life-gain, .life-loss {
   cursor: pointer;
-  color: white;
+  color: White;
   font-weight: 600;
   letter-spacing: 1px;
   padding: 0;

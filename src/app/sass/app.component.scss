@@ -1,0 +1,28 @@
+/* style for connecting html */
+@import "variables";
+
+div {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	justify-content: center;
+	width: 100%;
+
+	mtg-header {
+		background-color: $mtgWhite;
+		display: flex;
+		flex: 1;
+		flex-direction: row;
+		justify-content: space-between;
+		width: 100%;
+		z-index: 1;
+	}
+
+	mtg-main {
+		background-color: $mtgBlue;
+		display: flex;
+		flex: 7;
+		width: 100%;
+		height: 100%;
+	}
+}

@@ -1,7 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 
+// services
+import { LifeButtonService } from './services/lifeButton.service';
+
+// classes
+import { Life } from './types/life';
+import { Value } from './types/value';
+
 @Component({
-	// inputs: ['value'],
+	providers: [LifeButtonService],
 	selector: 'life-button',
 	styleUrls: ['./css/lifeButton.component.css'],
 	template:
@@ -11,52 +18,32 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 
 export class LifeButtonComponent implements OnInit {
+	constructor(public lbs: LifeButtonService){}
 
-	@Input() value:number;
+	@Input() value: number;
+	@Input() life: number;
 
+	private buttonValue = new Value;
 	private className:string;
 	private text:string;
 
 	ngOnInit() {
 
+		// set the buttonValue equal to the value passed by the parent
+		this.buttonValue.value = this.value;
+		console.log(this.life);
+
 		if (this.value < 0) {
-			this.setClassName('life-loss');
-			this.setText(`${this.value}`);
+			this.className = 'life-loss';
+			this.text = `${this.value}`;
 		}
 		else {
-			this.setClassName('life-gain');
-			this.setText(`+${this.value}`);
+			this.className = 'life-gain';
+			this.text = `+${this.value}`;
 		}
-	}
-
-	public getClassName():string {
-		return this.className;
-	}
-
-	public setClassName(className:string):string {
-		this.className = className;
-		return this.className;
-	}
-
-	public getText():string {
-		return this.text;
-	}
-
-	public setText(text:string):string {
-		this.text = text;
-		return this.text;
-	}
-
-	public getValue():number {
-		return this.value;
-	}
-
-	public setValue(value:number):number {
-		this.value = value;
-		return this.value;
 	}
 
 	private clickButton():void {
-		console.log('clicked: ', this.value);
+		console.log('clicked');
 	}
 }

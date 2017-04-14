@@ -1,8 +1,9 @@
+/* style for main section of the app */
 /* Main file for variables throughout the app */
 /* Colors */
 /* Shadows */
 /* Extensions */
-.button, .login, .logout {
+.button {
   cursor: pointer;
   color: White;
   font-weight: 600;
@@ -15,11 +16,11 @@
   border: none;
   box-shadow: 0px 3px 5px #999;
   transition: box-shadow .2s ease; }
-  .button:focus, .login:focus, .logout:focus {
+  .button:focus {
     outline: 0; }
 
-.login {
-  background-color: #5fa65d; }
-
-.logout {
-  background-color: #d94e4e; }
+main {
+  overflow-y: auto;
+  background-color: #5fa65d;
+  display: flex;
+  width: 100%; }

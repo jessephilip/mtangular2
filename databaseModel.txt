@@ -1,0 +1,9 @@
+root
+ -games
+ -players
+ --decks
+ --joinedGames
+ ---active
+ ---closed
+ --settings
+ -points

@@ -1,0 +1,10 @@
+/* style for main section of the app */
+
+@import "variables";
+
+main {
+	overflow-y: auto;
+	background-color: $mtgGreen;
+	display: flex;
+	width: 100%;
+}
