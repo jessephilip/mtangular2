@@ -3,32 +3,40 @@
 
 header {
 	align-items: center;
+	color: $mtgBlack;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	width: 100%;
+}
 
-	div {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
+aside, main {
+	flex: 1;
+}
 
-		a {
-			cursor: pointer;
-		}
+main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 
-		h1 {
-			color: $mtgBlack;
-			margin: 0;
-		}
-
-		p {
-			color: $mtgBlack;
-			margin: 0;
-		}
-
-		i {
-			color: $mtgBlack;
-		}
+	h1 {
+		margin: 0;
 	}
+
+	p {
+		margin: 0;
+	}
+}
+
+.flex-start {
+	display: flex;
+	justify-content: flex-start;
+	margin-left: 10px;
+}
+
+.flex-end {
+	display: flex;
+	justify-content: flex-end;
+	margin-right: 10px;
 }

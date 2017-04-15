@@ -1,8 +1,4 @@
-import { Injectable } from '@angular/core';
-
-@Injectable()
-
-export class RandomToolsService {
+export class Tools {
 
 	// returns a random number between 1 and the given number
 	public randomizer = function(max: number): number {

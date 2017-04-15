@@ -3,7 +3,7 @@
 /* Colors */
 /* Shadows */
 /* Extensions */
-.button {
+.button, footer .tool-button {
   cursor: pointer;
   color: White;
   font-weight: 600;
@@ -16,7 +16,7 @@
   border: none;
   box-shadow: 0px 3px 5px #999;
   transition: box-shadow .2s ease; }
-  .button:focus {
+  .button:focus, footer .tool-button:focus {
     outline: 0; }
 
 footer {
@@ -24,6 +24,8 @@ footer {
   background-color: #d9bfa0;
   display: flex;
   justify-content: space-between; }
+  footer aside, footer main {
+    flex: 1; }
   footer .life-panel {
     align-items: center;
     display: flex;
@@ -35,3 +37,14 @@ footer {
       margin: 0 10px; }
     footer .life-panel life-button {
       margin: 5px; }
+  footer .tool-button {
+    background-color: #3f4038;
+    color: white;
+    height: 40px;
+    margin: 10px 5px;
+    padding: 0 10px;
+    width: auto; }
+    footer .tool-button:hover {
+      box-shadow: 0 0 6px #3f4038, 0px 3px 5px #999; }
+    footer .tool-button:active {
+      box-shadow: inset 0px 0px 20px #777; }

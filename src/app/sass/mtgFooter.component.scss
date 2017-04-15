@@ -8,6 +8,10 @@ footer {
 	display: flex;
 	justify-content: space-between;
 
+	aside, main {
+		flex: 1;
+	}
+
 	.life-panel {
 
 		align-items: center;
@@ -25,6 +29,26 @@ footer {
 			margin: 5px;
 		}
 
+	}
+
+	.tool-button {
+		@extend .button;
+
+		background-color: $mtgBlack;
+		color: white;
+		height: 40px;
+		margin: 10px 5px;
+		padding: 0 10px;
+		width: auto;
+
+		&:hover {
+			box-shadow: 0 0 6px $mtgBlack, $basicShadow;
+		}
+
+		&:active {
+			box-shadow: $buttonPress;
+
+		}
 	}
 
 

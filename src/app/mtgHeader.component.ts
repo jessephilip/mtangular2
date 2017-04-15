@@ -6,16 +6,16 @@ import { Component } from '@angular/core';
 	template:
 	`
 		<header>
-			<div>
+			<aside class="flex-start">
 				<a><i class="fa fa-bars fa-2x"></i></a>
-			</div>
-			<div>
+			</aside>
+			<main>
 				<h1>{{'Game Name'}}</h1>
 				<p>{{'Deck Name'}}</p>
-			</div>
-			<div>
+			</main>
+			<aside class="flex-end">
 				<a><i class="fa fa-chevron-right"></i></a>
-			</div>
+			</aside>
 		</header>
 	`
 })

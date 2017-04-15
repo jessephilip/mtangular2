@@ -1,15 +1,20 @@
 <!-- mtgFooter.component.html -->
 <footer>
-	<div>
-		<div class="tool-panel">
-			<button (click)="coinFlip()">Coin Flip</button>
-			<button (click)="multiFlip()">Multi Flips</button>
-			<button (click)="d6()">D6</button>
-			<button (click)="d20()">D20</button>
-			<button (click)="multi20()">Multiple D20</button>
+	<aside>
+		<div *ngIf="showTools" class="tool-panel">
+			<button
+				*ngFor="let tool of toolButtons"
+				(click)="tool.tool()"
+				class="tool-button">{{tool.name}}
+			</button>
 		</div>
-	</div>
-	<div class="life-panel">
+		<div *ngIf="!showTools">
+			<button
+				(click)="toggleTools()" class="tool-button">Tools
+			</button>
+		</div>
+	</aside>
+	<main *ngIf="!showTools" class="life-panel">
 		<life-button
 			*ngFor="let value of pos"
 			[value]="value"
@@ -21,8 +26,8 @@
 			[value]="value"
 			(clicked)="clicked($event)">
 		</life-button>
-	</div>
-	<div>
+	</main>
+	<aside>
 		<div class="other-panel"></div>
-	</div>
+	</aside>
 </footer>

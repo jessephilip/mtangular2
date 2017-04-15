@@ -21,21 +21,31 @@
 
 header {
   align-items: center;
+  color: #3f4038;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 100%; }
-  header div {
-    display: flex;
-    flex-direction: column;
-    align-items: center; }
-    header div a {
-      cursor: pointer; }
-    header div h1 {
-      color: #3f4038;
-      margin: 0; }
-    header div p {
-      color: #3f4038;
-      margin: 0; }
-    header div i {
-      color: #3f4038; }
+
+aside, main {
+  flex: 1; }
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; }
+  main h1 {
+    margin: 0; }
+  main p {
+    margin: 0; }
+
+.flex-start {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 10px; }
+
+.flex-end {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 10px; }
