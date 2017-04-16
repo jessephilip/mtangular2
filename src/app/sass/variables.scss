@@ -7,9 +7,18 @@ $mtgBlack: #3f4038;
 $mtgWhite: #d9bfa0;
 $mtgRed: #d94e4e;
 
+/* Gradients */
+$mainGradient: linear-gradient(#e2ebf0, #cfd9df);
+$altGradient: linear-gradient(135deg, #e2d1c3, #fdfcfb, #e2d1c3);
+$testGradient: linear-gradient(to right, red, black, blue);
+
 /* Shadows */
 $basicShadow: 0px 3px 5px #999;
 $buttonPress: inset 0px 0px 20px #777;
+
+/* Dimensions */
+$footerHeight: 20%;
+$headerHeight: 80%;
 
 /* Extensions */
 
@@ -27,8 +36,24 @@ $buttonPress: inset 0px 0px 20px #777;
 	box-shadow: $basicShadow;
 	transition: box-shadow .2s ease;
 
+	&:hover {
+		text-shadow: 0 0px 20px currentColor;
+	}
+
 	&:focus {
 		outline: 0;
 	}
 
+}
+
+.flex-start {
+	display: flex;
+	justify-content: flex-start;
+	margin-left: 10px;
+}
+
+.flex-end {
+	display: flex;
+	justify-content: flex-end;
+	margin-right: 10px;
 }

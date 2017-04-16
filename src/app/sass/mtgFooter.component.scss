@@ -4,7 +4,6 @@
 
 footer {
 	align-items: center;
-	background-color: $mtgWhite;
 	display: flex;
 	justify-content: space-between;
 
@@ -13,7 +12,6 @@ footer {
 	}
 
 	.life-panel {
-
 		align-items: center;
 		display: flex;
 		justify-content: center;
@@ -21,7 +19,7 @@ footer {
 		h1 {
 			color: $mtgBlack;
 			cursor: pointer;
-			font-size: 4em;
+			font-size: 3em;
 			margin: 0 10px;
 		}
 
@@ -35,6 +33,7 @@ footer {
 		@extend .button;
 
 		background-color: $mtgBlack;
+		border-radius: 0;
 		color: white;
 		height: 40px;
 		margin: 10px 5px;

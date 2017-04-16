@@ -1,7 +1,9 @@
 /* style for right slider section of the app */
 /* Main file for variables throughout the app */
 /* Colors */
+/* Gradients */
 /* Shadows */
+/* Dimensions */
 /* Extensions */
 .button {
   cursor: pointer;
@@ -16,5 +18,17 @@
   border: none;
   box-shadow: 0px 3px 5px #999;
   transition: box-shadow .2s ease; }
+  .button:hover {
+    text-shadow: 0 0px 20px currentColor; }
   .button:focus {
     outline: 0; }
+
+.flex-start {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 10px; }
+
+.flex-end {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 10px; }

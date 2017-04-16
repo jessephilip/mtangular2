@@ -16,13 +16,13 @@
 	</aside>
 	<main *ngIf="!showTools" class="life-panel">
 		<life-button
-			*ngFor="let value of pos"
+			*ngFor="let value of neg"
 			[value]="value"
 			(clicked)="clicked($event)">
 		</life-button>
 		<h1>{{playerLife.life}}</h1>
 		<life-button
-			*ngFor="let value of neg"
+			*ngFor="let value of pos"
 			[value]="value"
 			(clicked)="clicked($event)">
 		</life-button>

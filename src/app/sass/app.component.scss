@@ -4,25 +4,25 @@
 div {
 	display: flex;
 	flex-direction: column;
+	justify-content: space-between;
 	height: 100%;
-	justify-content: center;
 	width: 100%;
 
 	mtg-header {
-		background-color: $mtgWhite;
-		display: flex;
-		flex: 1;
-		flex-direction: row;
-		justify-content: space-between;
-		width: 100%;
-		z-index: 1;
+
 	}
 
 	mtg-main {
-		background-color: $mtgBlue;
 		display: flex;
-		flex: 7;
-		width: 100%;
 		height: 100%;
+		justify-content: center;
+		width: 100%;
 	}
+
+	mtg-footer {
+		background: $altGradient;
+	}
+
+
+
 }

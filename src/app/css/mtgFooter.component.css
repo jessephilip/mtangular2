@@ -1,7 +1,9 @@
 /* footer styling */
 /* Main file for variables throughout the app */
 /* Colors */
+/* Gradients */
 /* Shadows */
+/* Dimensions */
 /* Extensions */
 .button, footer .tool-button {
   cursor: pointer;
@@ -16,12 +18,23 @@
   border: none;
   box-shadow: 0px 3px 5px #999;
   transition: box-shadow .2s ease; }
+  .button:hover, footer .tool-button:hover {
+    text-shadow: 0 0px 20px currentColor; }
   .button:focus, footer .tool-button:focus {
     outline: 0; }
 
+.flex-start {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 10px; }
+
+.flex-end {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 10px; }
+
 footer {
   align-items: center;
-  background-color: #d9bfa0;
   display: flex;
   justify-content: space-between; }
   footer aside, footer main {
@@ -33,12 +46,13 @@ footer {
     footer .life-panel h1 {
       color: #3f4038;
       cursor: pointer;
-      font-size: 4em;
+      font-size: 3em;
       margin: 0 10px; }
     footer .life-panel life-button {
       margin: 5px; }
   footer .tool-button {
     background-color: #3f4038;
+    border-radius: 0;
     color: white;
     height: 40px;
     margin: 10px 5px;

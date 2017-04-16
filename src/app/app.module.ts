@@ -18,6 +18,7 @@ import { RightSliderComponent } from './rightSlider.component';
 import { MtgCardComponent } from './mtgCard.component';
 import { CardResultsComponent } from './cardResults.component';
 import { PlayerCardComponent } from './playerCard.component';
+import { PopBarComponent } from './popBar.component';
 
 // const for permanent config to firebase
 export const firebaseConfig = {
@@ -55,7 +56,8 @@ const routes: Routes = [
 		RightSliderComponent,
 		MtgCardComponent,
 		CardResultsComponent,
-		PlayerCardComponent
+		PlayerCardComponent,
+		PopBarComponent
 	],
 	imports: [
 		BrowserModule,

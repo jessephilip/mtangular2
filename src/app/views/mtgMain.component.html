@@ -4,4 +4,9 @@
 		*ngFor="let card of cards"
 		[card]="card">
 	</mtg-card>
+	<!-- <button (click)="createPopBar()">Create Pop Bar</button> -->
+	<pop-bar
+		*ngIf="showPop"
+		(removePop)="removePop($event)">
+	</pop-bar>
 </main>

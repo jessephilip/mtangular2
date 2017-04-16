@@ -38,7 +38,6 @@ export class LifeButtonComponent implements OnInit {
 	}
 
 	clickButton(value:number):void {
-
 		// emit this buttons value to be captured by its parent
 		this.clicked.emit(value);
 	}

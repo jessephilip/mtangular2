@@ -3,11 +3,18 @@
 
 header {
 	align-items: center;
+	background: $altGradient;
 	color: $mtgBlack;
 	display: flex;
+	flex: 1;
 	flex-direction: row;
 	justify-content: space-between;
 	width: 100%;
+	z-index: 1;
+
+	a {
+		cursor: pointer;
+	}
 }
 
 aside, main {
@@ -27,16 +34,4 @@ main {
 	p {
 		margin: 0;
 	}
-}
-
-.flex-start {
-	display: flex;
-	justify-content: flex-start;
-	margin-left: 10px;
-}
-
-.flex-end {
-	display: flex;
-	justify-content: flex-end;
-	margin-right: 10px;
 }
