@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
+
+// third party
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
-import { Angular2FontAwesomeModule } from 'angular2-font-awesome/angular2-font-awesome';
+
+import { AppComponent } from './app.component';
 
 // custom components
-import { AppComponent } from './app.component';
 import { FirebaseComponent } from './firebase.component';
 import { LifeButtonComponent } from './lifeButton.component';
 import { MtgHeaderComponent } from './mtgHeader.component';
@@ -30,11 +32,12 @@ export const firebaseConfig = {
 	messagingSenderId: "1035011540407"
 };
 
+// TODO: Fix this. It's erroring with update to Angular 4.0
 // const for using firebase's Authorization
-const firebaseAuthConfig = {
-	provider: AuthProviders.Google,
-	method: AuthMethods.Redirect
-};
+// const firebaseAuthConfig = {
+// 	provider: AuthProviders.Google,
+// 	method: AuthMethods.Redirect
+// };
 
 // for Routes
 const routes: Routes = [
@@ -47,7 +50,7 @@ const routes: Routes = [
 @NgModule({
 	declarations: [
 		AppComponent,
-		FirebaseComponent,
+		// FirebaseComponent,
 		LifeButtonComponent,
 		MtgHeaderComponent,
 		MtgMainComponent,
@@ -63,11 +66,10 @@ const routes: Routes = [
 		BrowserModule,
 		FormsModule,
 		HttpModule,
-		AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
+		//AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
 		RouterModule.forRoot(routes)
 	],
 	providers: [],
 	bootstrap: [AppComponent]
 })
-
 export class AppModule { }

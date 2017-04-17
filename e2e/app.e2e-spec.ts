@@ -1,14 +1,14 @@
-import { MtgAppPage } from './app.po';
+import { TrialPage } from './app.po';
 
-describe('mtg-app App', () => {
-  let page: MtgAppPage;
+describe('trial App', () => {
+	let page: TrialPage;
 
-  beforeEach(() => {
-    page = new MtgAppPage();
-  });
+	beforeEach(() => {
+		page = new TrialPage();
+	});
 
-  it('should display message saying app works', () => {
-    page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
-  });
+	it('should display message saying app works', () => {
+		page.navigateTo();
+		expect(page.getParagraphText()).toEqual('app works!');
+	});
 });
