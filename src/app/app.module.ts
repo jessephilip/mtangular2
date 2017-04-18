@@ -8,9 +8,8 @@ import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 // third party
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
-import { AppComponent } from './app.component';
-
 // custom components
+import { AppComponent } from './app.component';
 import { FirebaseComponent } from './firebase.component';
 import { LifeButtonComponent } from './lifeButton.component';
 import { MtgHeaderComponent } from './mtgHeader.component';
@@ -22,6 +21,7 @@ import { MtgCardComponent } from './mtgCard.component';
 import { CardResultsComponent } from './cardResults.component';
 import { PlayerCardComponent } from './playerCard.component';
 import { PopBarComponent } from './popBar.component';
+import { AnimateComponent } from './animate.component';
 
 // const for permanent config to firebase
 export const firebaseConfig = {
@@ -61,10 +61,12 @@ const routes: Routes = [
 		MtgCardComponent,
 		CardResultsComponent,
 		PlayerCardComponent,
-		PopBarComponent
+		PopBarComponent,
+		AnimateComponent
 	],
 	imports: [
 		BrowserModule,
+		BrowserAnimationsModule,
 		FormsModule,
 		HttpModule,
 		//AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
