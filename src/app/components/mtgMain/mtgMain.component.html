@@ -1,0 +1,13 @@
+<!-- mtgMain.component.html -->
+<main>
+	<mtg-card
+		*ngFor="let card of cards"
+		[card]="card">
+	</mtg-card>
+	<app-animate></app-animate>
+	<!-- <button (click)="createPopBar()">Create Pop Bar</button> -->
+	<pop-bar
+		*ngIf="showPop"
+		(removePop)="removePop($event)">
+	</pop-bar>
+</main>

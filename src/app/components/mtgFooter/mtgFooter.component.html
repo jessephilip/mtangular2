@@ -1,0 +1,33 @@
+<!-- mtgFooter.component.html -->
+<footer>
+	<aside>
+		<div *ngIf="showTools" class="tool-panel">
+			<button
+				*ngFor="let tool of toolButtons"
+				(click)="tool.tool()"
+				class="tool-button">{{tool.name}}
+			</button>
+		</div>
+		<div *ngIf="!showTools">
+			<button
+				(click)="toggleTools()" class="tool-button">Tools
+			</button>
+		</div>
+	</aside>
+	<main *ngIf="!showTools" class="life-panel">
+		<life-button
+			*ngFor="let value of neg"
+			[value]="value"
+			(clicked)="clicked($event)">
+		</life-button>
+		<h1>{{playerLife.life}}</h1>
+		<life-button
+			*ngFor="let value of pos"
+			[value]="value"
+			(clicked)="clicked($event)">
+		</life-button>
+	</main>
+	<aside>
+		<div class="other-panel"></div>
+	</aside>
+</footer>
