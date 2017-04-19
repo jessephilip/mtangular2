@@ -10,18 +10,17 @@ import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
 // custom components
 import { AppComponent } from './app.component';
-import { FirebaseComponent } from './firebase.component';
-import { LifeButtonComponent } from './lifeButton.component';
-import { MtgHeaderComponent } from './mtgHeader.component';
-import { MtgMainComponent } from './mtgMain.component';
-import { MtgFooterComponent } from './mtgFooter.component';
-import { LeftSliderComponent } from './leftSlider.component';
-import { RightSliderComponent } from './rightSlider.component';
-import { MtgCardComponent } from './mtgCard.component';
-import { CardResultsComponent } from './cardResults.component';
-import { PlayerCardComponent } from './playerCard.component';
-import { PopBarComponent } from './popBar.component';
-import { AnimateComponent } from './animate.component';
+import { LifeButtonComponent } from './components/lifeButton/lifeButton.component';
+import { MtgHeaderComponent } from './components/mtgHeader/mtgHeader.component';
+import { MtgMainComponent } from './components/mtgMain/mtgMain.component';
+import { MtgFooterComponent } from './components/mtgFooter/mtgFooter.component';
+import { LeftSliderComponent } from './components/leftSlider/leftSlider.component';
+import { RightSliderComponent } from './components/rightSlider/rightSlider.component';
+import { MtgCardComponent } from './components/mtgCard/mtgCard.component';
+import { CardResultsComponent } from './components/cardResults/cardResults.component';
+import { PlayerCardComponent } from './components/playerCard/playerCard.component';
+import { PopBarComponent } from './components/popBar/popBar.component';
+import { AnimateComponent } from './components/animate/animate.component';
 
 // const for permanent config to firebase
 export const firebaseConfig = {
