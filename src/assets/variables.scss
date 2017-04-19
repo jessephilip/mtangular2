@@ -7,10 +7,27 @@ $mtgBlack: #3f4038;
 $mtgWhite: #d9bfa0;
 $mtgRed: #d94e4e;
 
+$veil: rgba(0,0,0,0.6);
+
 /* Gradients */
-$mainGradient: linear-gradient(#e2ebf0, #cfd9df);
-$altGradient: linear-gradient(135deg, #e2d1c3, #fdfcfb, #e2d1c3);
-$testGradient: linear-gradient(to right, red, black, blue);
+$mainGradientColor1: #e2ebf0;
+$mainGradientColor2: #cfd9df;
+
+$altGradientColor1: #CB356B;
+$altGradientColor2: #CB356B;
+
+
+$cancelGradient1: #ef473a;
+$cancelGradient2: #cb2d3e;
+
+$okGradient1: #93F9B9;
+$okGradient2: #1D976C;
+
+@mixin gradient2Background($color1, $color2) {
+	background: $color2;
+	background: -webkit-linear-gradient(120deg, $color1, $color2);
+	background: linear-gradient(120deg, $color1, $color2);
+}
 
 /* Shadows */
 $basicShadow: 0px 3px 5px #999;
@@ -19,6 +36,9 @@ $buttonPress: inset 0px 0px 20px #777;
 /* Dimensions */
 $footerHeight: 20%;
 $headerHeight: 80%;
+
+$basicButtonHeight: 50px;
+$basicButtonWidth: 100px;
 
 /* Extensions */
 
@@ -29,8 +49,8 @@ $headerHeight: 80%;
 	letter-spacing: 1px;
 	padding: 0;
 	margin: 0;
-	height: 50px;
-	width: 100px;
+	height: $basicButtonHeight;
+	width: $basicButtonWidth;
 	border-radius: 10px;
 	border: none;
 	box-shadow: $basicShadow;
@@ -40,8 +60,8 @@ $headerHeight: 80%;
 		text-shadow: 0 0px 20px currentColor;
 	}
 
-	&:focus {
-		outline: 0;
+	&:active {
+		box-shadow: $buttonPress;
 	}
 
 }

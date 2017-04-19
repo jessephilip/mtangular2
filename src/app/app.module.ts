@@ -21,6 +21,7 @@ import { CardResultsComponent } from './components/cardResults/cardResults.compo
 import { PlayerCardComponent } from './components/playerCard/playerCard.component';
 import { PopBarComponent } from './components/popBar/popBar.component';
 import { AnimateComponent } from './components/animate/animate.component';
+import { FullModalComponent } from './components/full-modal/full-modal.component';
 
 // const for permanent config to firebase
 export const firebaseConfig = {
@@ -61,7 +62,8 @@ const routes: Routes = [
 		CardResultsComponent,
 		PlayerCardComponent,
 		PopBarComponent,
-		AnimateComponent
+		AnimateComponent,
+		FullModalComponent
 	],
 	imports: [
 		BrowserModule,

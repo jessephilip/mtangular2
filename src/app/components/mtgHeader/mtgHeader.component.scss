@@ -3,7 +3,7 @@
 
 header {
 	align-items: center;
-	background: $altGradient;
+	@include gradient2Background($altGradientColor1, $altGradientColor2);
 	color: $mtgBlack;
 	display: flex;
 	flex: 1;

@@ -11,10 +11,6 @@
 	&:hover {
 		box-shadow: 0 0 6px $mtgGreen, $basicShadow;
 	}
-
-	&:active {
-		box-shadow: $buttonPress;
-	}
 }
 
 .life-loss {
