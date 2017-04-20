@@ -20,7 +20,7 @@ div {
 	}
 
 	mtg-footer {
-		@include gradient2Background($altGradientColor1, $altGradientColor2);
+		@include gradient2Background($clouds1, $clouds2);
 	}
 
 

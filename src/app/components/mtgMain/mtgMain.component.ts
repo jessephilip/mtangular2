@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MtgApiService } from '../../services/mtgApi.service';
 
 @Component({
@@ -15,6 +15,14 @@ export class MtgMainComponent {
 	private showPop = true;
 	private mtgMainDom = document.getElementsByTagName('mtg-main')[0];
 
+	@Input() showModal: boolean = false;
+	@Output() closeModalToApp = new EventEmitter<boolean>();
+
+	closeModal(bool:boolean) {
+		console.log('changedModal status:', bool);
+		this.showModal = bool;
+		this.closeModalToApp.emit(false);
+	}
 
 	public getFeldon() {
 		this.mtgService.getCardByName('feldon').subscribe(result => {
@@ -33,5 +41,4 @@ export class MtgMainComponent {
 		let popBarDom = document.createElement('pop-bar');
 		this.mtgMainDom.appendChild(popBarDom);
 	}
-
 }

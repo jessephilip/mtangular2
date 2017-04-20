@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 // classes
 import { Life } from '../../types/life';
@@ -11,6 +11,8 @@ import { Tools } from '../../types/tools';
 })
 
 export class MtgFooterComponent implements OnInit {
+
+	@Output() emitModal = new EventEmitter<boolean>();
 
 	// substantiate tools class
 	public tools:Tools = new Tools;
@@ -26,23 +28,38 @@ export class MtgFooterComponent implements OnInit {
 	private toolButtons = [
 		{
 			name: 'Coin Flip',
-			tool: ()=> {console.log(this.tools.coinFlip());}
+			tool: ()=> {
+				this.emitModal.emit(true);
+				console.log(this.tools.coinFlip());
+			}
 		},
 		{
 			name: 'Multi Flip',
-			tool: ()=> {console.log(this.tools.coinFlips(4));}
+			tool: ()=> {
+				this.emitModal.emit(true);
+				console.log(this.tools.coinFlips(6));
+			}
 		},
 		{
 			name: 'D6',
-			tool: ()=> {console.log(this.tools.randomizer(6));}
+			tool: ()=> {
+				this.emitModal.emit(true);
+				console.log(this.tools.randomizer(6));
+			}
 		},
 		{
 			name: 'D20',
-			tool: ()=> {console.log(this.tools.randomizer(20));}
+			tool: ()=> {
+				this.emitModal.emit(true);
+				console.log(this.tools.randomizer(20));
+			}
 		},
 		{
 			name: 'Multi D20',
-			tool: ()=> {console.log(this.tools.multiple(4, 20));}
+			tool: ()=> {
+				this.emitModal.emit(true);
+				console.log(this.tools.multiple(6, 20));
+			}
 		},
 		{
 			name: 'x',

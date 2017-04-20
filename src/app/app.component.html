@@ -1,6 +1,11 @@
 <!-- app.component.html -->
 <div>
 	<mtg-header></mtg-header>
-	<mtg-main></mtg-main>
-	<mtg-footer></mtg-footer>
+	<mtg-main
+		[showModal]="showModal"
+		(closeModalToApp)="closeModalFromMain($event)"
+		></mtg-main>
+	<mtg-footer
+		(emitModal)="emitModal($event)"
+		></mtg-footer>
 </div>

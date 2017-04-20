@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
@@ -7,10 +7,21 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 	styleUrls: ['./full-modal.component.scss']
 })
 export class FullModalComponent implements OnInit {
-
 	constructor() { }
 
+	@Output() closeModal = new EventEmitter<boolean>();
+
 	ngOnInit() {
+	}
+
+	private cancel():void {
+		console.log('clicked cancel');
+		this.closeModal.emit(false);
+	}
+
+	private ok(): void {
+		console.log('clicked ok');
+		this.closeModal.emit(false);
 	}
 
 }

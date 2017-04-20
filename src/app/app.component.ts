@@ -6,4 +6,17 @@ import { Component } from '@angular/core';
 	styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent {}
+export class AppComponent {
+
+	// controls the modal to be popped in the mtg-main element
+	private showModal: boolean;
+
+	emitModal(bool:boolean) {
+		this.showModal = bool;
+	}
+
+	closeModalFromMain(bool:boolean) {
+		console.log(this.showModal);
+		this.showModal = bool;
+	}
+}

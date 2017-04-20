@@ -3,7 +3,7 @@
 
 header {
 	align-items: center;
-	@include gradient2Background($altGradientColor1, $altGradientColor2);
+	@include gradient2Background($clouds1, $clouds2);
 	color: $mtgBlack;
 	display: flex;
 	flex: 1;
