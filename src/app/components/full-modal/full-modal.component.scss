@@ -27,7 +27,7 @@ aside {
 
 		section {
 			// TODO: background only present to help see where div begins and ends
-			@include gradient2Background($altGradientColor1, $altGradientColor2);
+			// @include gradient2Background($altGradientColor1, $altGradientColor2);
 			flex: 6;
 			margin: 1vh 0;
 			overflow-y: auto;

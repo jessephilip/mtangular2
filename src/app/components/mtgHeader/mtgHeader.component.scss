@@ -2,8 +2,10 @@
 @import "../../../assets/variables";
 
 header {
+	// @include gradient2Background($clouds1, $clouds2);
 	align-items: center;
-	@include gradient2Background($clouds1, $clouds2);
+	border-bottom: 1px solid #ccc;
+	box-shadow: 0px 3px 5px #ddd;
 	color: $mtgBlack;
 	display: flex;
 	flex: 1;

@@ -6,6 +6,7 @@ footer {
 	align-items: center;
 	display: flex;
 	justify-content: space-between;
+	overflow-x: hidden;
 
 	aside, main {
 		flex: 1;
@@ -48,6 +49,11 @@ footer {
 			box-shadow: $buttonPress;
 
 		}
+	}
+
+	.tool-panel {
+		display: flex;
+		width: 100%;
 	}
 
 

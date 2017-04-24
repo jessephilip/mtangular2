@@ -1,5 +1,11 @@
 <!-- mtgMain.component.html -->
 <main>
+	<!-- times the number of players in your game -->
+	<section *ngFor="let player of players">
+		<div>
+			<player-card></player-card>
+		</div>
+	</section>
 	<!-- <mtg-card
 		*ngFor="let card of cards"
 		[card]="card">
@@ -10,9 +16,5 @@
 		*ngIf="showPop"
 		(removePop)="removePop($event)">
 	</pop-bar> -->
-	<app-full-modal
-		*ngIf="showModal"
-		(closeModal)="closeModal($event)"
-		>
-	</app-full-modal>
 </main>
+<app-full-modal *ngIf="showModal" (closeModal)="closeModal($event)" [modalInfo]="modalInfo"></app-full-modal>

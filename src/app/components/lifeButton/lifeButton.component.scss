@@ -5,8 +5,9 @@
 .life-gain {
 	@extend .button;
 	background-color: $mtgGreen;
-	width: 40px;
 	height: 40px;
+	outline-color: $mtgGreen;
+	width: 40px;
 
 	&:hover {
 		box-shadow: 0 0 6px $mtgGreen, $basicShadow;
@@ -16,8 +17,9 @@
 .life-loss {
 	@extend .button;
 	background-color: $mtgRed;
-	width: 40px;
 	height: 40px;
+	outline-color: $mtgRed;
+	width: 40px;
 
 	&:hover {
 		box-shadow: 0 0 6px $mtgRed, $basicShadow;

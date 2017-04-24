@@ -1,10 +1,36 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 // classes
 import { Life } from '../../types/life';
 import { Tools } from '../../types/tools';
+import { Chance } from '../../types/chance';
 
 @Component({
+	animations: [
+		trigger('tool-slide', [
+			state('in', style({transform: 'translateX(0)'})),
+			transition('void => *', [
+				style({transform: 'translateX(-100%)'}),
+				animate(100)
+			]),
+			transition('* => void', [
+				animate(100, style({transform: 'translateX(-100%)'}))
+			])
+		]),
+		trigger('life-slide', [
+			state('inactive', style({
+				opacity: '1',
+				transform: 'translateX(0)'
+			})),
+			state('active', style({
+				opacity: '0',
+				transform: 'translateX(100%)'
+			})),
+			transition('inactive => active', animate('100ms ease-in')),
+			transition('active => inactive', animate('100ms ease-out')),
+		])
+	],
 	selector: 'mtg-footer',
 	styleUrls: ['./mtgFooter.component.scss'],
 	templateUrl: './mtgFooter.component.html'
@@ -12,10 +38,13 @@ import { Tools } from '../../types/tools';
 
 export class MtgFooterComponent implements OnInit {
 
-	@Output() emitModal = new EventEmitter<boolean>();
+	@Output() emitChance = new EventEmitter<Chance>();
 
 	// substantiate tools class
 	public tools:Tools = new Tools;
+
+	// variable to control life-slider
+	private lifeSlider:string = 'inactive';
 
 	// values for life buttons
 	private values: Array<number> = [-10, -5, -1, 1, 5, 10];
@@ -24,41 +53,48 @@ export class MtgFooterComponent implements OnInit {
 	private pos: Array<number> = this.values.filter(i => {return i > 0});
 	private neg: Array<number> = this.values.filter(i => {return i < 0});
 
+	private chanceResult: Chance = new Chance;
+
 	// values for tool buttons
 	private toolButtons = [
 		{
 			name: 'Coin Flip',
 			tool: ()=> {
-				this.emitModal.emit(true);
-				console.log(this.tools.coinFlip());
+				this.chanceResult.name = 'coin';
+				this.chanceResult.result = this.tools.coinFlip();
+				this.emitChance.emit(this.chanceResult);
 			}
 		},
 		{
 			name: 'Multi Flip',
 			tool: ()=> {
-				this.emitModal.emit(true);
-				console.log(this.tools.coinFlips(6));
+				this.chanceResult.name = 'coins';
+				this.chanceResult.result = this.tools.coinFlips(6).toString();
+				this.emitChance.emit(this.chanceResult);
 			}
 		},
 		{
 			name: 'D6',
 			tool: ()=> {
-				this.emitModal.emit(true);
-				console.log(this.tools.randomizer(6));
+				this.chanceResult.name = 'd6';
+				this.chanceResult.result = this.tools.randomizer(6).toString();
+				this.emitChance.emit(this.chanceResult);
 			}
 		},
 		{
 			name: 'D20',
 			tool: ()=> {
-				this.emitModal.emit(true);
-				console.log(this.tools.randomizer(20));
+				this.chanceResult.name = 'd20';
+				this.chanceResult.result = this.tools.randomizer(20).toString();
+				this.emitChance.emit(this.chanceResult);
 			}
 		},
 		{
 			name: 'Multi D20',
 			tool: ()=> {
-				this.emitModal.emit(true);
-				console.log(this.tools.multiple(6, 20));
+				this.chanceResult.name = 'd20s';
+				this.chanceResult.result = this.tools.multiple(6, 20).toString();
+				this.emitChance.emit(this.chanceResult);
 			}
 		},
 		{
@@ -86,7 +122,14 @@ export class MtgFooterComponent implements OnInit {
 	}
 
 	public toggleTools():void {
-		this.showTools ? this.showTools = false : this.showTools = true;
+		if (this.showTools) {
+			this.showTools = false;
+			this.lifeSlider = 'inactive';
+		}
+		else {
+			this.showTools = true;
+			this.lifeSlider = 'active';
+		}
 	}
 
 	// random tools functions

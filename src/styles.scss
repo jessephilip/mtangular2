@@ -1,8 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import "./assets/variables";
+
 html, body {
+	@include gradient2Background($clouds2, $clouds1);
 	padding: 0;
 	margin: 0;
 	width: 100%;
 	height: 100%;
+}
+
+h1,h2,h3,h4,h5,h6,button {
+	font-family: 'Kreon', serif;
 }

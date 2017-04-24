@@ -4,8 +4,9 @@
 	<mtg-main
 		[showModal]="showModal"
 		(closeModalToApp)="closeModalFromMain($event)"
+		[modalInfo]="modalInfo"
 		></mtg-main>
 	<mtg-footer
-		(emitModal)="emitModal($event)"
+		(emitChance)="emitChance($event)"
 		></mtg-footer>
 </div>
