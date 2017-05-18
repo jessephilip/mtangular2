@@ -1,11 +1,7 @@
-import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 
-@Injectable()
-
 export class MtgApiService {
-	constructor(private http: Http) { }
 
 	// /sets, /types, /cards, /formats
 	private mtgUrls = {
@@ -56,16 +52,18 @@ export class MtgApiService {
 	};
 
 
-	private cards: string = 'https://api.magicthegathering.io/v1/cards';
+	private cards = 'https://api.magicthegathering.io/v1/cards';
 
-	getCards() {
-		return this.http.get(this.cards).map((res:Response) => res.json());
+	constructor (private http: Http) { }
+
+	getCards () {
+		return this.http.get(this.cards).map((res: Response) => res.json());
 	}
 
-	getCardByName(cardName:string) {
-		let string:string = this.mtgUrls.url + this.mtgUrls.cards + this.cardsFields.name;
+	getCardByName (cardName: string) {
+		const string: string = this.mtgUrls.url + this.mtgUrls.cards + this.cardsFields.name;
 		console.log(string);
 
-		return this.http.get(string + cardName).map((res:Response) => res.json());
+		return this.http.get(string + cardName).map((res: Response) => res.json());
 	}
 }

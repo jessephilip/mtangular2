@@ -1,4 +1,8 @@
 <!-- mtgMain.component.html -->
+<mtg-left-slider
+	[@leftSlideIn]="leftOpen"
+	*ngIf="leftOpen">
+</mtg-left-slider>
 <main>
 	<!-- times the number of players in your game -->
 	<section *ngFor="let player of players">
@@ -17,4 +21,12 @@
 		(removePop)="removePop($event)">
 	</pop-bar> -->
 </main>
-<app-full-modal *ngIf="showModal" (closeModal)="closeModal($event)" [modalInfo]="modalInfo"></app-full-modal>
+<mtg-right-slider
+	[@rightSlideIn]="rightOpen"
+	*ngIf="rightOpen">
+</mtg-right-slider>
+<mtg-full-modal
+	*ngIf="showModal"
+	(closeModal)="closeModal($event)"
+	[modalInfo]="modalInfo">
+</mtg-full-modal>

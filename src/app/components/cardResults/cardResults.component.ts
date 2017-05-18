@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-	selector: 'card-results',
+	selector: 'mtg-card-results',
 	templateUrl: './cardResults.component.html',
 	styleUrls: ['./cardResults.component.scss']
 })
