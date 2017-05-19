@@ -1,5 +1,18 @@
 <aside>
 	<header>
-		<h1>Left Slider</h1>
+		<i *ngIf="true" class="fa fa-2x fa-user"></i>
+		<img *ngIf="false" src="" alt="placeholder image">
+		<span>placeholder name</span>
 	</header>
+	<main>
+		<ul>
+			<li
+				*ngFor="let item of items">
+				<i class="fa fa-2x {{ item.class }}"></i>
+				<a (click)="item.func()">
+				{{ item.name }}
+				</a>
+			</li>
+		</ul>
+	</main>
 </aside>

@@ -1,1 +1,40 @@
 @import "../../../../assets/variables";
+
+aside {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	min-height: 100%;
+}
+
+header {
+	align-items: center;
+	background-color: $mtgBlack;
+	color: $mtgWhite;
+	display: flex;
+	flex: 4;
+}
+
+main {
+	flex: 6;
+}
+
+ul {
+	color: white;
+	cursor: pointer;
+	list-style: none;
+
+	li {
+		align-items: center;
+		display: flex;
+		margin: 2vh 0;
+
+		i {
+			flex: 1;
+		}
+
+		a {
+			flex: 6;
+		}
+	}
+}
