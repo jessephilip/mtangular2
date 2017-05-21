@@ -6,7 +6,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 // third party
-import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
 // custom components
 import { AppComponent } from './app.component';
@@ -20,8 +22,7 @@ import { MtgCardComponent } from './components/mtgCard/mtgCard.component';
 import { CardResultsComponent } from './components/cardResults/cardResults.component';
 import { PlayerCardComponent } from './components/playerCard/playerCard.component';
 import { PopBarComponent } from './components/popBar/popBar.component';
-import { AnimateComponent } from './components/animate/animate.component';
-import { FullModalComponent } from './components/full-modal/full-modal.component';
+import { ModalComponent } from './components/modal/modal.component';
 
 // services
 import { RandomizerService } from './services/randomizer.service';
@@ -29,29 +30,9 @@ import { FirebaseService } from './services/firebase.service';
 import { SlidersService } from './services/sliders.service';
 import { ModalService } from './services/modal.service';
 
-// const for permanent config to firebase
-export const firebaseConfig = {
-	apiKey: 'AIzaSyBFJvuE_iTUVOsOnNeD12wEcTS7yphWlag',
-	authDomain: 'mtghelper-81c74.firebaseapp.com',
-	databaseURL: 'https://mtghelper-81c74.firebaseio.com',
-	projectId: 'mtghelper-81c74',
-	storageBucket: 'mtghelper-81c74.appspot.com',
-	messagingSenderId: '1035011540407'
-};
-
-// TODO: Fix this. It's erroring with update to Angular 4.0. const for using firebase's Authorization
-export const firebaseAuthConfig = {
-	provider: AuthProviders.Google,
-	method: AuthMethods.Redirect
-};
-
-// for Routes
-const routes: Routes = [
-	{ path: 'cardResults', component: CardResultsComponent },
-	{ path: '', redirectTo: '', pathMatch: 'full'},
-	{ path: '', component: AppComponent }
-	// { path: '**', component: FourOFourComponent }
-];
+// import environment
+import { environment } from '../environments/environment';
+import { VeilComponent } from './components/veil/veil.component';
 
 @NgModule({
 	declarations: [
@@ -66,15 +47,17 @@ const routes: Routes = [
 		CardResultsComponent,
 		PlayerCardComponent,
 		PopBarComponent,
-		FullModalComponent
+		ModalComponent,
+		VeilComponent
 	],
 	imports: [
+		AngularFireAuthModule,
+		AngularFireDatabaseModule,
+		AngularFireModule.initializeApp(environment.firebaseConfig),
 		BrowserModule,
 		BrowserAnimationsModule,
 		FormsModule,
-		HttpModule,
-		AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
-		RouterModule.forRoot(routes)
+		HttpModule
 	],
 	providers: [
 		FirebaseService,

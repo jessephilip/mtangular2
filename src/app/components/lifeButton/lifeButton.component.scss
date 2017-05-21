@@ -2,10 +2,15 @@
 
 @import '../../../assets/variables';
 
+button {
+	font-size: 14px;
+}
+
 .life-gain {
 	@extend .button;
 	background-color: $mtgGreen;
 	height: 40px;
+	margin: 0 2px;
 	outline-color: $mtgGreen;
 	width: 40px;
 
@@ -18,6 +23,7 @@
 	@extend .button;
 	background-color: $mtgRed;
 	height: 40px;
+	margin: 0 2px;
 	outline-color: $mtgRed;
 	width: 40px;
 

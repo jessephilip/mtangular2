@@ -27,10 +27,20 @@ main {
 
 mtg-left-slider {
 	background-color: $mtgBlue;
-	width: 33%;
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 25%;
+	z-index: 10;
 }
 
 mtg-right-slider {
 	background-color: $mtgGreen;
-	width: 33%;
+	height: 100%;
+	right: 0;
+	position: absolute;
+	top: 0;
+	width: 25%;
+	z-index: 10;
 }

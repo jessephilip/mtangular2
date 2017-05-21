@@ -17,53 +17,14 @@
 *			points_achieved
 *		points
 */
+import * as firebase from 'firebase/app';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { Injectable } from '@angular/core';
 
-import { AngularFire, FirebaseAuthState, FirebaseObjectObservable } from 'angularfire2';
-
+@Injectable()
 export class FirebaseService {
 
-	constructor (private af: AngularFire) {}
+	constructor (
+		private db: AngularFireDatabase) { }
 
-	// functions for authorization through firebase
-
-	// login with firebase
-	public login (): void {
-		this.af.auth.login();
-	}
-
-	// logout with firebase
-	public logout (): void {
-		this.af.auth.logout();
-	}
-
-	// returns the current user
-	public getUser (): any {
-		return new Promise((resolve, reject) => {
-			this.af.auth.subscribe((user: FirebaseAuthState) => {
-				resolve(user);
-			});
-		});
-	}	// functions for database through firebase
-
-	public save (data: any, location: string) {
-		const db = this.af.database.object(location);
-		db.set(data).then();
-	}
-
-	public update (data: any, location: string) {
-		const db = this.af.database.object(location);
-		db.update(data);
-	}
-
-	public read (location: string) {
-		return new Promise((resolve, reject) => {
-			const db = this.af.database.object(location);
-			db.subscribe(snapshot => resolve(snapshot));
-		});
-	}
-
-	public delete (location: string) {
-		const db = this.af.database.object(location);
-		db.remove();
-	}
 }

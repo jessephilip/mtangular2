@@ -7,17 +7,17 @@
 		<!-- <img src={{player.src}} alt="{{player.name}} profile image"/> -->
 	</main>
 	<footer>
-		<life-button
+		<mtg-life-button
 			*ngFor="let value of neg"
 			[value]="value"
 			(clicked)="clicked($event)">
-		</life-button>
+		</mtg-life-button>
 		<h1>{{playerLife.life}}</h1>
-		<life-button
+		<mtg-life-button
 			*ngFor="let value of pos"
 			[value]="value"
 			(clicked)="clicked($event)">
-		</life-button>
+		</mtg-life-button>
 	</footer>
 
 </div>

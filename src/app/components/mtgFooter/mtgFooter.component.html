@@ -3,32 +3,35 @@
 	<aside>
 		<div *ngIf="!showTools">
 			<button
-				(click)="toggleTools()" class="tool-button">Flips / Rolls
+				(click)="toggleTools()"
+				class="tool-button">
+				Flips / Rolls
 			</button>
 		</div>
 		<div *ngIf="showTools" class="tool-panel">
 			<div [@tool-slide]="toolSlideState">
 				<button
 					*ngFor="let tool of toolButtons"
-					(click)="tool.tool()"
-					class="tool-button">{{tool.name}}
+					(click)="tool.tool($event)"
+					class="tool-button">
+					{{tool.name}}
 				</button>
 			</div>
 		</div>
 	</aside>
 	<div>
 		<main *ngIf="!showTools" [@life-slide]="lifeSlider" class="life-panel">
-			<life-button
+			<mtg-life-button
 				*ngFor="let value of neg"
 				[value]="value"
 				(clicked)="clicked($event)">
-			</life-button>
-			<h1>{{playerLife.life}}</h1>
-			<life-button
+			</mtg-life-button>
+			<h1>{{userLife}}</h1>
+			<mtg-life-button
 				*ngFor="let value of pos"
 				[value]="value"
 				(clicked)="clicked($event)">
-			</life-button>
+			</mtg-life-button>
 		</main>
 	</div>
 	<aside>

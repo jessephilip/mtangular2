@@ -4,9 +4,18 @@
 	<mtg-main
 		[showModal]="showModal"
 		(closeModalToApp)="closeModalFromMain($event)"
-		[modalInfo]="modalInfo"
-		></mtg-main>
+		[modalInfo]="modalInfo">
+	</mtg-main>
 	<mtg-footer
 		(emitChance)="emitChance($event)"
-		></mtg-footer>
+	></mtg-footer>
 </div>
+<mtg-veil
+	*ngIf="showMtgVeil === 'in' ? true : false"
+	(click)="cancel()">
+</mtg-veil>
+<mtg-modal
+	*ngIf="showMtgModal"
+	[@fadeIn]="animationStatus"
+	[modalObject]="modal">
+</mtg-modal>

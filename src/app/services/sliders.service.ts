@@ -1,5 +1,7 @@
-import { EventEmitter } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
+import { ModalService } from './modal.service';
 
+@Injectable()
 export class SlidersService {
 
 	/**
@@ -33,4 +35,12 @@ export class SlidersService {
 		this.rightSliderUpdated.emit(value);
 	}
 	public rightSliderUpdated = new EventEmitter<boolean>();
+
+	constructor (private modalService: ModalService) {}
+
+	public cancel () {
+		this.leftSliderStatus = false;
+		this.rightSliderStatus = false;
+		this.modalService.showVeil = 'out';
+	}
 }

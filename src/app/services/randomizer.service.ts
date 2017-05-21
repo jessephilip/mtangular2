@@ -8,7 +8,7 @@ export class RandomizerService {
 
 	// simulates a coin flip
 	public coinFlip = (): string => {
-		return this.randomNumber(2) === 1 ? 'tails' : 'heads';
+		return this.randomNumber(2) === 1 ? 'Tails' : 'Heads';
 	}
 
 	// simulates a planar die roll

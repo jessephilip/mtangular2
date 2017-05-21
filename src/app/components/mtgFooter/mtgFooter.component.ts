@@ -1,12 +1,13 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
-// import services
+// services
 import { RandomizerService } from '../../services/randomizer.service';
+import { ModalService } from '../../services/modal.service';
 
-// classes
-import { Life } from '../../types/life';
-import { Chance } from '../../types/chance';
+// types
+import { Modal } from '../../types/modal.model';
+
 
 @Component({
 	animations: [
@@ -40,8 +41,6 @@ import { Chance } from '../../types/chance';
 
 export class MtgFooterComponent implements OnInit {
 
-	@Output() emitChance = new EventEmitter<Chance>();
-
 	// variable to control life-slider
 	private lifeSlider = 'inactive';
 
@@ -52,106 +51,173 @@ export class MtgFooterComponent implements OnInit {
 	private pos: number[] = this.values.filter(i => {return i > 0; });
 	private neg: number[] = this.values.filter(i => {return i < 0; });
 
-	private chanceResult: Chance = new Chance;
-
 	// values for tool buttons
+	// TODO: for each of these buttons make the click of the button pop up a better visual to screen
 	private toolButtons = [
 		{
 			name: 'Coin Flip',
-			tool: () => {
-				this.chanceResult.name = 'coin';
-				this.chanceResult.result = this.randomizer.coinFlip();
-				this.emitChance.emit(this.chanceResult);
-			}
-		},
-		{
-			name: 'D6',
-			tool: () => {
-				this.chanceResult.name = 'd6';
-				this.chanceResult.result = this.randomizer.randomNumber(6).toString();
-				this.emitChance.emit(this.chanceResult);
+			tool: (event) => {
+				const details = {
+					name:	'Coin Flip',
+					fail: 'Tails',
+					crit: 'Heads',
+					result:	this.randomizer.coinFlip()
+				};
+				this.toolClick(event, details);
 			}
 		},
 		{
 			name: 'Planar',
-			tool: () => {
-				this.chanceResult.name = 'Planar';
-				this.chanceResult.result = this.randomizer.planar().toString();
-				this.emitChance.emit(this.chanceResult);
+			tool: (event) => {
+				const details = {
+					name: 'Planar',
+					fail: 'Chaos',
+					crit: 'Planeswalker',
+					result: this.randomizer.planar().toString()
+				};
+				this.toolClick(event, details);
+			}
+		},
+		{
+			name: 'D6',
+			tool: (event) => {
+				const details = {
+					name: 'd6',
+					fail: 1,
+					crit: 6,
+					result: this.randomizer.randomNumber(6).toString()
+				};
+				this.toolClick(event, details);
 			}
 		},
 		{
 			name: 'D8',
-			tool: () => {
-				this.chanceResult.name = 'd8';
-				this.chanceResult.result = this.randomizer.randomNumber(8).toString();
-				this.emitChance.emit(this.chanceResult);
+			tool: (event) => {
+				const details = {
+					name: 'd8',
+					fail: 1,
+					crit: 8,
+					result: this.randomizer.randomNumber(8).toString()
+				};
+				this.toolClick(event, details);
 			}
 		},
 		{
 			name: 'D10',
-			tool: () => {
-				this.chanceResult.name = 'd10';
-				this.chanceResult.result = this.randomizer.randomNumber(10).toString();
-				this.emitChance.emit(this.chanceResult);
+			tool: (event) => {
+				const details = {
+					name: 'd10',
+					fail: 1,
+					crit: 10,
+					result: this.randomizer.randomNumber(10).toString()
+				};
+				this.toolClick(event, details);
 			}
 		},
 		{
 			name: 'D20',
-			tool: () => {
-				this.chanceResult.name = 'd20';
-				this.chanceResult.result = this.randomizer.randomNumber(20).toString();
-				this.emitChance.emit(this.chanceResult);
+			tool: (event) => {
+				const details = {
+					name: 'd20',
+					fail: 1,
+					crit: 20,
+					result: this.randomizer.randomNumber(20).toString()
+				};
+				this.toolClick(event, details);
 			}
 		},
 		// {
 		// 	name: 'D?',
 		// 	tool: () => {
-		// 		this.chanceResult.name = 'd?';
-		// 		this.chanceResult.result = this.randomizer.randomNumber(20).toString();
-		// 		this.emitChance.emit(this.chanceResult);
+		// 		const name = 'd?';
+		// 		const result = this.randomizer.randomNumber(20).toString();
+		//
 		// 	}
 		// },
 		{
 			name: 'Multi Flip',
 			tool: () => {
-				this.chanceResult.name = 'coins';
-				this.chanceResult.result = this.randomizer.multi(4, this.randomizer.coinFlip).toString();
-				this.emitChance.emit(this.chanceResult);
+				const name = 'coins';
+				const result = this.randomizer.multi(4, this.randomizer.coinFlip).toString();
+				alert(result);
 			}
 		},
 		{
 			name: 'Multi D20',
 			tool: () => {
-				this.chanceResult.name = 'd20s';
-				this.chanceResult.result = this.randomizer.multi(4, () => { return this.randomizer.randomNumber(20); }).toString();
-				this.emitChance.emit(this.chanceResult);
+				const name = 'd20s';
+				const result = this.randomizer.multi(4, () => { return this.randomizer.randomNumber(20); }).toString();
+				alert(result);
 			}
 		},
 		{
 			name: 'x',
-			tool: () => this.toggleTools()
+			tool: () => {
+				this.modalService.destroyModal();
+				this.toggleTools();
+			}
 		}
 	];
 
 	// create new class to hold player's life
-	private playerLife: Life = new Life;
+	// TODO: set this life up to pull and push to the firebase
+	private _userLife: number;
+	private get userLife (): number { return this._userLife; }
+	private set userLife (value: number) { this._userLife = value; }
 
 	// boolean to control whether to show the tools
 	private showTools = false;
 
-	constructor (private randomizer: RandomizerService) {}
+	constructor (
+		private randomizer: RandomizerService,
+		private modalService: ModalService) {}
 
 	ngOnInit () {
 		// TODO: get life from the database
-		// set player's life = 40
-		this.playerLife.life = 40;
-		console.log('mtgFooter: ngOnInit');
+		this.userLife = 40;
 	}
 
 	clicked (value: number) {
-		this.playerLife.life += value;
+		this.userLife += value;
 		// TODO: update life in the database
+	}
+
+	private toolClick (event, details) {
+		console.log('1: clickEvent', event);
+		const verticalOffset = 10;
+
+		// build modal parameters
+		const type = 'balloon'
+		,	classes = ['modal', 'balloon']
+		,	domX = event.target.offsetLeft
+		,	domY = event.target.offsetTop - event.target.clientHeight - verticalOffset
+		,	width = event.target.clientWidth
+		,	height = event.target.clientHeight
+		,	showVeil = false
+		,	modal = new Modal(
+				type, // type
+				classes, // classes
+				[''], // animations
+				domX, // domX
+				domY, // domY
+				width, // width
+				height, // height
+				['cancel'], // buttons,
+				showVeil, // show veil
+				details // modal contents
+		);
+
+		// add additional classes
+		if (details.crit && details.crit.toString() === details.result) {
+			modal.classes.push('crit');
+		}
+
+		if (details.fail && details.fail.toString() === details.result) {
+			modal.classes.push('fail');
+		}
+
+		// send modal object to the modal service
+		this.modalService.receiveModal(modal);
 	}
 
 	public toggleTools (): void {
@@ -163,28 +229,4 @@ export class MtgFooterComponent implements OnInit {
 			this.lifeSlider = 'active';
 		}
 	}
-
-	// random tools functions
-
-	// private coinFlip() {
-	// 	console.log(this.tools.coinFlip());
-	// }
-
-	// // TODO: set up this for user input
-	// private multiFlip() {
-	// 	console.log(this.tools.coinFlips(8));
-	// }
-
-	// private d6() {
-	// 	console.log(this.tools.randomizer(6));
-	// }
-
-	// private d20() {
-	// 	console.log(this.tools.randomizer(20));
-	// }
-
-	// // TODO: set up this for user input
-	// private multi20() {
-	// 	console.log(this.tools.multiple(6, 20));
-	// }
 }
