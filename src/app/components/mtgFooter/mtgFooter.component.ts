@@ -126,30 +126,41 @@ export class MtgFooterComponent implements OnInit {
 				this.toolClick(event, details);
 			}
 		},
+		{
+			// 1st: pop modal. 2nd get inputs. 3rd run operations. 4th display result
+			// modal has 1 input
+			name: 'D?',
+			tool: (event) => {
+				const details = {
+					name: 'd?',
+					result: this.randomizer.randomNumber(20).toString()
+				};
+			}
+		},
+		{
+			// modal has three inputs. 1 for amount. 1 radio for type. 1 if type is ?
+			name: 'D?',
+			tool: () => {
+				const name = 'd?';
+				const result = this.randomizer.randomNumber(20).toString();
+			}
+		},
 		// {
-		// 	name: 'D?',
+		// 	name: 'Multi Flip',
 		// 	tool: () => {
-		// 		const name = 'd?';
-		// 		const result = this.randomizer.randomNumber(20).toString();
-		//
+		// 		const name = 'coins';
+		// 		const result = this.randomizer.multi(4, this.randomizer.coinFlip).toString();
+		// 		alert(result);
 		// 	}
 		// },
-		{
-			name: 'Multi Flip',
-			tool: () => {
-				const name = 'coins';
-				const result = this.randomizer.multi(4, this.randomizer.coinFlip).toString();
-				alert(result);
-			}
-		},
-		{
-			name: 'Multi D20',
-			tool: () => {
-				const name = 'd20s';
-				const result = this.randomizer.multi(4, () => { return this.randomizer.randomNumber(20); }).toString();
-				alert(result);
-			}
-		},
+		// {
+		// 	name: 'Multi D20',
+		// 	tool: () => {
+		// 		const name = 'd20s';
+		// 		const result = this.randomizer.multi(4, () => { return this.randomizer.randomNumber(20); }).toString();
+		// 		alert(result);
+		// 	}
+		// },
 		{
 			name: 'x',
 			tool: () => {
@@ -183,7 +194,7 @@ export class MtgFooterComponent implements OnInit {
 	}
 
 	private toolClick (event, details) {
-		console.log('1: clickEvent', event);
+		// console.log('1: clickEvent', event);
 		const verticalOffset = 10;
 
 		// build modal parameters
@@ -191,30 +202,31 @@ export class MtgFooterComponent implements OnInit {
 		,	classes = ['modal', 'balloon']
 		,	domX = event.target.offsetLeft
 		,	domY = event.target.offsetTop - event.target.clientHeight - verticalOffset
-		,	width = event.target.clientWidth
-		,	height = event.target.clientHeight
-		,	showVeil = false
-		,	modal = new Modal(
-				type, // type
-				classes, // classes
-				[''], // animations
-				domX, // domX
-				domY, // domY
-				width, // width
-				height, // height
-				['cancel'], // buttons,
-				showVeil, // show veil
-				details // modal contents
-		);
+		,	width = event.target.clientWidth + 'px'
+		,	height = event.target.clientHeight + 'px'
+		,	showVeil = false;
 
 		// add additional classes
 		if (details.crit && details.crit.toString() === details.result) {
-			modal.classes.push('crit');
+			classes.push('crit');
 		}
 
 		if (details.fail && details.fail.toString() === details.result) {
-			modal.classes.push('fail');
+			classes.push('fail');
 		}
+
+		// finalize building the modal
+		const modal = new Modal(
+			type, // type
+			classes, // classes
+			[''], // animations
+			domX + 'px', // domX
+			domY + 'px', // domY
+			width + 'px', // width
+			height + 'px', // height
+			showVeil, // show veil
+			details // modal contents
+		);
 
 		// send modal object to the modal service
 		this.modalService.receiveModal(modal);
@@ -229,4 +241,36 @@ export class MtgFooterComponent implements OnInit {
 			this.lifeSlider = 'active';
 		}
 	}
+
+	private addPlayer (): void {
+
+		// build modal parameters
+		const type = 'prompt'
+		,	classes = ['modal', 'full']
+		,	domX = 25
+		,	domY = 25
+		,	width = 50
+		,	height = 50
+		,	showVeil = true
+		,	details = {
+				title: 'Add Player',
+				buttons: []
+		};
+
+		const modal = new Modal(
+				type, // type
+				classes, // classes
+				[''], // animations
+				(domX + '%'), // domX
+				domY + '%', // domY
+				width + '%', // width
+				height + '%', // height
+				showVeil, // show veil
+				details // modal contents
+		);
+
+		this.modalService.receiveModal(modal);
+	}
+
+
 }

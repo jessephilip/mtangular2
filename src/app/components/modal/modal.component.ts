@@ -13,6 +13,7 @@ import {
 
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
+// services
 import { ModalService } from '../../services/modal.service';
 
 @Component({
@@ -43,10 +44,10 @@ export class ModalComponent implements OnChanges {
 
 	ngOnChanges (changes: SimpleChanges): void {
 		// console.log('changes: ', changes);
-			this.width = changes.modalObject.currentValue.width + 'px';
-			this.height = changes.modalObject.currentValue.height + 'px';
-			this.left = changes.modalObject.currentValue.domX + 'px';
-			this.top = changes.modalObject.currentValue.domY + 'px';
+			this.width = changes.modalObject.currentValue.width;
+			this.height = changes.modalObject.currentValue.height;
+			this.left = changes.modalObject.currentValue.domX;
+			this.top = changes.modalObject.currentValue.domY;
 			this.render.removeAttribute(this.el.nativeElement, 'class');
 			changes.modalObject.currentValue.classes.forEach(className => {
 				this.render.addClass(this.el.nativeElement, className);

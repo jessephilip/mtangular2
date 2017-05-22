@@ -22,6 +22,8 @@ footer {
 			cursor: pointer;
 			font-size: 3em;
 			margin: 0 10px;
+			text-align: center;
+			width: 100px;
 		}
 
 		life-button {
@@ -56,7 +58,10 @@ footer {
 		display: flex;
 		width: 100%;
 	}
+}
 
-
-
+.addPlayer {
+	display: flex;
+	align-items: flex-end;
+	justify-content: flex-end;
 }

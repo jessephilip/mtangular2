@@ -30,11 +30,12 @@ mtg-veil {
 	border: 1px solid black;
 	box-shadow: $basicShadow;
 	display: flex;
-	padding: 0 1vw;
+	padding: 1vh 1vw;
 	position: absolute;
 	z-index: 2;
 }
 
+// for balloon modals
 .balloon {
 	align-items: center;
 	background-color: $mtgBlue;
@@ -59,4 +60,10 @@ mtg-veil {
 	background-color: $mtgRed;
 	font-weight: 700;
 	letter-spacing: 1.1px;
+}
+
+// for full modals
+.full {
+	display: flex;
+	flex-direction: column;
 }

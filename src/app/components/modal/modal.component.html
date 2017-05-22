@@ -1,15 +1,23 @@
 <aside>
-	<main>
-		<header>
-			{{title}}
-		</header>
-		<section>
-				{{ modalObject.details.result }}
-		</section>
-		<footer>
-			<button *ngFor="let button of buttons">
-				{{ abc || 'button text' }}
-			</button>
-		</footer>
+	<main [ngSwitch]="modalObject.type">
+		<!-- HTML for balloon modal -->
+		<div *ngSwitchCase="'balloon'">
+			{{ modalObject.details.result }}
+		</div>
+		<div *ngSwitchCase="'prompt'">
+			<header>
+				<h1>{{ modalObject.details.title }}</h1>
+				<hr>
+			</header>
+			<section>
+				<label>Name</label>
+				<input/>
+			</section>
+			<footer>
+				<button *ngFor="let button of buttons">
+					{{ abc || 'button error' }}
+				</button>
+			</footer>
+		</div>
 	</main>
 </aside>

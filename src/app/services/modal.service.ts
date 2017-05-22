@@ -35,6 +35,7 @@ export class ModalService {
 
 	// receiveModal receives the modal properties and information
 	public receiveModal (modal: Modal) {
+		if (modal.showVeil) { this.updateShowVeil.emit('in'); }
 		this.sendModal.emit(modal);
 	}
 

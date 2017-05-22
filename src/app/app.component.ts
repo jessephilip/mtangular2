@@ -36,9 +36,9 @@ export class AppComponent implements OnInit {
 	private showMtgVeil = 'out';
 	private showMtgModal = false;
 
-	private _animationStatus = 'in';
-	public get animationStatus (): string { return this._animationStatus; }
-	public set animationStatus (value: string) { this._animationStatus = value; }
+	// private _animationStatus = 'in';
+	// public get animationStatus (): string { return this._animationStatus; }
+	// public set animationStatus (value: string) { this._animationStatus = value; }
 
 	constructor (
 		private modalService: ModalService,
@@ -53,6 +53,8 @@ export class AppComponent implements OnInit {
 	private toggleVeil (): void {
 		this.modalService.updateShowVeil.subscribe((value) => {
 			this.showMtgVeil = value;
+
+			if (value === 'out') { this.showMtgModal = false; }
 		});
 	}
 
