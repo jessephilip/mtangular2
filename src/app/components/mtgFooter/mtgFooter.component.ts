@@ -254,7 +254,22 @@ export class MtgFooterComponent implements OnInit {
 		,	showVeil = true
 		,	details = {
 				title: 'Add Player',
-				buttons: []
+				buttons: [
+					{
+						'name': 'Cancel',
+						'class': 'button cancel',
+						'fx': () => {
+							console.log('cancel');
+						}
+					},
+					{
+						'name': 'Submit',
+						'class': 'button submit',
+						'fx': () => {
+							console.log('submit');
+						}
+					}
+				]
 		};
 
 		const modal = new Modal(
