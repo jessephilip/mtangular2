@@ -1,4 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Player } from 'app/types/player.model';
+import { PlayerService } from "app/services/player.service";
 
 @Component({
 	selector: 'mtg-life-button',
@@ -7,7 +9,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 	`
 		<button
 			[ngClass]="value > 0 ? 'life-gain' : 'life-loss'"
-			(click)="clickButton(value)">
+			(click)="changeLife()">
 			{{ value > 0 ? '+' + value : value }}
 		</button>
 	`
@@ -15,11 +17,13 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class LifeButtonComponent implements OnInit {
 
 	@Input() value: number;
-	@Output() clicked = new EventEmitter<number>();
+	@Input() player: Player;
+
+	constructor (private playerService: PlayerService) {}
 
 	ngOnInit () {}
 
-	private clickButton (): void {
-		this.clicked.emit(this.value);
+	private changeLife (): void {
+		this.playerService.findPlayer(this.player).lifeTotal += this.value;
 	}
 }

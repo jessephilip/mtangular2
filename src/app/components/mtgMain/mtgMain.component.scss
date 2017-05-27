@@ -2,27 +2,12 @@
 
 @import "../../../assets/variables";
 
-main {
-	// @include gradient2Background($mainGradientColor1, $mainGradientColor2);
+mtg-welcome {
 	display: flex;
-	flex-direction: row;
-	height: 100%;
-	overflow-y: auto;
+	justify-content: center;
+	align-content: center;
 	width: 100%;
-
-	section {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		border: 1px solid black;
-		flex: 1;
-
-		div {
-			background-color: grey;
-			height: 80%;
-			width: 80%;
-		}
-	}
+	height: 100%;
 }
 
 mtg-left-slider {

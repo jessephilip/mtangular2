@@ -7,6 +7,8 @@ import { ModalService } from '../../services/modal.service';
 
 // types
 import { Modal } from '../../types/modal.model';
+import { PlayerService } from 'app/services/player.service';
+import { Player } from 'app/types/player.model';
 
 
 @Component({
@@ -41,7 +43,14 @@ import { Modal } from '../../types/modal.model';
 
 export class MtgFooterComponent implements OnInit {
 
+	// variable representing the current player
+	private me: Player;
+
+	// variable controlling whether the input or the data shows for me.lifeTotal
+	private inputLifeTotal = false;
+
 	// variable to control life-slider
+	// FIXME: animations on life-slider aren't working
 	private lifeSlider = 'inactive';
 
 	// values for life buttons
@@ -91,30 +100,6 @@ export class MtgFooterComponent implements OnInit {
 			}
 		},
 		{
-			name: 'D8',
-			tool: (event) => {
-				const details = {
-					name: 'd8',
-					fail: 1,
-					crit: 8,
-					result: this.randomizer.randomNumber(8).toString()
-				};
-				this.toolClick(event, details);
-			}
-		},
-		{
-			name: 'D10',
-			tool: (event) => {
-				const details = {
-					name: 'd10',
-					fail: 1,
-					crit: 10,
-					result: this.randomizer.randomNumber(10).toString()
-				};
-				this.toolClick(event, details);
-			}
-		},
-		{
 			name: 'D20',
 			tool: (event) => {
 				const details = {
@@ -127,17 +112,6 @@ export class MtgFooterComponent implements OnInit {
 			}
 		},
 		{
-			// 1st: pop modal. 2nd get inputs. 3rd run operations. 4th display result
-			// modal has 1 input
-			name: 'D?',
-			tool: (event) => {
-				const details = {
-					name: 'd?',
-					result: this.randomizer.randomNumber(20).toString()
-				};
-			}
-		},
-		{
 			// modal has three inputs. 1 for amount. 1 radio for type. 1 if type is ?
 			name: 'D?',
 			tool: () => {
@@ -145,22 +119,17 @@ export class MtgFooterComponent implements OnInit {
 				const result = this.randomizer.randomNumber(20).toString();
 			}
 		},
-		// {
-		// 	name: 'Multi Flip',
-		// 	tool: () => {
-		// 		const name = 'coins';
-		// 		const result = this.randomizer.multi(4, this.randomizer.coinFlip).toString();
-		// 		alert(result);
-		// 	}
-		// },
-		// {
-		// 	name: 'Multi D20',
-		// 	tool: () => {
-		// 		const name = 'd20s';
-		// 		const result = this.randomizer.multi(4, () => { return this.randomizer.randomNumber(20); }).toString();
-		// 		alert(result);
-		// 	}
-		// },
+		{
+			// 1st: pop modal. 2nd get inputs. 3rd run operations. 4th display result
+			// modal has 1 input
+			name: 'Multi',
+			tool: (event) => {
+				const details = {
+					name: 'd?',
+					result: this.randomizer.randomNumber(20).toString()
+				};
+			}
+		},
 		{
 			name: 'x',
 			tool: () => {
@@ -170,27 +139,23 @@ export class MtgFooterComponent implements OnInit {
 		}
 	];
 
-	// create new class to hold player's life
-	// TODO: set this life up to pull and push to the firebase
-	private _userLife: number;
-	private get userLife (): number { return this._userLife; }
-	private set userLife (value: number) { this._userLife = value; }
-
 	// boolean to control whether to show the tools
 	private showTools = false;
 
 	constructor (
 		private randomizer: RandomizerService,
-		private modalService: ModalService) {}
+		private modalService: ModalService,
+		private playerService: PlayerService) {}
 
 	ngOnInit () {
 		// TODO: get life from the database
-		this.userLife = 40;
+		this.me = this.playerService.me;
 	}
 
-	clicked (value: number) {
-		this.userLife += value;
-		// TODO: update life in the database
+	private toggleInputLifeTotal () {
+		this.inputLifeTotal = !this.inputLifeTotal;
+		this.me.lifeTotal = Number(this.me.lifeTotal);
+		this.playerService.me.lifeTotal = this.me.lifeTotal;
 	}
 
 	private toolClick (event, details) {
@@ -243,48 +208,10 @@ export class MtgFooterComponent implements OnInit {
 	}
 
 	private addPlayer (): void {
-
-		// build modal parameters
-		const type = 'prompt'
-		,	classes = ['modal', 'full']
-		,	domX = 25
-		,	domY = 25
-		,	width = 50
-		,	height = 50
-		,	showVeil = true
-		,	details = {
-				title: 'Add Player',
-				buttons: [
-					{
-						'name': 'Cancel',
-						'class': 'button cancel',
-						'fx': () => {
-							console.log('cancel');
-						}
-					},
-					{
-						'name': 'Submit',
-						'class': 'button submit',
-						'fx': () => {
-							console.log('submit');
-						}
-					}
-				]
-		};
-
-		const modal = new Modal(
-				type, // type
-				classes, // classes
-				[''], // animations
-				(domX + '%'), // domX
-				domY + '%', // domY
-				width + '%', // width
-				height + '%', // height
-				showVeil, // show veil
-				details // modal contents
-		);
-
-		this.modalService.receiveModal(modal);
+		// FIXME: Find a better way to increment Opponent Num. If players are removed
+		// and then added, duplicates can arise.
+		const num = this.playerService.opponents.length + 1;
+		this.playerService.addPlayer(new Player('Opponent ' + num, 40));
 	}
 
 

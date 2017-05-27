@@ -1,0 +1,12 @@
+@import "../../../assets/variables";
+
+.table {
+	@include gradient2Background($paleWoodGradient1, $paleWoodGradient2);
+	display: flex;
+	justify-content: space-around;
+	flex-direction: row;
+	align-items: center;
+	flex: 1;
+	height: 100%;
+	flex-wrap: wrap;
+}

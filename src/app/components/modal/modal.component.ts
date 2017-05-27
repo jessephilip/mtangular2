@@ -8,7 +8,8 @@ import {
 	OnChanges,
 	Output,
 	Renderer2,
-	SimpleChanges
+	SimpleChanges,
+	ViewChild
 } from '@angular/core';
 
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -25,6 +26,7 @@ import { ModalService } from '../../services/modal.service';
 export class ModalComponent implements OnChanges {
 
 	@Input() modalObject;
+	@ViewChild('nameInput') nameInput: ElementRef;
 
 	@HostBinding('style.minHeight') height: string;
 	@HostBinding('style.minWidth') width: string;
@@ -40,10 +42,11 @@ export class ModalComponent implements OnChanges {
 	constructor (
 		private modalService: ModalService,
 		private el: ElementRef,
-		private render: Renderer2) { }
+		private render: Renderer2) {}
 
 	ngOnChanges (changes: SimpleChanges): void {
 		// console.log('changes: ', changes);
+			console.log(this.modalObject);
 			this.width = changes.modalObject.currentValue.width;
 			this.height = changes.modalObject.currentValue.height;
 			this.left = changes.modalObject.currentValue.domX;

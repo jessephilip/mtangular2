@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 // services
 import { SlidersService } from '../../services/sliders.service';
 import { ModalService } from '../../services/modal.service';
+import { PlayerService } from '../../services/player.service';
+import { Player } from "app/types/player.model";
 
 @Component({
 	selector: 'mtg-header',
@@ -10,9 +12,23 @@ import { ModalService } from '../../services/modal.service';
 	templateUrl: 'mtgHeader.component.html'
 })
 
-export class MtgHeaderComponent {
+export class MtgHeaderComponent implements OnInit {
 
-	constructor (private slidersService: SlidersService, private modalService: ModalService) {}
+	private me: Player;
+	private showPlayerNameInput = true;
+
+	constructor (
+		private slidersService: SlidersService,
+		private modalService: ModalService,
+		private playerService: PlayerService) {}
+
+	ngOnInit (): void {
+		this.me = this.playerService.me;
+	}
+
+	private submitPlayerName () {
+		this.showPlayerNameInput = !this.showPlayerNameInput;
+	}
 
 	private toggleLeftSlider (): void {
 		this.slidersService.leftSliderStatus = !this.slidersService.leftSliderStatus;

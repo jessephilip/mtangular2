@@ -23,16 +23,25 @@ import { CardResultsComponent } from './components/cardResults/cardResults.compo
 import { PlayerCardComponent } from './components/playerCard/playerCard.component';
 import { PopBarComponent } from './components/popBar/popBar.component';
 import { ModalComponent } from './components/modal/modal.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
+import { TableComponent } from './components/table/table.component';
+
 
 // services
 import { RandomizerService } from './services/randomizer.service';
 import { FirebaseService } from './services/firebase.service';
 import { SlidersService } from './services/sliders.service';
 import { ModalService } from './services/modal.service';
+import { PlayerService } from './services/player.service';
 
 // import environment
 import { environment } from '../environments/environment';
 import { VeilComponent } from './components/veil/veil.component';
+
+const appRoutes: Routes = [
+	{ path: '', component: WelcomeComponent },
+	{ path: 'table', component: TableComponent }
+];
 
 @NgModule({
 	declarations: [
@@ -48,7 +57,9 @@ import { VeilComponent } from './components/veil/veil.component';
 		PlayerCardComponent,
 		PopBarComponent,
 		ModalComponent,
-		VeilComponent
+		VeilComponent,
+		WelcomeComponent,
+		TableComponent
 	],
 	imports: [
 		AngularFireAuthModule,
@@ -57,13 +68,15 @@ import { VeilComponent } from './components/veil/veil.component';
 		BrowserModule,
 		BrowserAnimationsModule,
 		FormsModule,
-		HttpModule
+		HttpModule,
+		RouterModule.forRoot(appRoutes)
 	],
 	providers: [
 		FirebaseService,
 		ModalService,
 		RandomizerService,
-		SlidersService
+		SlidersService,
+		PlayerService
 	],
 	bootstrap: [AppComponent]
 })

@@ -1,25 +1,16 @@
-/* style for connecting html */
 @import "../assets/variables";
 
-div {
+.appContainer {
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
-	height: 100%;
-	width: 100%;
+	min-height: 100vh;
 
-	mtg-header {
-
-	}
-
-	mtg-main {
+	.appContainer-body {
 		display: flex;
-		height: 100%;
-		justify-content: center;
-		width: 100%;
-	}
+		flex: 1;
 
-	mtg-footer {
-		// @include gradient2Background($clouds1, $clouds2);
+		mtg-main {
+			width: 100%;
+		}
 	}
 }

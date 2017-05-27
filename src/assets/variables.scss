@@ -27,6 +27,10 @@ $cancelGradient2: #cb2d3e;
 $okGradient1: #93F9B9;
 $okGradient2: #1D976C;
 
+// pale wood
+$paleWoodGradient1: #eacda3;
+$paleWoodGradient2: #d6ae7b;
+
 @mixin gradient2Background($color1, $color2) {
 	background: $color2;
 	background: -webkit-linear-gradient(120deg, $color1, $color2);
@@ -68,6 +72,12 @@ $basicButtonWidth: 100px;
 		box-shadow: $buttonPress;
 	}
 
+}
+
+.button-red {
+	@extend .button;
+	background-color: $mtgRed;
+	outline-color: $mtgRed;
 }
 
 .flex-start {

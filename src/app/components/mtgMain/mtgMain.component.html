@@ -1,26 +1,8 @@
-<!-- mtgMain.component.html -->
 <mtg-left-slider
 	[@leftSlideIn]="leftOpen"
 	*ngIf="leftOpen">
 </mtg-left-slider>
-<main>
-	<!-- times the number of players in your game -->
-	<section *ngFor="let player of players">
-		<div>
-			<player-card></player-card>
-		</div>
-	</section>
-	<!-- <mtg-card
-		*ngFor="let card of cards"
-		[card]="card">
-	</mtg-card>
-	<app-animate></app-animate> -->
-	<!-- <button (click)="createPopBar()">Create Pop Bar</button> -->
-	<!-- <pop-bar
-		*ngIf="showPop"
-		(removePop)="removePop($event)">
-	</pop-bar> -->
-</main>
+<router-outlet></router-outlet>
 <mtg-right-slider
 	[@rightSlideIn]="rightOpen"
 	*ngIf="rightOpen">

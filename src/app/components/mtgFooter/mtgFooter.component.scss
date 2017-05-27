@@ -12,6 +12,17 @@ footer {
 		flex: 1;
 	}
 
+	.inputLifeTotal {
+		display: flex;
+		justify-content: center;
+		width: 125px;
+
+		input {
+			text-align: center;
+			width: 75px;
+		}
+	}
+
 	.life-panel {
 		align-items: center;
 		display: flex;
@@ -23,7 +34,7 @@ footer {
 			font-size: 3em;
 			margin: 0 10px;
 			text-align: center;
-			width: 100px;
+			width: 125px;
 		}
 
 		life-button {

@@ -1,0 +1,24 @@
+@import '../../../assets/variables';
+
+main {
+	@include gradient2Background($mainGradientColor1, $mainGradientColor2);
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	justify-content: center;
+	width: 100%;
+
+	button {
+		@extend .button;
+		background-color: $mtgBlack;
+		height: 150px;
+		width: 300px;
+		font-size: 2.5em;
+		outline-color: $mtgBlack;
+		color: white;
+		margin: 1vw;
+
+	}
+}
+

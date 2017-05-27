@@ -1,14 +1,9 @@
-<!-- app.component.html -->
-<div>
+<div class="appContainer">
 	<mtg-header></mtg-header>
-	<mtg-main
-		[showModal]="showModal"
-		(closeModalToApp)="closeModalFromMain($event)"
-		[modalInfo]="modalInfo">
-	</mtg-main>
-	<mtg-footer
-		(emitChance)="emitChance($event)"
-	></mtg-footer>
+	<div class="appContainer-body">
+		<mtg-main></mtg-main>
+	</div>
+	<mtg-footer></mtg-footer>
 </div>
 <mtg-veil
 	*ngIf="showMtgVeil === 'in' ? true : false"

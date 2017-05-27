@@ -1,1 +1,66 @@
-/* playerCard.component.scss */
+@import "../../../assets/variables";
+
+.playerCard {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	text-align: center;
+	background-color: lighten($mtgRed, 35%);
+	border: 1px solid $mtgBlack;
+	padding: 1vw 1vh;
+	box-shadow: $basicShadow;
+
+	&.delete {
+		opacity: 0.6;
+		transition: opacity .5s;
+	}
+
+	h2 {
+		display: inline-block;
+		margin-bottom: 2vh;
+		margin-top: 0;
+	}
+
+	input {
+		margin-top: 0;
+		margin-bottom: 2vh;
+		text-align: center;
+	}
+
+	.button-red {
+		@extend .button-red;
+		font-size: initial;
+		height: initial;
+		width: 80%;
+		font-weight: initial;
+		border-radius: initial;
+		margin: 0 auto;
+	}
+
+	footer {
+		display: flex;
+		align-items: center;
+
+		.inputLifeTotal {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 125px;
+
+			input {
+				display: flex;
+				align-items: center;
+				text-align: center;
+				width: 75px;
+				margin: 0;
+			}
+		}
+
+		div {
+			display: inline-block;
+			width: 75px;
+			font-size: 1.5em;
+			font-weight: 700;
+		}
+	}
+}

@@ -1,7 +1,16 @@
 <!-- playerCard.component.html -->
-<div>
+<div [ngClass]="!deleteClass ? 'playerCard' : 'playerCard delete'">
 	<header>
-		<!-- <h1>{{player.name}}</h1> -->
+		<input
+			*ngIf="!nameConfirm"
+			[(ngModel)]="player.name"
+			[placeholder]="player.name"
+			(keyup.enter)="confirmName()"/>
+		<h2
+			*ngIf="nameConfirm"
+			(click)="confirmName()">
+			{{player.name}}
+		</h2>
 	</header>
 	<main>
 		<!-- <img src={{player.src}} alt="{{player.name}} profile image"/> -->
@@ -10,14 +19,32 @@
 		<mtg-life-button
 			*ngFor="let value of neg"
 			[value]="value"
-			(clicked)="clicked($event)">
+			[player]="player">
 		</mtg-life-button>
-		<h1>{{playerLife.life}}</h1>
+		<div class="inputLifeTotal">
+			<input
+				[(ngModel)]="player.lifeTotal"
+				*ngIf="inputLifeTotal"
+				(keyup.enter)="toggleInputLifeTotal()"/>
+			<div
+				*ngIf="!inputLifeTotal"
+				(click)="toggleInputLifeTotal(event)">
+				{{ player.lifeTotal }}
+			</div>
+		</div>
 		<mtg-life-button
 			*ngFor="let value of pos"
 			[value]="value"
-			(clicked)="clicked($event)">
+			[player]="player">
 		</mtg-life-button>
 	</footer>
-
+	<br>
+	<!--<button (click)="findPlayer(player)">Find Player</button>-->
+	<button
+		class="button-red"
+		(click)="removePlayer(player)"
+		(mouseover)="toggleDeleteClass(true)"
+		(mouseleave)="toggleDeleteClass(false)">
+		Remove {{ player.name }}
+	</button>
 </div>
