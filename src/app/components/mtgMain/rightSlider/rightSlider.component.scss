@@ -1,3 +1,33 @@
 /* style for right slider section of the app */
 
 @import "../../../../assets/variables";
+
+.tabbedNav {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid $mtgBlack;
+
+	div {
+		cursor: pointer;
+		font-weight: 700;
+		padding: 10px 10px;
+
+		&:hover {
+			background-color: white;
+			transition: background-color .1s;
+		}
+	}
+}
+
+.opponents-list {
+	cursor: default;
+	list-style: none;
+	padding-left: 2vw;
+}
+
+.damages-list {
+	cursor: default;
+	list-style: none;
+	padding-left: 2vw;
+}

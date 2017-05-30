@@ -74,10 +74,11 @@ $basicButtonWidth: 100px;
 
 }
 
-.button-red {
+@mixin coloredButton($bgColor, $textColor) {
 	@extend .button;
-	background-color: $mtgRed;
-	outline-color: $mtgRed;
+	background-color: $bgColor;
+	color: $textColor;
+	outline-color: $bgColor;
 }
 
 .flex-start {

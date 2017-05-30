@@ -10,6 +10,12 @@
 	padding: 1vw 1vh;
 	box-shadow: $basicShadow;
 
+	&.commanderAttack {
+		border: 1px solid $mtgBlue;
+		box-shadow: 0 0 75px $mtgBlue, $basicShadow;
+		transition: all .2s;
+	}
+
 	&.delete {
 		opacity: 0.6;
 		transition: opacity .5s;
@@ -23,18 +29,25 @@
 
 	input {
 		margin-top: 0;
-		margin-bottom: 2vh;
 		text-align: center;
 	}
 
-	.button-red {
-		@extend .button-red;
-		font-size: initial;
-		height: initial;
-		width: 80%;
-		font-weight: initial;
-		border-radius: initial;
-		margin: 0 auto;
+	header {
+		align-items: center;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		margin-bottom: 10px;
+
+		button {
+			&:first-child {
+				margin-left: 5px;
+			}
+
+			&:last-child {
+				margin-right: 5px;
+			}
+		}
 	}
 
 	footer {
@@ -63,4 +76,82 @@
 			font-weight: 700;
 		}
 	}
+}
+
+.button-row {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+}
+
+.button-red {
+	@include coloredButton($mtgRed, white);
+	font-size: initial;
+	height: initial;
+	width: 80%;
+	font-weight: initial;
+	border-radius: initial;
+	margin: 0 auto;
+}
+
+.button-blue {
+	@include coloredButton($mtgBlue, white);
+	display: inline-block;
+	border-radius: 0;
+	height: 30px;
+	width: 30px;
+}
+
+.button-black {
+	@include coloredButton($mtgBlack, white);
+	top: 0;
+	right: 0;
+	// position: absolute;
+	// display: inline-block;
+	border-radius: 0;
+	height: 30px;
+	width: 30px;
+}
+
+.fa-pulsing {
+	animation: pulseAnimation 1s linear infinite alternate;
+}
+
+.fa-spinning {
+	animation: spinAnimation 1s linear infinite;
+}
+
+// animations
+@keyframes pulseAnimation {
+	0% {
+		transform: scale(1);
+	}
+
+	100% {
+		transform: scale(1.3);
+	}
+}
+
+@keyframes spinAnimation {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	25% {
+		transform: rotate(90deg);
+	}
+
+	50% {
+		transform: rotate(180deg);
+	}
+
+	75% {
+		transform: rotate(270deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+
+
 }

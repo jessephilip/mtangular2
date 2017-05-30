@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { PlayerService } from 'app/services/player.service';
+import { Player } from 'app/types/player.model';
 
 @Component({
 	selector: 'mtg-right-slider',
@@ -6,4 +8,13 @@ import { Component } from '@angular/core';
 	templateUrl: './rightSlider.component.html'
 })
 
-export class RightSliderComponent {}
+export class RightSliderComponent implements OnInit {
+
+	private opponents: Player[];
+
+	constructor (private playerService: PlayerService) {}
+
+	ngOnInit (): void {
+		this.opponents = this.playerService.opponents;
+	}
+}

@@ -1,5 +1,6 @@
 <main class="table">
 	<mtg-player-card
+		[@fadeout]="true"
 		*ngFor="let player of opponents"
 		[player]="player">
 	</mtg-player-card>

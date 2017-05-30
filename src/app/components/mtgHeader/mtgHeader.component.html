@@ -3,11 +3,15 @@
 		<a (click)="toggleLeftSlider()"><i class="fa fa-bars fa-2x"></i></a>
 	</aside>
 	<main>
-		<div *ngIf="showPlayerNameInput">
+		<!--<div *ngIf="showPlayerNameInput">
 			<label for="playerNameInput">Player Name: </label>
-			<input name="playerNameInput" [(ngModel)]="me.name" (keyup.enter)="submitPlayerName()" />
+			<input
+				name="playerNameInput"
+				[(ngModel)]="me.name"
+				(keyup.enter)="submitPlayerName()"
+				mtgFocusHighlight/>
 		</div>
-		<h1 *ngIf="!showPlayerNameInput">{{ me.name }}</h1>
+		<h1 *ngIf="!showPlayerNameInput">{{ me.name }}</h1>-->
 	</main>
 	<aside class="flex-end">
 		<a (click)="toggleRightSlider()"><i class="fa fa-chevron-right"></i></a>

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+
 
 // custom components
 import { PlayerCardComponent } from '../playerCard/playerCard.component';
@@ -10,11 +12,19 @@ import { PlayerService } from 'app/services/player.service';
 import { Player } from 'app/types/player.model';
 
 @Component({
+	animations: [
+		trigger('fadeout', [
+			state('true', style({opacity: 1})),
+			transition(':leave', [
+				animate(500, style({opacity: 0}))
+			])
+		])
+	],
 	selector: 'mtg-table',
 	templateUrl: './table.component.html',
 	styleUrls: ['./table.component.scss']
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, OnChanges {
 
 	private opponents: Player[];
 
@@ -28,8 +38,12 @@ export class TableComponent implements OnInit {
 				new Player('Opponent 2', 40),
 				new Player('Opponent 3', 40)
 			];
-			this.playerService.opponents = this.opponents;
+			this.playerService.opponents = this.playerService.opponents.concat(this.opponents);
 		}
+	}
+
+	ngOnChanges (changes: SimpleChanges): void {
+		console.log('on changes:', changes);
 	}
 
 }

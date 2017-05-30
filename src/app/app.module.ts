@@ -23,9 +23,9 @@ import { CardResultsComponent } from './components/cardResults/cardResults.compo
 import { PlayerCardComponent } from './components/playerCard/playerCard.component';
 import { PopBarComponent } from './components/popBar/popBar.component';
 import { ModalComponent } from './components/modal/modal.component';
+import { VeilComponent } from './components/veil/veil.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { TableComponent } from './components/table/table.component';
-
 
 // services
 import { RandomizerService } from './services/randomizer.service';
@@ -34,9 +34,12 @@ import { SlidersService } from './services/sliders.service';
 import { ModalService } from './services/modal.service';
 import { PlayerService } from './services/player.service';
 
+// directives
+import { FocusHighlightDirective } from './directives/focus-highlight.directive';
+
 // import environment
 import { environment } from '../environments/environment';
-import { VeilComponent } from './components/veil/veil.component';
+import { IdToNamePipe } from './pipes/id-to-name.pipe';
 
 const appRoutes: Routes = [
 	{ path: '', component: WelcomeComponent },
@@ -59,7 +62,9 @@ const appRoutes: Routes = [
 		ModalComponent,
 		VeilComponent,
 		WelcomeComponent,
-		TableComponent
+		TableComponent,
+		FocusHighlightDirective,
+		IdToNamePipe
 	],
 	imports: [
 		AngularFireAuthModule,

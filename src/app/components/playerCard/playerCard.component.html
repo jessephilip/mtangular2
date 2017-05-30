@@ -1,16 +1,29 @@
 <!-- playerCard.component.html -->
-<div [ngClass]="!deleteClass ? 'playerCard' : 'playerCard delete'">
-	<header>
-		<input
-			*ngIf="!nameConfirm"
-			[(ngModel)]="player.name"
-			[placeholder]="player.name"
-			(keyup.enter)="confirmName()"/>
-		<h2
-			*ngIf="nameConfirm"
-			(click)="confirmName()">
-			{{player.name}}
-		</h2>
+<div [class]="classes">
+	<header class="button-row">
+		<button
+			class="button-blue"
+			(click)="toggleCommanderAttack()"
+			[disabled]="">
+			<i [ngClass]="player.commanderAttack ? 'fa fa-exclamation fa-pulsing' : 'fa fa-exclamation'"></i>
+		</button>
+		<div>
+			<input
+				*ngIf="!nameConfirm"
+				[(ngModel)]="player.name"
+				[placeholder]="player.name"
+				(keyup.enter)="confirmName()"
+				mtgFocusHighlight/>
+			<h2
+				*ngIf="nameConfirm"
+				(click)="confirmName()">
+				{{player.name}}
+			</h2>
+		</div>
+		<button
+			class="button-black">
+			<i class="fa fa-superpowers"></i>
+		</button>
 	</header>
 	<main>
 		<!-- <img src={{player.src}} alt="{{player.name}} profile image"/> -->
@@ -25,7 +38,8 @@
 			<input
 				[(ngModel)]="player.lifeTotal"
 				*ngIf="inputLifeTotal"
-				(keyup.enter)="toggleInputLifeTotal()"/>
+				(keyup.enter)="toggleInputLifeTotal()"
+				mtgFocusHighlight/>
 			<div
 				*ngIf="!inputLifeTotal"
 				(click)="toggleInputLifeTotal(event)">
@@ -43,8 +57,8 @@
 	<button
 		class="button-red"
 		(click)="removePlayer(player)"
-		(mouseover)="toggleDeleteClass(true)"
-		(mouseleave)="toggleDeleteClass(false)">
+		(mouseover)="classManagement('delete')"
+		(mouseleave)="classManagement('delete')">
 		Remove {{ player.name }}
 	</button>
 </div>
