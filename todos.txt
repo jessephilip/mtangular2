@@ -1,0 +1,3 @@
+TODOs:
+	1. Make the commander button user friendly.
+		DONE. turn current commander off when  clicking on other commander's commander button

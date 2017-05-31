@@ -1,11 +1,11 @@
 <!-- playerCard.component.html -->
-<div [class]="classes">
+<div class="playerCard" [ngClass]="{'commanderAttack': isCommander, 'delete': deleteClass}">
 	<header class="button-row">
 		<button
 			class="button-blue"
 			(click)="toggleCommanderAttack()"
 			[disabled]="">
-			<i [ngClass]="player.commanderAttack ? 'fa fa-exclamation fa-pulsing' : 'fa fa-exclamation'"></i>
+			<i [ngClass]="isCommander ? 'fa fa-exclamation fa-pulsing' : 'fa fa-exclamation'"></i>
 		</button>
 		<div>
 			<input
@@ -57,8 +57,8 @@
 	<button
 		class="button-red"
 		(click)="removePlayer(player)"
-		(mouseover)="classManagement('delete')"
-		(mouseleave)="classManagement('delete')">
+		(mouseover)="deleteClass = true"
+		(mouseleave)="deleteClass = false">
 		Remove {{ player.name }}
 	</button>
 </div>

@@ -11,6 +11,14 @@ export class PlayerService {
 	public get opponents(): Player[] { return this._opponents; }
 	public set opponents(value: Player[]) { this._opponents = value; }
 
+	private _currentCommander: Player;
+	public get currentCommander(): Player { return this._currentCommander; }
+	public set currentCommander(value: Player) {
+		this._currentCommander = value;
+		this.commanderWatch.emit(value);
+	}
+	public commanderWatch = new EventEmitter<Player>();
+
 	constructor () {
 		this.me = new Player('me', 40);
 		this.opponents.push(new Player('me', 40));
@@ -18,7 +26,6 @@ export class PlayerService {
 
 	public addPlayer (player: Player) {
 		this.opponents.push(player);
-		console.log(this.opponents);
 	}
 
 	public removePlayer (player: Player) {
@@ -54,11 +61,18 @@ export class PlayerService {
 	// rules re: commander change:
 		// 1. if no commander set = set a commander to true
 		// 2. current commander is unset as commander
-	public setCommander (player: Player, value: boolean): boolean {
-		if (this.findCommander() === undefined || player.commanderAttack) {
-			this.findPlayer(player).commanderAttack = value;
-			return true;
-		} else { return false; }
+	public setCommander (player: Player): void {
+		const previousCommander = this.currentCommander;
+		if (previousCommander) { this.findPlayer(previousCommander).commanderAttack = false; }
+
+		// use case: user toggled the commander button (turning the current commander off, but not selecting a new commander)
+		if (previousCommander === player) {
+			this.currentCommander = null;
+		// use case: user selected a new commander without toggling off the current commander
+		} else if (player && previousCommander !== player) {
+			this.currentCommander = player;
+			this.findPlayer(player).commanderAttack = true;
+		}
 	}
 
 	public findCommander (): Player {
