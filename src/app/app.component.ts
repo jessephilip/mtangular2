@@ -33,8 +33,8 @@ export class AppComponent implements OnInit {
 	private modal;
 
 	// controls the veil. defaults to not shown.
-	private showMtgVeil = 'out';
-	private showMtgModal = false;
+	public showMtgVeil = 'out';
+	public showMtgModal = false;
 
 	// private _animationStatus = 'in';
 	// public get animationStatus (): string { return this._animationStatus; }

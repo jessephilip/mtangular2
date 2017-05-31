@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { SlidersService } from '../../services/sliders.service';
 import { ModalService } from '../../services/modal.service';
 import { PlayerService } from '../../services/player.service';
-import { Player } from "app/types/player.model";
+import { Player } from 'app/types/player.model';
 
 @Component({
 	selector: 'mtg-header',
@@ -30,13 +30,13 @@ export class MtgHeaderComponent implements OnInit {
 		this.showPlayerNameInput = !this.showPlayerNameInput;
 	}
 
-	private toggleLeftSlider (): void {
+	public toggleLeftSlider (): void {
 		this.slidersService.leftSliderStatus = !this.slidersService.leftSliderStatus;
 		this.modalService.showVeil =
 			this.modalService.showVeil === 'in' ? 'out' : 'in';
 	}
 
-	private toggleRightSlider (): void {
+	public toggleRightSlider (): void {
 		this.slidersService.rightSliderStatus = !this.slidersService.rightSliderStatus;
 		// TODO: Determine if the veil should pop up with a right slider
 		this.modalService.showVeil =

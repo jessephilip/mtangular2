@@ -19,9 +19,7 @@ import { MtgFooterComponent } from './components/mtgFooter/mtgFooter.component';
 import { LeftSliderComponent } from './components/mtgMain/leftSlider/leftSlider.component';
 import { RightSliderComponent } from './components/mtgMain/rightSlider/rightSlider.component';
 import { MtgCardComponent } from './components/mtgCard/mtgCard.component';
-import { CardResultsComponent } from './components/cardResults/cardResults.component';
 import { PlayerCardComponent } from './components/playerCard/playerCard.component';
-import { PopBarComponent } from './components/popBar/popBar.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { VeilComponent } from './components/veil/veil.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
@@ -56,9 +54,7 @@ const appRoutes: Routes = [
 		LeftSliderComponent,
 		RightSliderComponent,
 		MtgCardComponent,
-		CardResultsComponent,
 		PlayerCardComponent,
-		PopBarComponent,
 		ModalComponent,
 		VeilComponent,
 		WelcomeComponent,

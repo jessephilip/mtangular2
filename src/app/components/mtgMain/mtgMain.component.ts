@@ -53,8 +53,8 @@ export class MtgMainComponent implements OnInit {
 	@Output() closeModalToApp = new EventEmitter<boolean>();
 
 	// use the SlidersService to communicate with the header component and open the left or right slider component
-	private leftOpen = this.slidersService.leftSliderStatus;
-	private rightOpen = this.slidersService.rightSliderStatus;
+	public leftOpen = this.slidersService.leftSliderStatus;
+	public rightOpen = this.slidersService.rightSliderStatus;
 
 	constructor (private slidersService: SlidersService, private modalService: ModalService) {
 		slidersService.leftSliderStatus = false;

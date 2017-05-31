@@ -23,7 +23,7 @@ export class LifeButtonComponent implements OnInit {
 
 	ngOnInit () {}
 
-	private changeLife (): void {
+	public changeLife (): void {
 
 		// player.commanderDamage should be an array of damage objects
 		// [{id: number,  amount: number}, {id: number, amount: number}]

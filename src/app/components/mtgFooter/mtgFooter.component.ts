@@ -140,7 +140,7 @@ export class MtgFooterComponent implements OnInit {
 	];
 
 	// boolean to control whether to show the tools
-	private showTools = false;
+	public showTools = false;
 
 	constructor (
 		private randomizer: RandomizerService,
@@ -209,7 +209,7 @@ export class MtgFooterComponent implements OnInit {
 		}
 	}
 
-	private addPlayer (): void {
+	public addPlayer (): void {
 		// FIXME: Find a better way to increment Opponent Num. If players are removed
 		// and then added, duplicates can arise.
 		const num = this.playerService.opponents.length;

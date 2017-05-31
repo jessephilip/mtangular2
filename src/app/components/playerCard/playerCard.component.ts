@@ -14,10 +14,10 @@ import { Player } from 'app/types/player.model';
 export class PlayerCardComponent implements OnInit {
 
 	@Input() player;
-	private nameConfirm = false;
+	public nameConfirm = false;
 	private deleteClass = false;
-	private classes = 'playerCard';
-	private inputLifeTotal = false;
+	public classes = 'playerCard';
+	public inputLifeTotal = false;
 
 	// local variable for commanderAttack
 
@@ -32,8 +32,8 @@ export class PlayerCardComponent implements OnInit {
 	private values = [-10, -5, -1, 1, 5, 10];
 
 	// filter buttons for placement on the DOM
-	private pos = this.values.filter(i => { return i > 0; });
-	private neg = this.values.filter(i => { return i < 0; });
+	public pos = this.values.filter(i => { return i > 0; });
+	public neg = this.values.filter(i => { return i < 0; });
 
 	constructor (
 		private playerService: PlayerService) {}
@@ -44,7 +44,7 @@ export class PlayerCardComponent implements OnInit {
 		this.nameConfirm = !this.nameConfirm;
 	}
 
-	private removePlayer (player: Player) {
+	public removePlayer (player: Player) {
 		this.playerService.removePlayer(player);
 	}
 
@@ -52,7 +52,7 @@ export class PlayerCardComponent implements OnInit {
 		this.deleteClass = bool;
 	}
 
-	private classManagement (className: string) {
+	public classManagement (className: string) {
 		const string = ' ' + className;
 		if (this.classes.indexOf(string) === -1) {
 			this.classes += string;
@@ -67,7 +67,7 @@ export class PlayerCardComponent implements OnInit {
 		this.playerService.findPlayer(this.player).lifeTotal = this.player.lifeTotal;
 	}
 
-	private toggleCommanderAttack () {
+	public toggleCommanderAttack () {
 		if (this.playerService.setCommander(this.player, !this.isCommander)) {
 			this.isCommander = !this.isCommander;
 			this.classManagement('commanderAttack');

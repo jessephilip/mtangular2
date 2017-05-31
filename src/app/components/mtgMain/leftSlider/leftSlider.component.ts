@@ -24,27 +24,27 @@ export class LeftSliderComponent {
 
 	constructor (private firebaseService: FirebaseService) {}
 
-	private hostGame () {
+	public hostGame () {
 		console.log('host game clicked');
 	}
 
-	private joinGame () {
+	public joinGame () {
 		console.log('join game clicked');
 	}
 
-	private deckManager () {
+	public deckManager () {
 		console.log('deckManager clicked');
 	}
 
-	private pointManager () {
+	public pointManager () {
 		console.log('pointManager clicked');
 	}
 
-	private storyBoard () {
+	public storyBoard () {
 		console.log('storyBoard clicked');
 	}
 
-	private settings () {
+	public settings () {
 		console.log('settings clicked');
 	}
 }

@@ -10,7 +10,7 @@ import { Player } from 'app/types/player.model';
 
 export class RightSliderComponent implements OnInit {
 
-	private opponents: Player[];
+	public opponents: Player[];
 
 	constructor (private playerService: PlayerService) {}
 
