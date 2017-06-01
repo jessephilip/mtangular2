@@ -32,8 +32,10 @@ export class AppComponent implements OnInit {
 	// holds the modal information to be passed to the modal component
 	private modal;
 
-	// experiment with multiple modals
-	private modals: Modal[] = [];
+	// variable to control modals
+	private _modals: Modal[] = [];
+	public get modals(): Modal[] { return this._modals; }
+	public set modals(value: Modal[] ) { this._modals = value; }
 
 	// controls the veil. defaults to not shown.
 	public showMtgVeil = 'out';

@@ -15,7 +15,7 @@ export class PlayerCardComponent implements OnInit {
 
 	@Input() player;
 	public nameConfirm = false;
-	private deleteClass = false;
+	public deleteClass = false;
 	public inputLifeTotal = false;
 
 	public currentCommander: Player;
