@@ -50,6 +50,20 @@ mtg-veil {
 	}
 }
 
+.balloon-input {
+	align-items: center;
+	background-color: $mtgBlue;
+	color: white;
+	cursor: default;
+	font-family: 'Kreon', serif;
+	justify-content: center;
+
+	&.hover {
+		opacity: .4;
+		transition: all .1s;
+	}
+}
+
 .crit {
 	background-color: $mtgGreen;
 	font-weight: 700;

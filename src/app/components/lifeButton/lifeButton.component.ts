@@ -29,7 +29,7 @@ export class LifeButtonComponent implements OnInit {
 		// [{id: number,  amount: number}, {id: number, amount: number}]
 
 		// get the current commander
-		const currentCommander = this.playerService.findCommander();
+		const currentCommander = this.playerService.currentCommander;
 
 		// if there is a commander and if the commander is not this player
 		if (currentCommander && currentCommander !== this.player) {

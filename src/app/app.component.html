@@ -10,6 +10,6 @@
 	(click)="cancel()">
 </mtg-veil>
 <mtg-modal
-	*ngIf="showMtgModal"
+	*ngFor="let modal of modals"
 	[modalObject]="modal">
 </mtg-modal>

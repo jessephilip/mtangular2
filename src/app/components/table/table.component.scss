@@ -1,7 +1,7 @@
 @import "../../../assets/variables";
 
 .table {
-	@include gradient2Background($paleWoodGradient1, $paleWoodGradient2);
+	@include gradient2Background($haikusGradient1, $haikusGradient2);
 	display: flex;
 	justify-content: space-around;
 	flex-direction: row;

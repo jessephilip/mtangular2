@@ -65,6 +65,17 @@ footer {
 		}
 	}
 
+	.tool-button[name="Multi"] {
+
+		&.pressed {
+			background-color: red;
+			box-shadow: $buttonPress;
+			text-shadow: 1px 1px 2px black, 0 0 25px yellow, 0 0 5px lightyellow;
+			transition: all .1s;
+
+		}
+	}
+
 	.tool-panel {
 		display: flex;
 		width: 100%;

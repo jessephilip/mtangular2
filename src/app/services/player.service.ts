@@ -65,19 +65,13 @@ export class PlayerService {
 		const previousCommander = this.currentCommander;
 		if (previousCommander) { this.findPlayer(previousCommander).commanderAttack = false; }
 
-		// use case: user toggled the commander button (turning the current commander off, but not selecting a new commander)
+		// USE CASE: user toggled the commander button (turning the current commander off, but not selecting a new commander)
 		if (previousCommander === player) {
 			this.currentCommander = null;
-		// use case: user selected a new commander without toggling off the current commander
+		// USE CASE: user selected a new commander without toggling off the current commander
 		} else if (player && previousCommander !== player) {
 			this.currentCommander = player;
 			this.findPlayer(player).commanderAttack = true;
 		}
-	}
-
-	public findCommander (): Player {
-		return this.opponents.find(opponent => {
-			return opponent.commanderAttack;
-		});
 	}
 }

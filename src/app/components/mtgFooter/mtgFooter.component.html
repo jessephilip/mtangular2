@@ -13,7 +13,9 @@
 				<button
 					*ngFor="let tool of toolButtons"
 					(click)="tool.tool($event)"
-					class="tool-button">
+					class="tool-button"
+					[name]="tool.name"
+					[ngClass]="{'pressed': isMulti}">
 					{{tool.name}}
 				</button>
 			</div>

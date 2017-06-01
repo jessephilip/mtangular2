@@ -32,8 +32,13 @@ export class AppComponent implements OnInit {
 	// holds the modal information to be passed to the modal component
 	private modal;
 
+	// experiment with multiple modals
+	private modals: Modal[] = [];
+
 	// controls the veil. defaults to not shown.
 	public showMtgVeil = 'out';
+
+	// controls the modal. defaults to not shown.
 	public showMtgModal = false;
 
 	// private _animationStatus = 'in';
@@ -46,8 +51,8 @@ export class AppComponent implements OnInit {
 	}
 
 	ngOnInit (): void {
-		this.prepareModal();
 		this.toggleVeil();
+		this.modals = this.modalService.modals;
 	}
 
 	private toggleVeil (): void {
@@ -55,29 +60,6 @@ export class AppComponent implements OnInit {
 			this.showMtgVeil = value;
 
 			if (value === 'out') { this.showMtgModal = false; }
-		});
-	}
-
-	// prepare modal properties and content to send to modal component
-	private prepareModal () {
-		this.modalService.updateShowModal.subscribe((showModal) => {
-			this.showMtgModal = false;
-		});
-		this.modalService.sendModal.subscribe((value) => {
-			this.modal = {
-				type: value.type,
-				classes: value.classes,
-				domX: value.domX,
-				domY: value.domY,
-				width: value.width,
-				height: value.height,
-				buttons: value.buttons,
-				showVeil: value.showVeil,
-				details: value.details
-			};
-
-			// show modal component
-			this.showMtgModal = !!value ? true : false;
 		});
 	}
 

@@ -1,3 +1,16 @@
 TODOs:
 	1. Make the commander button user friendly.
 		DONE. turn current commander off when  clicking on other commander's commander button
+	2. Implement 'Me-Based' experience.
+		- details: 1 Player's name and details are located in the header and footer. Opponents are on mtg-table
+		a. rework the way the me and opponent properties operate in player.service (and rest of app)
+		b. unhide components in header and footer
+		c. add commander and superpower buttons for me player
+	3. Set up D? and Multi Rolls Tools
+		DONE. Make input field for D? smaller.
+		b. Set up repeat buttons for D? and Multi Rolls (fa-repeat) (simulate the current function of the other buttons. clicking on the button makes the function repeat)
+		c. Set up clear (cancel) buttons for D? and Multi Rolls (fa-ban)
+	4. Input fields auto save when lose focus
+	5. Multi Button rolls a die or flips a coin for each player on the board.
+		a. step one. click multi. step 2 click the roll you want. multi then makes a modal pop up over each player's name.
+	6. Set up a true custom roll after multi

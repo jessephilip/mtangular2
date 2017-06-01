@@ -34,6 +34,7 @@ import { PlayerService } from './services/player.service';
 
 // directives
 import { FocusHighlightDirective } from './directives/focus-highlight.directive';
+import { GiveFocusDirective } from 'app/directives/give-focus.directive';
 
 // import environment
 import { environment } from '../environments/environment';
@@ -60,6 +61,7 @@ const appRoutes: Routes = [
 		WelcomeComponent,
 		TableComponent,
 		FocusHighlightDirective,
+		GiveFocusDirective,
 		IdToNamePipe
 	],
 	imports: [

@@ -46,7 +46,6 @@ export class ModalComponent implements OnChanges {
 
 	ngOnChanges (changes: SimpleChanges): void {
 		// console.log('changes: ', changes);
-			console.log(this.modalObject);
 			this.width = changes.modalObject.currentValue.width;
 			this.height = changes.modalObject.currentValue.height;
 			this.left = changes.modalObject.currentValue.domX;
@@ -56,4 +55,13 @@ export class ModalComponent implements OnChanges {
 				this.render.addClass(this.el.nativeElement, className);
 			});
 	}
+
+	public keyPressed (event) {
+		return !(/[^0-9]/g.test(event.key));
+	}
+
+	public destroy () {
+		this.modalService.destroyModal();
+	}
+
 }

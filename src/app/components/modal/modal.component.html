@@ -3,6 +3,21 @@
 	<div *ngSwitchCase="'balloon'">
 		{{ modalObject.details.result }}
 	</div>
+	<div *ngSwitchCase="'balloon-input'">
+		<input
+			*ngIf="!entry"
+			[(ngModel)]="num"
+			(keyup.enter)="entry = modalObject.details.result(num)"
+			(keyup.esc)="destroy()"
+			(keypress)="keyPressed($event)"
+			style="width: 35px"
+			givefocus/>
+		<span
+			*ngIf="entry"
+			(click)="destroy()">
+			{{ entry }}
+		</span>
+	</div>
 	<div [ngClass]="modalObject.type" *ngSwitchCase="'prompt'">
 		<div class="flexContainer">
 		<header>

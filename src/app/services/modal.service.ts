@@ -7,19 +7,23 @@
 	*	Centered Dialog - substantial height and width. provided buttons.
 	*/
 
-import { EventEmitter } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Modal } from '../types/modal.model';
+import { PlayerService } from 'app/services/player.service';
+
+@Injectable()
 
 export class ModalService {
 
-	// showModal provides a link to the showModal property on app.component
-	private _showModal: boolean;
-	public get showModal (): boolean { return this._showModal; }
-	public set showModal (value: boolean) {
-		this._showModal = value;
-		this.updateShowModal.emit(value);
-	}
-	public updateShowModal = new EventEmitter<boolean>();
+	// maintains the modals to be displayed
+
+	private _modals: Modal[] = [];
+	public get modals(): Modal[] { return this._modals; }
+	public set modals(value: Modal[]) { this._modals = value; }
+
+	private _isMulti = false;
+	public get isMulti (): boolean { return this._isMulti; }
+	public set isMulti (value: boolean) { this._isMulti = value; }
 
 	// showVeil provides a link to the showVeil property on app.component
 	private _showVeil: string;
@@ -30,16 +34,80 @@ export class ModalService {
 	}
 	public updateShowVeil = new EventEmitter<string>();
 
-	// sendModal sends the modal properties and information to modalObject on app.component
-	public sendModal = new EventEmitter<Modal>();
+	constructor (private playerService: PlayerService) {}
 
 	// receiveModal receives the modal properties and information
-	public receiveModal (modal: Modal) {
-		if (modal.showVeil) { this.updateShowVeil.emit('in'); }
-		this.sendModal.emit(modal);
+	// FIXME: look at incoming type of modal, and build the modal here.
+	public receiveModal (modalFrame: { event: any, details: any, type: string }) {
+		let modal;
+
+		switch (modalFrame.type) {
+
+			case 'balloon-input':
+				modal = this.balloonInput(modalFrame);
+				break;
+			case 'balloon':
+				modal = this.balloonModal(modalFrame);
+				break;
+			default:
+				console.log('modal service switch went wrong!');
+		}
+
+		if (modal) { this.modals.push(modal); }
+		if (modalFrame.details.showVeil) { this.updateShowVeil.emit('in'); }
 	}
 
 	public destroyModal () {
-		this.updateShowModal.emit(false);
+		this.modals.pop();
+	}
+
+	public destroyAllModals () {
+		this.modals = [];
+	}
+
+	// functions to create modals
+
+	// create the basic balloon modal
+	private balloonModal (modalFrame): Modal {
+		let modal;
+		const verticalOffset = 10
+		,	classes = ['modal', 'balloon']
+		,	domX = modalFrame.event.target.offsetLeft
+		,	domY = modalFrame.event.target.offsetTop - modalFrame.event.target.clientHeight - verticalOffset
+		,	width = modalFrame.event.target.clientWidth + 'px'
+		,	height = modalFrame.event.target.clientHeight + 'px'
+		,	showVeil = false;
+
+		// add additional classes
+		if (modalFrame.details.crit && modalFrame.details.crit.toString() === modalFrame.details.result) {
+			classes.push('crit');
+		}
+
+		if (modalFrame.details.fail && modalFrame.details.fail.toString() === modalFrame.details.result) {
+			classes.push('fail');
+		}
+
+		// finalize building the modal
+		modal = new Modal(
+			modalFrame.type, // type
+			classes, // classes
+			[''], // animations
+			domX + 'px', // domX
+			domY + 'px', // domY
+			width + 'px', // width
+			height + 'px', // height
+			showVeil, // show veil
+			modalFrame.details // modal contents
+		);
+
+		return modal;
+	}
+
+	// create the input balloon
+	private balloonInput (modalFrame) {
+		const modal = this.balloonModal(modalFrame);
+		modal.type = 'balloon-input';
+		modal.classes = ['modal', 'balloon-input'];
+		return modal;
 	}
 }

@@ -12,6 +12,7 @@ mtg-welcome {
 
 mtg-left-slider {
 	background-color: $mtgBlue;
+	box-shadow: $basicShadow;
 	height: 100%;
 	left: 0;
 	position: absolute;
@@ -22,6 +23,7 @@ mtg-left-slider {
 
 mtg-right-slider {
 	background-color: $mtgGreen;
+	box-shadow: $basicShadow;
 	height: 100%;
 	right: 0;
 	position: absolute;

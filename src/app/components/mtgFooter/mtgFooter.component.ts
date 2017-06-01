@@ -66,11 +66,14 @@ export class MtgFooterComponent implements OnInit {
 		{
 			name: 'Coin Flip',
 			tool: (event) => {
+				const result = this.calculateChance(2);
+				const converted = this.convertToCoin(result);
 				const details = {
 					name:	'Coin Flip',
+					type: 'balloon',
 					fail: 'Tails',
 					crit: 'Heads',
-					result:	this.randomizer.coinFlip()
+					result:	converted
 				};
 				this.toolClick(event, details);
 			}
@@ -78,11 +81,14 @@ export class MtgFooterComponent implements OnInit {
 		{
 			name: 'Planar',
 			tool: (event) => {
+				const result = this.calculateChance(6);
+				const converted = this.convertToPlanar(result);
 				const details = {
 					name: 'Planar',
+					type: 'balloon',
 					fail: 'Chaos',
 					crit: 'Planeswalker',
-					result: this.randomizer.planar().toString()
+					result: converted
 				};
 				this.toolClick(event, details);
 			}
@@ -90,11 +96,13 @@ export class MtgFooterComponent implements OnInit {
 		{
 			name: 'D6',
 			tool: (event) => {
+				const result = this.calculateChance(6);
 				const details = {
 					name: 'd6',
+					type: 'balloon',
 					fail: 1,
 					crit: 6,
-					result: this.randomizer.randomNumber(6).toString()
+					result: result
 				};
 				this.toolClick(event, details);
 			}
@@ -102,32 +110,36 @@ export class MtgFooterComponent implements OnInit {
 		{
 			name: 'D20',
 			tool: (event) => {
+				const result = this.calculateChance(20);
 				const details = {
 					name: 'd20',
+					type: 'balloon',
 					fail: 1,
 					crit: 20,
-					result: this.randomizer.randomNumber(20).toString()
+					result: result
 				};
 				this.toolClick(event, details);
 			}
 		},
 		{
-			// modal has three inputs. 1 for amount. 1 radio for type. 1 if type is ?
 			name: 'D?',
-			tool: () => {
-				const name = 'd?';
-				const result = this.randomizer.randomNumber(20).toString();
-			}
-		},
-		{
-			// 1st: pop modal. 2nd get inputs. 3rd run operations. 4th display result
-			// modal has 1 input
-			name: 'Multi',
 			tool: (event) => {
 				const details = {
 					name: 'd?',
-					result: this.randomizer.randomNumber(20).toString()
+					type: 'balloon-input',
+					result: (num: number) => {
+						return this.calculateChance(num);
+					}
 				};
+
+				this.toolClick(event, details);
+			}
+		},
+		{
+			name: 'Multi',
+			tool: (event) => {
+				this.modalService.isMulti = !this.modalService.isMulti;
+				this._isMulti = !this.isMulti;
 			}
 		},
 		{
@@ -141,6 +153,11 @@ export class MtgFooterComponent implements OnInit {
 
 	// boolean to control whether to show the tools
 	public showTools = false;
+
+	// boolean to control the css of the multi tool button
+	private _isMulti = false;
+	public get isMulti(): boolean { return this._isMulti; }
+	public set isMulti(value: boolean) { this._isMulti = value; }
 
 	constructor (
 		private randomizer: RandomizerService,
@@ -162,41 +179,16 @@ export class MtgFooterComponent implements OnInit {
 
 	private toolClick (event, details) {
 		// console.log('1: clickEvent', event);
-		const verticalOffset = 10;
+		this.modalService.destroyModal();
 
-		// build modal parameters
-		const type = 'balloon'
-		,	classes = ['modal', 'balloon']
-		,	domX = event.target.offsetLeft
-		,	domY = event.target.offsetTop - event.target.clientHeight - verticalOffset
-		,	width = event.target.clientWidth + 'px'
-		,	height = event.target.clientHeight + 'px'
-		,	showVeil = false;
-
-		// add additional classes
-		if (details.crit && details.crit.toString() === details.result) {
-			classes.push('crit');
-		}
-
-		if (details.fail && details.fail.toString() === details.result) {
-			classes.push('fail');
-		}
-
-		// finalize building the modal
-		const modal = new Modal(
-			type, // type
-			classes, // classes
-			[''], // animations
-			domX + 'px', // domX
-			domY + 'px', // domY
-			width + 'px', // width
-			height + 'px', // height
-			showVeil, // show veil
-			details // modal contents
-		);
+		const modalFrame = {
+			event: event,
+			details: details,
+			type: details.type
+		};
 
 		// send modal object to the modal service
-		this.modalService.receiveModal(modal);
+		this.modalService.receiveModal(modalFrame);
 	}
 
 	public toggleTools (): void {
@@ -207,6 +199,39 @@ export class MtgFooterComponent implements OnInit {
 			this.showTools = true;
 			this.lifeSlider = 'active';
 		}
+	}
+
+	public calculateChance (num: number): number[] {
+		const result = [];
+		const x = this.playerService.opponents.length;
+
+		if (this.modalService.isMulti) {
+			for (let i = 0; i < x; i++) {
+				result.push(this.randomizer.randomNumber(num));
+			}
+		} else {
+			result.push(this.randomizer.randomNumber(num));
+		}
+		return result;
+	}
+
+	public convertToCoin (array: number[]) {
+		return array.map(element => {
+			return element === 1 ? 'Tails' : 'Heads';
+		});
+	}
+
+	public convertToPlanar (array: number[]) {
+		return array.map(element => {
+			switch (element) {
+				case 1:
+					return 'Planeswalker';
+				case 2:
+					return 'Chaos';
+				default:
+					return 'Blank';
+			}
+		});
 	}
 
 	public addPlayer (): void {
