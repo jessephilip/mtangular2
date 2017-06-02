@@ -1,12 +1,16 @@
-import { EventEmitter } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Player } from '../types/player.model';
+import { DatabaseService } from '../services/database.service';
+import { AuthService } from 'app/services/auth.service';
 
+@Injectable()
 export class PlayerService {
 
 	private _me: Player;
 	public get me(): Player { return this._me; }
 	public set me(value: Player) { this._me = value; }
 
+	// FIXME: Currently housing the me player variable. fix this so that I can get rid of the me variable.
 	private _opponents: Player[] = [];
 	public get opponents(): Player[] { return this._opponents; }
 	public set opponents(value: Player[]) { this._opponents = value; }
@@ -19,9 +23,11 @@ export class PlayerService {
 	}
 	public commanderWatch = new EventEmitter<Player>();
 
-	constructor () {
-		this.me = new Player('me', 40);
-		this.opponents.push(new Player('me', 40));
+	constructor (private db: DatabaseService, private af: AuthService) {
+		this.af.user.subscribe(value => {
+			this.me = new Player(value.displayName, 40, value.uid);
+			this.opponents.push(this.me);
+		});
 	}
 
 	public addPlayer (player: Player) {

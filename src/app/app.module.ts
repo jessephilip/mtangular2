@@ -18,7 +18,6 @@ import { MtgMainComponent } from './components/mtgMain/mtgMain.component';
 import { MtgFooterComponent } from './components/mtgFooter/mtgFooter.component';
 import { LeftSliderComponent } from './components/mtgMain/leftSlider/leftSlider.component';
 import { RightSliderComponent } from './components/mtgMain/rightSlider/rightSlider.component';
-import { MtgCardComponent } from './components/mtgCard/mtgCard.component';
 import { PlayerCardComponent } from './components/playerCard/playerCard.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { VeilComponent } from './components/veil/veil.component';
@@ -27,7 +26,8 @@ import { TableComponent } from './components/table/table.component';
 
 // services
 import { RandomizerService } from './services/randomizer.service';
-import { FirebaseService } from './services/firebase.service';
+import { DatabaseService } from './services/database.service';
+import { AuthService } from './services/auth.service';
 import { SlidersService } from './services/sliders.service';
 import { ModalService } from './services/modal.service';
 import { PlayerService } from './services/player.service';
@@ -54,7 +54,6 @@ const appRoutes: Routes = [
 		MtgFooterComponent,
 		LeftSliderComponent,
 		RightSliderComponent,
-		MtgCardComponent,
 		PlayerCardComponent,
 		ModalComponent,
 		VeilComponent,
@@ -65,9 +64,9 @@ const appRoutes: Routes = [
 		IdToNamePipe
 	],
 	imports: [
+		AngularFireModule.initializeApp(environment.firebaseConfig),
 		AngularFireAuthModule,
 		AngularFireDatabaseModule,
-		AngularFireModule.initializeApp(environment.firebaseConfig),
 		BrowserModule,
 		BrowserAnimationsModule,
 		FormsModule,
@@ -75,7 +74,8 @@ const appRoutes: Routes = [
 		RouterModule.forRoot(appRoutes)
 	],
 	providers: [
-		FirebaseService,
+		DatabaseService,
+		AuthService,
 		ModalService,
 		RandomizerService,
 		SlidersService,

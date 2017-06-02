@@ -13,4 +13,9 @@ TODOs:
 	4. Input fields auto save when lose focus
 	5. Multi Button rolls a die or flips a coin for each player on the board.
 		a. step one. click multi. step 2 click the roll you want. multi then makes a modal pop up over each player's name.
+		b. set up so that a modal pops up for each playerCard.
 	6. Set up a true custom roll after multi
+	7. Set up firebase authentication
+		a. allow login through Google, App Credentials, & Facebook (Google Setup)
+	8. Set up firebase database
+		a. players logged into current game show up as watching. able to drag player to unoccupied playercard

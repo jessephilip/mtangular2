@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
 	selector: 'mtg-welcome',
@@ -7,9 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WelcomeComponent implements OnInit {
 
-	constructor () { }
+	public user: boolean;
+
+	constructor (private authService: AuthService) { }
 
 	ngOnInit () {
+		this.authService.user.subscribe(value => {
+			this.user = value ? true : false;
+		});
 	}
+
+	public login (): void {
+		this.authService.loginGoogle();
+	}
+
+	public logout (): void {
+		this.authService.logout();
+	}
+
 
 }

@@ -1,8 +1,8 @@
 <aside>
 	<header>
-		<i *ngIf="true" class="fa fa-2x fa-user"></i>
-		<img *ngIf="false" src="" alt="placeholder image">
-		<span>placeholder name</span>
+		<i *ngIf="!photoURL" class="fa fa-2x fa-user"></i>
+		<img *ngIf="photoURL" [src]="photoURL" alt="{{ userName }}'s profile image">
+		<div>{{ userName || 'placeholder'}}</div>
 	</header>
 	<main>
 		<div>

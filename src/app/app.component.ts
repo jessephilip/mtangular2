@@ -2,7 +2,6 @@ import { Component, OnInit, Output } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 // services
-import { FirebaseService } from './services/firebase.service';
 import { SlidersService } from './services/sliders.service';
 import { ModalService } from './services/modal.service';
 

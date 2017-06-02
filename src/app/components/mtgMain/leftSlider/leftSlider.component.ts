@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 // services
-import { FirebaseService } from '../../../services/firebase.service';
+import { DatabaseService } from '../../../services/database.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
 	selector: 'mtg-left-slider',
@@ -9,20 +10,26 @@ import { FirebaseService } from '../../../services/firebase.service';
 	templateUrl: './leftSlider.component.html'
 })
 
-export class LeftSliderComponent {
+export class LeftSliderComponent implements OnInit {
 
-	private items: any[] = [
-		{
-			class: 'fa-pencil-square-o',
-			name: 'Storyboard'
-		},
-		{
-			class: 'fa-cog',
-			name: 'Settings'
-		}
-	];
+	private _photoURL: string;
+	public get photoURL(): string { return this._photoURL; }
+	public set photoURL(value: string) { this._photoURL = value; }
 
-	constructor (private firebaseService: FirebaseService) {}
+	private _userName: string;
+	public get userName(): string { return this._userName; }
+	public set userName(value: string) { this._userName = value; }
+
+	constructor (private db: DatabaseService, private af: AuthService) {}
+
+	ngOnInit (): void {
+		this.af.user.subscribe(value => {
+			if (value) {
+				this.photoURL = value.photoURL;
+				this.userName = value.displayName;
+			}
+		});
+	}
 
 	public hostGame () {
 		console.log('host game clicked');

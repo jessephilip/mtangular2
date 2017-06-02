@@ -1,6 +1,15 @@
 <main>
 	<div>
 		<button routerLink="/table">Quick Start</button>
-		<button>Login</button>
+		<button
+			*ngIf="!!!user"
+			(click)="login()">
+			Login
+		</button>
+		<button
+			*ngIf="!!user"
+			(click)="logout()">
+			Logout
+		</button>
 	</div>
 </main>

@@ -2,9 +2,9 @@ import { CommanderDamage } from './commanderDamage.model';
 
 export class Player {
 
-	private _id: number;
-	public get id(): number { return this._id; }
-	public set id(value: number) { this._id = value; }
+	private _id: string;
+	public get id(): string { return this._id; }
+	public set id(value: string) { this._id = value; }
 
 	private _name: string;
 	public get name(): string { return this._name; }
@@ -22,12 +22,12 @@ export class Player {
 	public get commanderDamage(): any { return this._commanderDamage; }
 	public set commanderDamage(value: any) { this._commanderDamage = value; }
 
-	constructor (name: string, lifeTotal: number) {
+	constructor (name: string = 'unknown', lifeTotal: number = 40, id?: string) {
 		const time = Date.now();
 		const random = Math.floor(Math.random() * 1000000) + 1;
-		this.id = time + random;
 		this.name = name;
 		this.lifeTotal = lifeTotal;
+		this.id = id || (time + random).toString();
 		this.commanderAttack = false;
 		this.commanderDamage = [];
 	}

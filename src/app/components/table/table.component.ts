@@ -32,6 +32,7 @@ export class TableComponent implements OnInit, OnChanges {
 
 	ngOnInit () {
 		this.opponents = this.playerService.opponents;
+		console.log('table opponents', this.opponents);
 		if (!this.opponents || this.opponents.length === 0) {
 			this.opponents = [
 				new Player('Opponent 1', 40),
