@@ -5,6 +5,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { SlidersService } from './services/sliders.service';
 import { ModalService } from './services/modal.service';
 
+// types
 import { Modal } from './types/modal.model';
 
 @Component({
@@ -28,13 +29,10 @@ import { Modal } from './types/modal.model';
 
 export class AppComponent implements OnInit {
 
-	// holds the modal information to be passed to the modal component
-	private modal;
-
 	// variable to control modals
 	private _modals: Modal[] = [];
 	public get modals(): Modal[] { return this._modals; }
-	public set modals(value: Modal[] ) { this._modals = value; }
+	public set modals(value: Modal[] ) { console.log(value); this._modals = value; }
 
 	// controls the veil. defaults to not shown.
 	public showMtgVeil = 'out';
@@ -66,5 +64,7 @@ export class AppComponent implements OnInit {
 
 	private cancel () {
 		this.slidersService.cancel();
+		this.modalService.destroyAllModals();
+		this.modals = this.modalService.modals;
 	}
 }

@@ -7,7 +7,7 @@
 
 	header {
 		text-align: center;
-		
+
 		h1 {
 			margin: 0;
 		}
@@ -27,6 +27,7 @@ button {
 }
 
 .cancel {
+	@extend .button;
 	background-color: $mtgRed;
 	width: 75px;
 	height: 40px;
@@ -36,6 +37,7 @@ button {
 }
 
 .submit {
+	@extend .button;
 	background-color: $mtgGreen;
 	width: 75px;
 	height: 40px;

@@ -1,4 +1,4 @@
-<main [ngSwitch]="modalObject.type">
+<main [ngSwitch]="modalObject.type" style="width: 100%">
 	<!-- HTML for balloon modal -->
 	<div *ngSwitchCase="'balloon'">
 		{{ modalObject.details.result }}
@@ -18,23 +18,47 @@
 			{{ entry }}
 		</span>
 	</div>
-	<div [ngClass]="modalObject.type" *ngSwitchCase="'prompt'">
-		<div class="flexContainer">
-		<header>
-			<h1>{{ modalObject.details.title }}</h1>
-		</header>
-		<section>
-			<label>Name: </label>
-			<input #nameInput/>
-		</section>
-		<footer>
-			<button
-				[ngClass]="button.class"
-				*ngFor="let button of modalObject.details.buttons"
-				(click)="button.fx()">
-				{{ button.name || 'button error' }}
-			</button>
-		</footer>
+	<div [ngClass]="modalObject.type" *ngSwitchCase="'createGameModal'">
+		<div class="createGameModal">
+			<div>
+				<header>
+					<h1>{{ 'Create Game' }}</h1>
+				</header>
+				<main>
+					<section>
+						<label>Game Name (optional): </label>
+						<input #nameInput/>
+					</section>
+					<section>
+						<label>Game Type: </label>
+						<input type="radio" name="gameType" value="commander"/> Commander
+						<input type="radio" name="gameType" value="standard"/> Standard
+						<input type="radio" name="gameType" value="custom"/> Custom
+					</section>
+					<section>
+						<label>Game Options (optional): </label>
+						<input type="checkbox" name="options" value="enemy"/> Arch Enemy
+						<input type="checkbox" name="options" value="planeschase"/> Planeschase
+						<input type="checkbox" name="options" value="giant"/> Two-Headed Giant
+					</section>
+					<section>
+						<label>Starting Life Totals: </label>
+						<input #startingLifeTotal/>
+					</section>
+					<section>
+						<label>Max Players: </label>
+						<input #numPlayerLimit/>
+					</section>
+				</main>
+			</div>
+			<footer>
+				<button
+					[ngClass]="button.class"
+					*ngFor="let button of modalObject.details.buttons"
+					(click)="button.fx()">
+					{{ button.name || 'button error' }}
+				</button>
+			</footer>
 		</div>
 	</div>
 </main>

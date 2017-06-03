@@ -49,6 +49,9 @@ export class ModalService {
 			case 'balloon':
 				modal = this.balloonModal(modalFrame);
 				break;
+			case 'createGameModal':
+				modal = this.createGameModal(modalFrame);
+				break;
 			default:
 				console.log('modal service switch went wrong!');
 		}
@@ -108,6 +111,41 @@ export class ModalService {
 		const modal = this.balloonModal(modalFrame);
 		modal.type = 'balloon-input';
 		modal.classes = ['modal', 'balloon-input'];
+		return modal;
+	}
+
+	private createGameModal (modalFrame) {
+
+		const details = {
+			'buttons': [
+				{
+					name: 'Cancel',
+					class: 'cancel',
+					fx: () => {
+						console.log('cancel');
+					}
+				},
+				{
+					name: 'Submit',
+					class: 'submit',
+					fx: () => {
+						console.log('submit');
+					}
+				}
+			]
+		};
+
+		const modal = new Modal(
+			'createGameModal',
+			['modal', '.createGameModal'],
+			[],
+			'20%',
+			'20%',
+			'60%',
+			'60%',
+			true,
+			details
+		);
 		return modal;
 	}
 }

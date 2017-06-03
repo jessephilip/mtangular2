@@ -1,15 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 
 // services
+import { ModalService } from '../../../services/modal.service';
 import { DatabaseService } from '../../../services/database.service';
 import { AuthService } from '../../../services/auth.service';
+import { SlidersService } from '../../../services/sliders.service';
+
+// types
+import { Game } from 'app/types/game.model';
+
 
 @Component({
 	selector: 'mtg-left-slider',
 	styleUrls: ['./leftSlider.component.scss'],
 	templateUrl: './leftSlider.component.html'
 })
-
 export class LeftSliderComponent implements OnInit {
 
 	private _photoURL: string;
@@ -20,7 +25,13 @@ export class LeftSliderComponent implements OnInit {
 	public get userName(): string { return this._userName; }
 	public set userName(value: string) { this._userName = value; }
 
-	constructor (private db: DatabaseService, private af: AuthService) {}
+	private game: Game;
+
+	constructor (
+		private db: DatabaseService,
+		private af: AuthService,
+		private modalService: ModalService,
+		private slidersService: SlidersService) {}
 
 	ngOnInit (): void {
 		this.af.user.subscribe(value => {
@@ -31,12 +42,23 @@ export class LeftSliderComponent implements OnInit {
 		});
 	}
 
-	public hostGame () {
-		console.log('host game clicked');
+	public hostGame (event) {
+		this.slidersService.leftSliderStatus = false;
+		this.modalService.destroyModal();
+
+		const modalFrame = {
+			event: event,
+			details: {showVeil: true},
+			type: 'createGameModal'
+		};
+
+		// send modal object to the modal service
+		this.modalService.receiveModal(modalFrame);
 	}
 
 	public joinGame () {
-		console.log('join game clicked');
+		console.log('join game clicked', this.game);
+		this.db.removeGame(this.game);
 	}
 
 	public deckManager () {
