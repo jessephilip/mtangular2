@@ -11,9 +11,9 @@ export class PlayerService {
 	public set me(value: Player) { this._me = value; }
 
 	// FIXME: Currently housing the me player variable. fix this so that I can get rid of the me variable.
-	private _opponents: Player[] = [];
-	public get opponents(): Player[] { return this._opponents; }
-	public set opponents(value: Player[]) { this._opponents = value; }
+	private _players: Player[] = [];
+	public get players(): Player[] { return this._players; }
+	public set players(value: Player[]) { this._players = value; }
 
 	private _currentCommander: Player;
 	public get currentCommander(): Player { return this._currentCommander; }
@@ -26,37 +26,31 @@ export class PlayerService {
 	constructor (private db: DatabaseService, private af: AuthService) {
 		this.af.user.subscribe(value => {
 			this.me = new Player(value.displayName, 40, value.uid);
-			this.opponents.push(this.me);
+			this.players.push(this.me);
 		});
 	}
 
 	public addPlayer (player: Player) {
-		this.opponents.push(player);
+		this.players.push(player);
 	}
 
 	public removePlayer (player: Player) {
-		const loc = this.opponents.indexOf(this.findPlayer(player));
-		this.opponents.splice(loc, 1);
+		const loc = this.players.indexOf(this.findPlayer(player));
+		this.players.splice(loc, 1);
 	}
 
 	public findPlayer (value: any): Player {
 
 		switch (typeof(value)) {
-			case 'number':
-				return this.opponents.find(opponent => {
-						return opponent.id === value;
-				});
 
 			case 'string':
-				return this.opponents.find(opponent => {
-					return opponent.name === value;
+				return this.players.find(player => {
+					return player.id === value.toString();
 				});
 
 			case 'object':
-				const loc = this.opponents.indexOf(value);
-
-				// FIXME: Quick workaround. Assumes no false inputs for parameter player.
-				if (loc === -1) { return this.me; } else { return this.opponents[loc]; }
+				const loc = this.players.indexOf(value);
+				return this.players[loc];
 
 			default:
 				console.log('switch statement broke');

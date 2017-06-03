@@ -166,15 +166,15 @@ export class MtgFooterComponent implements OnInit {
 
 	ngOnInit () {
 		// TODO: get life from the database
-		this.me = this.playerService.opponents[0];
+		this.me = this.playerService.players[0];
 	}
 
 	private toggleInputLifeTotal () {
 		this.inputLifeTotal = !this.inputLifeTotal;
 		this.me.lifeTotal = Number(this.me.lifeTotal);
 
-		const loc = this.playerService.opponents.indexOf(this.me);
-		this.playerService.opponents[loc].lifeTotal = this.me.lifeTotal;
+		const loc = this.playerService.players.indexOf(this.me);
+		this.playerService.players[loc].lifeTotal = this.me.lifeTotal;
 	}
 
 	private toolClick (event, details) {
@@ -203,7 +203,7 @@ export class MtgFooterComponent implements OnInit {
 
 	public calculateChance (num: number): number[] {
 		const result = [];
-		const x = this.playerService.opponents.length;
+		const x = this.playerService.players.length;
 
 		if (this.modalService.isMulti) {
 			for (let i = 0; i < x; i++) {
@@ -237,7 +237,7 @@ export class MtgFooterComponent implements OnInit {
 	public addPlayer (): void {
 		// FIXME: Find a better way to increment Opponent Num. If players are removed
 		// and then added, duplicates can arise.
-		const num = this.playerService.opponents.length;
+		const num = this.playerService.players.length;
 		this.playerService.addPlayer(new Player('Opponent ' + num, 40));
 	}
 

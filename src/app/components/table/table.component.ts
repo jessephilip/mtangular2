@@ -26,20 +26,19 @@ import { Player } from 'app/types/player.model';
 })
 export class TableComponent implements OnInit, OnChanges {
 
-	public opponents: Player[];
+	public players: Player[];
 
 	constructor (private playerService: PlayerService) { }
 
 	ngOnInit () {
-		this.opponents = this.playerService.opponents;
-		console.log('table opponents', this.opponents);
-		if (!this.opponents || this.opponents.length === 0) {
-			this.opponents = [
+		this.players = this.playerService.players;
+		if (!this.players || this.players.length === 1) {
+			this.players = this.players.concat([
 				new Player('Opponent 1', 40),
 				new Player('Opponent 2', 40),
 				new Player('Opponent 3', 40)
-			];
-			this.playerService.opponents = this.playerService.opponents.concat(this.opponents);
+			]);
+			this.playerService.players = this.players;
 		}
 	}
 

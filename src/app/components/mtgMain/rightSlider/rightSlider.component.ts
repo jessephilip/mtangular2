@@ -10,11 +10,11 @@ import { Player } from 'app/types/player.model';
 
 export class RightSliderComponent implements OnInit {
 
-	public opponents: Player[];
+	public players: Player[];
 
 	constructor (private playerService: PlayerService) {}
 
 	ngOnInit (): void {
-		this.opponents = this.playerService.opponents;
+		this.players = this.playerService.players;
 	}
 }
