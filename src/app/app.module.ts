@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 // third party
@@ -23,6 +22,13 @@ import { ModalComponent } from './components/modal/modal.component';
 import { VeilComponent } from './components/veil/veil.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { TableComponent } from './components/table/table.component';
+import { HostGameComponent } from 'app/components/host-game/host-game.component';
+import { JoinGameComponent } from 'app/components/join-game/join-game.component';
+import { DeckManagerComponent } from 'app/components/deck-manager/deck-manager.component';
+import { PointManagerComponent } from 'app/components/point-manager/point-manager.component';
+import { SettingsComponent } from 'app/components/settings/settings.component';
+import { StoryComponent } from 'app/components/story/story.component';
+import { NotFoundComponent } from 'app/components/not-found/not-found.component';
 
 // services
 import { RandomizerService } from './services/randomizer.service';
@@ -40,10 +46,8 @@ import { GiveFocusDirective } from 'app/directives/give-focus.directive';
 import { environment } from '../environments/environment';
 import { IdToNamePipe } from './pipes/id-to-name.pipe';
 
-const appRoutes: Routes = [
-	{ path: '', component: WelcomeComponent },
-	{ path: 'table', component: TableComponent }
-];
+// modules
+import { AppRoutingModule } from 'app/appRouting.module';
 
 @NgModule({
 	declarations: [
@@ -61,7 +65,14 @@ const appRoutes: Routes = [
 		TableComponent,
 		FocusHighlightDirective,
 		GiveFocusDirective,
-		IdToNamePipe
+		IdToNamePipe,
+		HostGameComponent,
+		JoinGameComponent,
+		DeckManagerComponent,
+		PointManagerComponent,
+		StoryComponent,
+		SettingsComponent,
+		NotFoundComponent
 	],
 	imports: [
 		AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -71,7 +82,7 @@ const appRoutes: Routes = [
 		BrowserAnimationsModule,
 		FormsModule,
 		HttpModule,
-		RouterModule.forRoot(appRoutes)
+		AppRoutingModule
 	],
 	providers: [
 		DatabaseService,

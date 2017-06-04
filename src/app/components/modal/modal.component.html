@@ -1,4 +1,4 @@
-<main [ngSwitch]="modalObject.type">
+<main [ngSwitch]="modalObject.type" style="width: 100%">
 	<!-- HTML for balloon modal -->
 	<div *ngSwitchCase="'balloon'">
 		{{ modalObject.details.result }}
@@ -17,24 +17,5 @@
 			(click)="destroy()">
 			{{ entry }}
 		</span>
-	</div>
-	<div [ngClass]="modalObject.type" *ngSwitchCase="'prompt'">
-		<div class="flexContainer">
-		<header>
-			<h1>{{ modalObject.details.title }}</h1>
-		</header>
-		<section>
-			<label>Name: </label>
-			<input #nameInput/>
-		</section>
-		<footer>
-			<button
-				[ngClass]="button.class"
-				*ngFor="let button of modalObject.details.buttons"
-				(click)="button.fx()">
-				{{ button.name || 'button error' }}
-			</button>
-		</footer>
-		</div>
 	</div>
 </main>

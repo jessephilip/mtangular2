@@ -42,5 +42,6 @@ export class SlidersService {
 		this.leftSliderStatus = false;
 		this.rightSliderStatus = false;
 		this.modalService.showVeil = 'out';
+		this.modalService.destroyAllModals();
 	}
 }

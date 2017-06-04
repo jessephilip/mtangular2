@@ -16,6 +16,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 
 // services
 import { ModalService } from '../../services/modal.service';
+import { DatabaseService } from '../../services/database.service';
 
 @Component({
 	selector: 'mtg-modal',
@@ -41,6 +42,7 @@ export class ModalComponent implements OnChanges {
 
 	constructor (
 		private modalService: ModalService,
+		private db: DatabaseService,
 		private el: ElementRef,
 		private render: Renderer2) {}
 
@@ -62,6 +64,11 @@ export class ModalComponent implements OnChanges {
 
 	public destroy () {
 		this.modalService.destroyModal();
+	}
+
+	// test function to be used as a callback
+	public submit () {
+		console.log('this is the callback');
 	}
 
 }

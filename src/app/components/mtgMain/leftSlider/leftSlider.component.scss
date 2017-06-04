@@ -61,6 +61,12 @@ main {
 		a {
 			flex: 6;
 			font-size: 1.3em;
+			text-decoration: none;
+
+			&:link, &:focus, &:active, &:visited {
+				color: white;
+
+			}
 		}
 	}
 }

@@ -5,6 +5,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { SlidersService } from './services/sliders.service';
 import { ModalService } from './services/modal.service';
 
+// types
 import { Modal } from './types/modal.model';
 
 @Component({
@@ -28,19 +29,13 @@ import { Modal } from './types/modal.model';
 
 export class AppComponent implements OnInit {
 
-	// holds the modal information to be passed to the modal component
-	private modal;
-
 	// variable to control modals
 	private _modals: Modal[] = [];
 	public get modals(): Modal[] { return this._modals; }
-	public set modals(value: Modal[] ) { this._modals = value; }
+	public set modals(value: Modal[] ) { console.log(value); this._modals = value; }
 
 	// controls the veil. defaults to not shown.
 	public showMtgVeil = 'out';
-
-	// controls the modal. defaults to not shown.
-	public showMtgModal = false;
 
 	// private _animationStatus = 'in';
 	// public get animationStatus (): string { return this._animationStatus; }
@@ -54,17 +49,22 @@ export class AppComponent implements OnInit {
 	ngOnInit (): void {
 		this.toggleVeil();
 		this.modals = this.modalService.modals;
+		this.modalService.emitModals.subscribe((value) => {
+			this.modals = value;
+		});
 	}
 
 	private toggleVeil (): void {
 		this.modalService.updateShowVeil.subscribe((value) => {
 			this.showMtgVeil = value;
 
-			if (value === 'out') { this.showMtgModal = false; }
+			// if (value === 'out') { this.showMtgModal = false; }
 		});
 	}
 
 	private cancel () {
 		this.slidersService.cancel();
+		this.modalService.destroyAllModals();
+		this.modals = this.modalService.modals;
 	}
 }
