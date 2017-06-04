@@ -17,6 +17,44 @@ import { Game } from 'app/types/game.model';
 })
 export class LeftSliderComponent implements OnInit {
 
+	private buttons = [
+		{
+			class: 'fa fa-2x fa-desktop',
+			link: '/table',
+			title: 'Current Game'
+		},
+		{
+			class: 'fa fa-2x fa-cloud',
+			link: '/host',
+			title: 'Host Game'
+		},
+		{
+			class: 'fa fa-2x fa-group',
+			link: '/join',
+			title: 'Join Game'
+		},
+		{
+			class: 'fa fa-2x fa-book',
+			link: '/decks',
+			title: 'Deck Manager'
+		},
+		{
+			class: 'fa fa-2x fa-line-chart',
+			link: '/points',
+			title: 'Point Manager'
+		},
+		{
+			class: 'fa fa-2x fa-pencil-square-o',
+			link: '/story',
+			title: 'Storyboard'
+		},
+		{
+			class: 'fa fa-2x fa-cog',
+			link: '/settings',
+			title: 'Settings'
+		},
+	];
+
 	private _photoURL: string;
 	public get photoURL(): string { return this._photoURL; }
 	public set photoURL(value: string) { this._photoURL = value; }
@@ -42,38 +80,9 @@ export class LeftSliderComponent implements OnInit {
 		});
 	}
 
-	public hostGame (event) {
+	public closeSlider () {
 		this.slidersService.leftSliderStatus = false;
+		this.modalService.showVeil = 'out';
 		this.modalService.destroyModal();
-
-		const modalFrame = {
-			event: event,
-			details: {showVeil: true},
-			type: 'createGameModal'
-		};
-
-		// send modal object to the modal service
-		this.modalService.receiveModal(modalFrame);
-	}
-
-	public joinGame () {
-		console.log('join game clicked', this.game);
-		this.db.removeGame(this.game);
-	}
-
-	public deckManager () {
-		console.log('deckManager clicked');
-	}
-
-	public pointManager () {
-		console.log('pointManager clicked');
-	}
-
-	public storyBoard () {
-		console.log('storyBoard clicked');
-	}
-
-	public settings () {
-		console.log('settings clicked');
 	}
 }

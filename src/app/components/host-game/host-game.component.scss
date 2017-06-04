@@ -1,0 +1,21 @@
+@import '../../../assets/variables.scss';
+
+.cancel {
+	@extend .button;
+	background-color: $mtgRed;
+	width: 75px;
+	height: 40px;
+	border-radius: 0;
+	margin-right: 2.5px;
+	outline-color: $mtgRed;
+}
+
+.submit {
+	@extend .button;
+	background-color: $mtgGreen;
+	width: 75px;
+	height: 40px;
+	border-radius: 0;
+	margin-left: 2.5px;
+	outline-color: $mtgGreen;
+}

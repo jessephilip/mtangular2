@@ -37,9 +37,6 @@ export class AppComponent implements OnInit {
 	// controls the veil. defaults to not shown.
 	public showMtgVeil = 'out';
 
-	// controls the modal. defaults to not shown.
-	public showMtgModal = false;
-
 	// private _animationStatus = 'in';
 	// public get animationStatus (): string { return this._animationStatus; }
 	// public set animationStatus (value: string) { this._animationStatus = value; }
@@ -52,13 +49,16 @@ export class AppComponent implements OnInit {
 	ngOnInit (): void {
 		this.toggleVeil();
 		this.modals = this.modalService.modals;
+		this.modalService.emitModals.subscribe((value) => {
+			this.modals = value;
+		});
 	}
 
 	private toggleVeil (): void {
 		this.modalService.updateShowVeil.subscribe((value) => {
 			this.showMtgVeil = value;
 
-			if (value === 'out') { this.showMtgModal = false; }
+			// if (value === 'out') { this.showMtgModal = false; }
 		});
 	}
 

@@ -19,7 +19,11 @@ export class ModalService {
 
 	private _modals: Modal[] = [];
 	public get modals(): Modal[] { return this._modals; }
-	public set modals(value: Modal[]) { this._modals = value; }
+	public set modals(value: Modal[]) {
+		this._modals = value;
+		this.emitModals.emit(value);
+	}
+	public emitModals = new EventEmitter<Modal[]>();
 
 	private _isMulti = false;
 	public get isMulti (): boolean { return this._isMulti; }
@@ -123,13 +127,19 @@ export class ModalService {
 					class: 'cancel',
 					fx: () => {
 						console.log('cancel');
+						this.destroyAllModals();
+						this.showVeil = 'out';
 					}
 				},
 				{
 					name: 'Submit',
 					class: 'submit',
-					fx: () => {
+					fx: (func) => {
 						console.log('submit');
+						this.destroyAllModals();
+						this.showVeil = 'out';
+
+						func();
 					}
 				}
 			]
