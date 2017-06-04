@@ -17,7 +17,7 @@ import { Game } from 'app/types/game.model';
 })
 export class LeftSliderComponent implements OnInit {
 
-	private buttons = [
+	public buttons = [
 		{
 			class: 'fa fa-2x fa-desktop',
 			link: '/table',
