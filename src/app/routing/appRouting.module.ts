@@ -11,13 +11,19 @@ import { PointManagerComponent } from 'app/components/point-manager/point-manage
 import { StoryComponent } from 'app/components/story/story.component';
 import { SettingsComponent } from 'app/components/settings/settings.component';
 import { NotFoundComponent } from 'app/components/not-found/not-found.component';
+import { DecksComponent } from 'app/components/deck-manager/decks/decks.component';
+import { DeckComponent } from 'app/components/deck-manager/decks/deck/deck.component';
 
 const appRoutes: Routes = [
 	{ path: '', component: WelcomeComponent },
 	{ path: 'table', component: TableComponent },
 	{ path: 'host', component: HostGameComponent },
 	{ path: 'join', component: JoinGameComponent },
-	{ path: 'decks', component: DeckManagerComponent },
+	{ path: 'deckmanager', component: DeckManagerComponent, children: [
+		{ path: ':uid', component: DecksComponent, children: [
+			{ path: ':deckid', component: DeckComponent }
+		]}
+	]},
 	{ path: 'points', component: PointManagerComponent },
 	{ path: 'story', component: StoryComponent },
 	{ path: 'settings', component: SettingsComponent },

@@ -35,7 +35,7 @@ export class LeftSliderComponent implements OnInit {
 		},
 		{
 			class: 'fa fa-2x fa-book',
-			link: '/decks',
+			link: '/deckmanager',
 			title: 'Deck Manager'
 		},
 		{
