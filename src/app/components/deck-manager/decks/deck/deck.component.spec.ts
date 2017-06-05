@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DeckManagerComponent } from './deck-manager.component';
+import { DeckComponent } from './deck.component';
 
-describe('DeckManagerComponent', () => {
-	let component: DeckManagerComponent;
-	let fixture: ComponentFixture<DeckManagerComponent>;
+describe('DeckComponent', () => {
+	let component: DeckComponent;
+	let fixture: ComponentFixture<DeckComponent>;
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
-			declarations: [ DeckManagerComponent ]
+			declarations: [ DeckComponent ]
 		})
 		.compileComponents();
 	}));
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(DeckManagerComponent);
+		fixture = TestBed.createComponent(DeckComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

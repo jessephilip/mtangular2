@@ -10,18 +10,18 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
 // custom components
-import { AppComponent } from './app.component';
-import { LifeButtonComponent } from './components/lifeButton/lifeButton.component';
-import { MtgHeaderComponent } from './components/mtgHeader/mtgHeader.component';
-import { MtgMainComponent } from './components/mtgMain/mtgMain.component';
-import { MtgFooterComponent } from './components/mtgFooter/mtgFooter.component';
-import { LeftSliderComponent } from './components/mtgMain/leftSlider/leftSlider.component';
-import { RightSliderComponent } from './components/mtgMain/rightSlider/rightSlider.component';
-import { PlayerCardComponent } from './components/playerCard/playerCard.component';
-import { ModalComponent } from './components/modal/modal.component';
-import { VeilComponent } from './components/veil/veil.component';
-import { WelcomeComponent } from './components/welcome/welcome.component';
-import { TableComponent } from './components/table/table.component';
+import { AppComponent } from 'app/app.component';
+import { LifeButtonComponent } from 'app/components/lifeButton/lifeButton.component';
+import { MtgHeaderComponent } from 'app/components/mtgHeader/mtgHeader.component';
+import { MtgMainComponent } from 'app/components/mtgMain/mtgMain.component';
+import { MtgFooterComponent } from 'app/components/mtgFooter/mtgFooter.component';
+import { LeftSliderComponent } from 'app/components/mtgMain/leftSlider/leftSlider.component';
+import { RightSliderComponent } from 'app/components/mtgMain/rightSlider/rightSlider.component';
+import { PlayerCardComponent } from 'app/components/playerCard/playerCard.component';
+import { ModalComponent } from 'app/components/modal/modal.component';
+import { VeilComponent } from 'app/components/veil/veil.component';
+import { WelcomeComponent } from 'app/components/welcome/welcome.component';
+import { TableComponent } from 'app/components/table/table.component';
 import { HostGameComponent } from 'app/components/host-game/host-game.component';
 import { JoinGameComponent } from 'app/components/join-game/join-game.component';
 import { DeckManagerComponent } from 'app/components/deck-manager/deck-manager.component';
@@ -31,23 +31,25 @@ import { StoryComponent } from 'app/components/story/story.component';
 import { NotFoundComponent } from 'app/components/not-found/not-found.component';
 
 // services
-import { RandomizerService } from './services/randomizer.service';
-import { DatabaseService } from './services/database.service';
-import { AuthService } from './services/auth.service';
-import { SlidersService } from './services/sliders.service';
-import { ModalService } from './services/modal.service';
-import { PlayerService } from './services/player.service';
+import { RandomizerService } from 'app/services/randomizer.service';
+import { DatabaseService } from 'app/services/database.service';
+import { AuthService } from 'app/services/auth.service';
+import { SlidersService } from 'app/services/sliders.service';
+import { ModalService } from 'app/services/modal.service';
+import { PlayerService } from 'app/services/player.service';
 
 // directives
-import { FocusHighlightDirective } from './directives/focus-highlight.directive';
+import { FocusHighlightDirective } from 'app/directives/focus-highlight.directive';
 import { GiveFocusDirective } from 'app/directives/give-focus.directive';
 
 // import environment
 import { environment } from '../environments/environment';
-import { IdToNamePipe } from './pipes/id-to-name.pipe';
+import { IdToNamePipe } from 'app/pipes/id-to-name.pipe';
 
 // modules
-import { AppRoutingModule } from 'app/appRouting.module';
+import { AppRoutingModule } from 'app/routing/appRouting.module';
+import { DecksComponent } from './components/deck-manager/decks/decks.component';
+import { DeckComponent } from './components/deck-manager/decks/deck/deck.component';
 
 @NgModule({
 	declarations: [
@@ -72,7 +74,9 @@ import { AppRoutingModule } from 'app/appRouting.module';
 		PointManagerComponent,
 		StoryComponent,
 		SettingsComponent,
-		NotFoundComponent
+		NotFoundComponent,
+		DecksComponent,
+		DeckComponent
 	],
 	imports: [
 		AngularFireModule.initializeApp(environment.firebaseConfig),
