@@ -19,7 +19,7 @@ describe('DeckManagerComponent', () => {
 		fixture.detectChanges();
 	});
 
-	it('should create', () => {
+	it('should create DeckManagerComponent', () => {
 		expect(component).toBeTruthy();
 	});
 });

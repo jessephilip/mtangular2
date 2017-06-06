@@ -1,4 +1,3 @@
-import {Player} from '../types/player.model';
 /**
  * Service for accessing the Firebase database.
  *	/* Database Design
@@ -20,9 +19,9 @@ import {Player} from '../types/player.model';
  * @class DatabaseService
  */
 
-import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
-
 import { Injectable } from '@angular/core';
+import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
+import { Player } from '../types/player.model';
 import { Game } from 'app/types/game.model';
 
 // injectable required for setup. Assume it has something to do with the way AngularFireDatabase is designed.
@@ -30,6 +29,23 @@ import { Game } from 'app/types/game.model';
 export class DatabaseService {
 
 	constructor (private af: AngularFireDatabase) {}
+
+	// CRUD for general
+	public save (baseLoc: string, object): void {
+		this.af.object(`/${baseLoc}/${object.id}`).update(object);
+	}
+
+	public read (baseLoc: string, object): Promise<any> {
+		return new Promise ((resolve, reject) => {
+			this.af.object(`/${baseLoc}/${object.id}`).subscribe(value => {
+				resolve(value);
+			});
+		});
+	}
+
+	public remove (baseLoc: string, object): void {
+		this.af.object(`/${baseLoc}/${object.id}`).remove();
+	}
 
 	// CRUD for games
 	public saveGame (game: Game): void {

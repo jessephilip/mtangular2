@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Player } from 'app/types/player.model';
-import { PlayerService } from "app/services/player.service";
+import { PlayerService } from 'app/services/player.service';
 
 @Component({
 	selector: 'mtg-life-button',

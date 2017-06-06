@@ -1,19 +1,19 @@
 // import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-// import { WelcomeComponent } from './welcome.component';
+// import { LifeButtonComponent } from './lifeButton.component';
 
-// describe('WelcomeComponent', () => {
-// 	let component: WelcomeComponent;
-// 	let fixture: ComponentFixture<WelcomeComponent>;
+// describe('LifeButtonComponent', () => {
+// 	let component: LifeButtonComponent;
+// 	let fixture: ComponentFixture<LifeButtonComponent>;
 
 // 	beforeEach(async(() => {
 // 		TestBed.configureTestingModule({
-// 			declarations: [ WelcomeComponent ]
+// 			declarations: [ LifeButtonComponent ]
 // 		}).compileComponents();
 // 	}));
 
 // 	beforeEach(() => {
-// 		fixture = TestBed.createComponent(WelcomeComponent);
+// 		fixture = TestBed.createComponent(LifeButtonComponent);
 // 		component = fixture.componentInstance;
 // 		fixture.detectChanges();
 // 	});

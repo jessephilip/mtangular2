@@ -1,19 +1,19 @@
 // import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-// import { WelcomeComponent } from './welcome.component';
+// import { MtgFooterComponent } from './mtgFooter.component';
 
-// describe('WelcomeComponent', () => {
-// 	let component: WelcomeComponent;
-// 	let fixture: ComponentFixture<WelcomeComponent>;
+// describe('MtgFooterComponent', () => {
+// 	let component: MtgFooterComponent;
+// 	let fixture: ComponentFixture<MtgFooterComponent>;
 
 // 	beforeEach(async(() => {
 // 		TestBed.configureTestingModule({
-// 			declarations: [ WelcomeComponent ]
+// 			declarations: [ MtgFooterComponent ]
 // 		}).compileComponents();
 // 	}));
 
 // 	beforeEach(() => {
-// 		fixture = TestBed.createComponent(WelcomeComponent);
+// 		fixture = TestBed.createComponent(MtgFooterComponent);
 // 		component = fixture.componentInstance;
 // 		fixture.detectChanges();
 // 	});

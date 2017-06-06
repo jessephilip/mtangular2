@@ -19,7 +19,7 @@ describe('DeckComponent', () => {
 		fixture.detectChanges();
 	});
 
-	it('should create', () => {
+	it('should create DeckComponent', () => {
 		expect(component).toBeTruthy();
 	});
 });

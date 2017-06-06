@@ -1,19 +1,20 @@
 // import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+// import { FormsModule } from '@angular/forms';
+// import { ModalComponent } from './modal.component';
 
-// import { WelcomeComponent } from './welcome.component';
-
-// describe('WelcomeComponent', () => {
-// 	let component: WelcomeComponent;
-// 	let fixture: ComponentFixture<WelcomeComponent>;
+// describe('ModalComponent', () => {
+// 	let component: ModalComponent;
+// 	let fixture: ComponentFixture<ModalComponent>;
 
 // 	beforeEach(async(() => {
 // 		TestBed.configureTestingModule({
-// 			declarations: [ WelcomeComponent ]
+// 			declarations: [ ModalComponent ],
+// 			imports: [FormsModule]
 // 		}).compileComponents();
 // 	}));
 
 // 	beforeEach(() => {
-// 		fixture = TestBed.createComponent(WelcomeComponent);
+// 		fixture = TestBed.createComponent(ModalComponent);
 // 		component = fixture.componentInstance;
 // 		fixture.detectChanges();
 // 	});

@@ -1,19 +1,19 @@
 // import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-// import { WelcomeComponent } from './welcome.component';
+// import { LeftSliderComponent } from './leftSlider.component';
 
-// describe('WelcomeComponent', () => {
-// 	let component: WelcomeComponent;
-// 	let fixture: ComponentFixture<WelcomeComponent>;
+// describe('LeftSliderComponent', () => {
+// 	let component: LeftSliderComponent;
+// 	let fixture: ComponentFixture<LeftSliderComponent>;
 
 // 	beforeEach(async(() => {
 // 		TestBed.configureTestingModule({
-// 			declarations: [ WelcomeComponent ]
+// 			declarations: [ LeftSliderComponent ]
 // 		}).compileComponents();
 // 	}));
 
 // 	beforeEach(() => {
-// 		fixture = TestBed.createComponent(WelcomeComponent);
+// 		fixture = TestBed.createComponent(LeftSliderComponent);
 // 		component = fixture.componentInstance;
 // 		fixture.detectChanges();
 // 	});

@@ -7,11 +7,8 @@
 	*	Centered Dialog - substantial height and width. provided buttons.
 	*/
 
-import { EventEmitter, Injectable } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 import { Modal } from '../types/modal.model';
-import { PlayerService } from 'app/services/player.service';
-
-@Injectable()
 
 export class ModalService {
 
@@ -19,10 +16,7 @@ export class ModalService {
 
 	private _modals: Modal[] = [];
 	public get modals(): Modal[] { return this._modals; }
-	public set modals(value: Modal[]) {
-		this._modals = value;
-		this.emitModals.emit(value);
-	}
+	public set modals(value: Modal[]) { this._modals = value; this.emitModals.emit(value); }
 	public emitModals = new EventEmitter<Modal[]>();
 
 	private _isMulti = false;
@@ -30,15 +24,13 @@ export class ModalService {
 	public set isMulti (value: boolean) { this._isMulti = value; }
 
 	// showVeil provides a link to the showVeil property on app.component
+	// FIXME: Setup showVeil to work with a boolean. currently a string to work with animations.
 	private _showVeil: string;
 	public get showVeil (): string { return this._showVeil; }
-	public set showVeil (value: string) {
-		this._showVeil = value;
-		this.updateShowVeil.emit(value);
-	}
+	public set showVeil (value: string) { this._showVeil = value; this.updateShowVeil.emit(value); }
 	public updateShowVeil = new EventEmitter<string>();
 
-	constructor (private playerService: PlayerService) {}
+	constructor () {}
 
 	// receiveModal receives the modal properties and information
 	// FIXME: look at incoming type of modal, and build the modal here.
@@ -52,9 +44,6 @@ export class ModalService {
 				break;
 			case 'balloon':
 				modal = this.balloonModal(modalFrame);
-				break;
-			case 'createGameModal':
-				modal = this.createGameModal(modalFrame);
 				break;
 			default:
 				console.log('modal service switch went wrong!');
@@ -115,47 +104,6 @@ export class ModalService {
 		const modal = this.balloonModal(modalFrame);
 		modal.type = 'balloon-input';
 		modal.classes = ['modal', 'balloon-input'];
-		return modal;
-	}
-
-	private createGameModal (modalFrame) {
-
-		const details = {
-			'buttons': [
-				{
-					name: 'Cancel',
-					class: 'cancel',
-					fx: () => {
-						console.log('cancel');
-						this.destroyAllModals();
-						this.showVeil = 'out';
-					}
-				},
-				{
-					name: 'Submit',
-					class: 'submit',
-					fx: (func) => {
-						console.log('submit');
-						this.destroyAllModals();
-						this.showVeil = 'out';
-
-						func();
-					}
-				}
-			]
-		};
-
-		const modal = new Modal(
-			'createGameModal',
-			['modal', '.createGameModal'],
-			[],
-			'20%',
-			'20%',
-			'60%',
-			'60%',
-			true,
-			details
-		);
 		return modal;
 	}
 }
