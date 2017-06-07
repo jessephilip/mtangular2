@@ -1,3 +1,42 @@
-<p>
-	deck-manager works!
-</p>
+<div class="deck-manager">
+	<main>
+		<div class="input-section">
+			<div class="labelAndInput" mtgInputHasFocus>
+				<label for="search">Card Search</label>
+				<input
+					class="card-search"
+					type="text"
+					[(ngModel)]="searchText"
+					(keyup.enter)="search()">
+			</div>
+			<button class="search" (click)="search()">
+				<i class="fa fa-search"></i>
+				Search
+			</button>
+		</div>
+		<div class="results-section">
+			<ul class="card-row">
+				<li *ngFor="let result of results; let i = index">
+					<img
+						[src]="result.imageUrl || 'src/assets/images/mtg_card_back.png'"
+						(click)="showCard(result.imageUrl)"/>
+					<div (click)="resultClick(result)">
+						<h4>{{ i + 1 }}: {{ result.name }}</h4>
+						<pre>{{ result.text | textToSymbol }}</pre>
+					</div>
+				</li>
+			</ul>
+			<div class="deck-list">
+				<p *ngFor="let card of deck">{{ card.name }}</p>
+			</div>
+		</div>
+	</main>
+	<footer>
+		<div class="ccWhite">10</div>
+		<div class="ccBlue">10</div>
+		<div class="ccBlack">10</div>
+		<div class="ccRed">10</div>
+		<div class="ccGreen">10</div>
+		<div class="ccGrey">10</div>
+	</footer>
+</div>

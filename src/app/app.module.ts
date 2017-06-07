@@ -37,6 +37,7 @@ import { AuthService } from 'app/services/auth.service';
 import { SlidersService } from 'app/services/sliders.service';
 import { ModalService } from 'app/services/modal.service';
 import { PlayerService } from 'app/services/player.service';
+import { MtgApiService } from './services/mtgApi.service';
 
 // directives
 import { FocusHighlightDirective } from 'app/directives/focus-highlight.directive';
@@ -50,6 +51,8 @@ import { IdToNamePipe } from 'app/pipes/id-to-name.pipe';
 import { AppRoutingModule } from 'app/routing/appRouting.module';
 import { DecksComponent } from './components/deck-manager/decks/decks.component';
 import { DeckComponent } from './components/deck-manager/decks/deck/deck.component';
+import { TextToSymbolPipe } from './pipes/text-to-symbol.pipe';
+import { InputHasFocusDirective } from './directives/input-has-focus.directive';
 
 @NgModule({
 	declarations: [
@@ -76,7 +79,9 @@ import { DeckComponent } from './components/deck-manager/decks/deck/deck.compone
 		SettingsComponent,
 		NotFoundComponent,
 		DecksComponent,
-		DeckComponent
+		DeckComponent,
+		TextToSymbolPipe,
+		InputHasFocusDirective,
 	],
 	imports: [
 		AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -94,7 +99,8 @@ import { DeckComponent } from './components/deck-manager/decks/deck/deck.compone
 		ModalService,
 		RandomizerService,
 		SlidersService,
-		PlayerService
+		PlayerService,
+		MtgApiService
 	],
 	bootstrap: [AppComponent]
 })

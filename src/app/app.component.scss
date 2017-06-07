@@ -3,11 +3,13 @@
 .appContainer {
 	display: flex;
 	flex-direction: column;
-	min-height: 100vh;
+	height: 100vh;
+	overflow-y: hidden;
 
 	.appContainer-body {
 		display: flex;
 		flex: 1;
+		overflow-y: auto;
 
 		mtg-main {
 			width: 100%;

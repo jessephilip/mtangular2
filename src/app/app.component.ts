@@ -56,9 +56,8 @@ export class AppComponent implements OnInit {
 
 	private toggleVeil (): void {
 		this.modalService.updateShowVeil.subscribe((value) => {
+			console.log(value);
 			this.showMtgVeil = value;
-
-			// if (value === 'out') { this.showMtgModal = false; }
 		});
 	}
 

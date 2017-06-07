@@ -18,4 +18,7 @@
 			{{ entry }}
 		</span>
 	</div>
+	<div *ngSwitchCase="'image'">
+		<img [src]="modalObject.details.imgUrl"/>
+	</div>
 </main>

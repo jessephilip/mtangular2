@@ -1,0 +1,78 @@
+@import '../../../assets/variables.scss';
+
+.deck-manager {
+	max-width: 100%;
+}
+
+h4 {
+	margin: 0;
+}
+pre {
+	margin: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+img {
+	max-height: 50px;
+	padding-right: 10px;
+	cursor: zoom-in;
+}
+
+.results-section {
+	display: flex;
+	width: 100%;
+
+	.card-row {
+		list-style: none;
+		width: 70%;
+
+		li {
+			display: flex;
+			flex-direction: row;
+			align-items: flex-start;
+			margin-bottom: 15px;
+			cursor: pointer;
+
+			&:hover {
+				background-color: #ddd;
+			}
+		}
+	}
+
+	.deck-list {
+		width: 30%;
+
+	}
+}
+
+.labelAndInput {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+
+	label {
+		margin: 1px 0;
+	}
+
+	input.card-search {
+		font-size: 24px;
+		margin: 0;
+	}
+}
+
+
+.input-section {
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+
+	* {
+		margin: 10px;
+	}
+
+	button.search {
+		@include coloredButton($mtgGreen, white);
+	}
+}

@@ -53,15 +53,15 @@ export class ModalService {
 			case 'balloon':
 				modal = this.balloonModal(modalFrame);
 				break;
-			case 'createGameModal':
-				modal = this.createGameModal(modalFrame);
+			case 'image':
+				modal = this.imageModal(modalFrame);
 				break;
 			default:
 				console.log('modal service switch went wrong!');
 		}
 
 		if (modal) { this.modals.push(modal); }
-		if (modalFrame.details.showVeil) { this.updateShowVeil.emit('in'); }
+		if (modalFrame.details.showVeil || modal.showVeil) { this.updateShowVeil.emit('in'); }
 	}
 
 	public destroyModal () {
@@ -118,44 +118,23 @@ export class ModalService {
 		return modal;
 	}
 
-	private createGameModal (modalFrame) {
-
-		const details = {
-			'buttons': [
-				{
-					name: 'Cancel',
-					class: 'cancel',
-					fx: () => {
-						console.log('cancel');
-						this.destroyAllModals();
-						this.showVeil = 'out';
-					}
-				},
-				{
-					name: 'Submit',
-					class: 'submit',
-					fx: (func) => {
-						console.log('submit');
-						this.destroyAllModals();
-						this.showVeil = 'out';
-
-						func();
-					}
-				}
-			]
-		};
+	private imageModal (modalFrame) {
 
 		const modal = new Modal(
-			'createGameModal',
-			['modal', '.createGameModal'],
-			[],
+			'image',
+			['modal', 'imageModal'],
+			null,
+			'40%',
 			'20%',
-			'20%',
-			'60%',
-			'60%',
+			null,
+			null,
 			true,
-			details
+			modalFrame.details
 		);
+
+		console.log(modal);
+
 		return modal;
+
 	}
 }

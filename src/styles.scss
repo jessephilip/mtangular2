@@ -104,3 +104,30 @@ mtg-veil {
 		justify-content: flex-end;
 	}
 }
+
+/* MTG Symbos */
+
+// white circle
+.ccWhite {
+	@include mtgSymbol($mtgWhite, black, 18px);
+}
+
+.ccBlue {
+	@include mtgSymbol($mtgBlue, white, 18px);
+}
+
+.ccBlack {
+	@include mtgSymbol($mtgBlack, white, 18px);
+}
+
+.ccRed {
+	@include mtgSymbol($mtgRed, white, 18px);
+}
+
+.ccGreen {
+	@include mtgSymbol($mtgGreen, white, 18px);
+}
+
+.ccGrey {
+	@include mtgSymbol(#bbb, black, 18px);
+}

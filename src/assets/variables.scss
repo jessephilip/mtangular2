@@ -96,3 +96,15 @@ $basicButtonWidth: 100px;
 	justify-content: flex-end;
 	margin-right: 10px;
 }
+
+@mixin mtgSymbol($bgColor, $textColor, $diameter) {
+	align-items: center;
+	background-color: $bgColor;
+	border-radius: $diameter / 2;
+	color: $textColor;
+	display: inline-flex;
+	font-size: ($diameter / 2);
+	height: $diameter;
+	justify-content: center;
+	width: $diameter;
+}
