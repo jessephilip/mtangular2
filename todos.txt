@@ -19,3 +19,23 @@ TODOs:
 		a. allow login through Google, App Credentials, & Facebook (Google Setup)
 	8. Set up firebase database
 		a. players logged into current game show up as watching. able to drag player to unoccupied playercard
+
+
+Notes from use of app (6/8/2017)
+	1. Made a mistake by leaving commander activated for a player and distributed wrong amounts of commander damage.
+		a. Possible Solutions: 
+			1. Make Commander selected CSS more visible to help prevent mistake.
+			2. Keep a record of damage dealt in a console log ... would make it easier to see last changes and counteract them.
+			3. Create a rollback function. Save a snapshot of life totals every five minutes or so and provide a way to reset life totals to the last snapshot.
+	2. Somehow an extra 'Jesse Matherne' character was added after a game had already started. Happened several times.
+		a. Possible Solutions: 
+			1. Could demonstrate an error in how players are added to the player array. 
+				a. Check for player id before adding player to player array.
+			2. Could demonstrate accidental press of Add Player button. 
+				a. Institute easy way to limit number of players.
+				b. Move Add Player button.
+				c. Add confirmation screen for add player.
+	3. Had to physically reset the website for quickest way to reset life totals. 
+		a. Add reset button that creates new game and resets life totals.
+	4. Screen would shut off. Is there a way for a website to override this.
+	5. Distributing Commander Damage was confusing at times because I would select the attacking character first and then select who was being attacked. Maybe add arrows showing the direction of damage.
