@@ -1,13 +1,95 @@
 <div class="deck-manager">
 	<main>
 		<div class="input-section">
-			<div class="labelAndInput" mtgInputHasFocus>
-				<label for="search">Card Search</label>
-				<input
-					class="card-search"
-					type="text"
-					[(ngModel)]="searchText"
-					(keyup.enter)="search()">
+			<div class="flex-row">
+				<div class="flex-column">
+					<div class="labelAndInput" mtgInputHasFocus>
+						<label for="nameSearch">Name</label>
+						<input
+							name="nameSearch"
+							class="card-search"
+							type="text"
+							placeholder="ex: Serra Angel"
+							[(ngModel)]="nameSearch"
+							(keyup.enter)="search()">
+					</div>
+					<div class="labelAndInput" mtgInputHasFocus>
+						<label for="textSearch">Text</label>
+						<input
+							name="textSearch"
+							class="card-search"
+							type="text"
+							placeholder="ex: Catch all"
+							[(ngModel)]="textSearch"
+							(keyup.enter)="search()">
+					</div>
+				</div>
+				<div class="flex-column">
+					<!-- perhaps convert this to a radio, checkbox, or dropdown -->
+					<div class="flex-column">
+						<div class="labelAndInput" mtgInputHasFocus>
+							<label for="typeSearch">Type</label>
+							<input
+								name="typeSearch"
+								class="card-search"
+								type="text"
+								placeholder="ex: Creature"
+								[(ngModel)]="typeSearch"
+								(keyup.enter)="search()">
+						</div>
+						<div class="labelAndInput" mtgInputHasFocus>
+							<label for="subtypesSearch">SubType</label>
+							<input
+								name="subtypesSearch"
+								class="card-search"
+								type="text"
+								placeholder="ex: Angel"
+								[(ngModel)]="subtypesSearch"
+								(keyup.enter)="search()">
+						</div>
+						<div class="labelAndInput" mtgInputHasFocus>
+							<label for="supertypesSearch">SuperType</label>
+							<input
+								name="supertypesSearch"
+								class="card-search"
+								type="text"
+								placeholder="ex: Legendary"
+								[(ngModel)]="supertypesSearch"
+								(keyup.enter)="search()">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="flex-row">
+				<div *ngFor="let input of rarityInputs; let i = index">
+					<div class="flex-column align-center justify-center rarity-row">
+						<label
+							[for]="input.value"
+							[ngClass]="{selected: input.selected}">{{ input.value | capitalize }}
+						</label>
+						<input
+							name="rarity"
+							type="checkbox"
+							[checked]="input.selected"
+							(change)="changeCheckbox('rarity', i)"/>
+					</div>
+				</div>
+			</div>
+			<div class="flex-row">
+				<div *ngFor="let input of colorInputs; let i = index">
+					<div class="flex-column align-center justify-center rarity-row">
+						<label
+							[for]="input.value"
+							[ngClass]="{selected: input.selected}"
+							[class]="input.value">{{ input.value }}
+						</label>
+						<input
+							name="rarity"
+							type="checkbox"
+							[checked]="input.selected"
+							(change)="changeCheckbox('color', i)"/>
+					</div>
+				</div>
 			</div>
 			<button class="search" (click)="search()">
 				<i class="fa fa-search"></i>
@@ -16,27 +98,79 @@
 		</div>
 		<div class="results-section">
 			<ul class="card-row">
+				<h3 *ngIf="results">Results:</h3>
 				<li *ngFor="let result of results; let i = index">
 					<img
 						[src]="result.imageUrl || 'src/assets/images/mtg_card_back.png'"
 						(click)="showCard(result.imageUrl)"/>
 					<div (click)="resultClick(result)">
-						<h4>{{ i + 1 }}: {{ result.name }}</h4>
-						<pre>{{ result.text | textToSymbol }}</pre>
+						<h4>
+							<span>{{ i + 1 }}: {{ result.name }}</span>
+							<span *ngIf="result.manaCost">
+								<div
+									class="ccGrey">
+									{{ result.manaCost | greyTextToSymbol }}
+								</div>
+								<div
+									*ngIf="result.manaCost.indexOf('W') > 0"
+									class="ccWhite">
+									{{ result.manaCost | whiteTextToSymbol }}
+								</div>
+								<div
+									*ngIf="result.manaCost.indexOf('U') > 0"
+									class="ccBlue">
+									{{ result.manaCost | blueTextToSymbol }}
+								</div>
+								<div
+									*ngIf="result.manaCost.indexOf('B') > 0"
+									class="ccBlack">
+									{{ result.manaCost | blackTextToSymbol }}
+								</div>
+								<div
+									*ngIf="result.manaCost.indexOf('R') > 0"
+									class="ccRed">
+									{{ result.manaCost | redTextToSymbol }}
+								</div>
+								<div
+									*ngIf="result.manaCost.indexOf('G') > 0"
+									class="ccGreen">
+									{{ result.manaCost | greenTextToSymbol }}
+								</div>
+							</span>
+							<span *ngIf="result.power || result.toughness">
+								({{ result.power }}/{{ result.toughness }})
+							</span>
+						</h4>
+						<p>{{ result.text | textToSymbol }}</p>
 					</div>
 				</li>
 			</ul>
-			<div class="deck-list">
-				<p *ngFor="let card of deck">{{ card.name }}</p>
-			</div>
+			<ul class="deck-list">
+				<div *ngIf="deck.length">
+					<h3>Deck:</h3>
+					<li *ngFor="let deckCard of deck">
+						<span>{{ deckCard.amount }} x {{ deckCard.card.name }}</span>
+						<span
+							class="fa fa-minus"
+							(click)="subtractCard(deckCard)"
+							style="cursor: pointer">
+						</span>
+						<span
+							class="fa fa-trash"
+							(click)="removeCard(deckCard)"
+							style="cursor: pointer">
+						</span>
+					</li>
+					<h3>Total: {{ deckTotal }}</h3>
+					<button
+						class="btn-red"
+						(click)="deck = []">Clear</button>
+					<button class="btn-green">Save</button>
+				</div>
+			</ul>
 		</div>
 	</main>
 	<footer>
-		<div class="ccWhite">10</div>
-		<div class="ccBlue">10</div>
-		<div class="ccBlack">10</div>
-		<div class="ccRed">10</div>
-		<div class="ccGreen">10</div>
-		<div class="ccGrey">10</div>
+
 	</footer>
 </div>

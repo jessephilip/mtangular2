@@ -5,11 +5,11 @@ import { Directive, ElementRef, HostBinding, HostListener } from '@angular/core'
 })
 export class InputHasFocusDirective {
 	@HostListener('focus', ['$event']) inputFocused () {
-		console.log('input focused');
+		// console.log('input focused');
 	}
 
 	constructor (private el: ElementRef) {
-		console.log(el.nativeElement);
+		// console.log(el.nativeElement);
 	}
 
 }

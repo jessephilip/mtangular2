@@ -17,6 +17,12 @@ export class MtgApiService {
 		url: 'https://api.magicthegathering.io/v1/',
 	};
 
+	/*
+	The accepted delimiters when querying fields are the pipe character (’|’) or a comma (’,’) character.
+	The pipe represents a logical “or”, and a comma represents a logical “and”.
+	The comma can only be used with fields that accept multiple values (like colors).
+	*/
+
 	private cardsFields = {
 		artist: 'artist=',
 		cmc: 'cmc=',
@@ -63,9 +69,30 @@ export class MtgApiService {
 	}
 
 	getCardByName (cardName: string) {
-		const string: string = this.mtgUrls.url + this.mtgUrls.cards + this.cardsFields.name;
+		// url: https://api.magicthegathering.io/v1/cards?name='
+		const string = this.mtgUrls.url + this.mtgUrls.cards + this.cardsFields.name;
 		console.log(string);
 
 		return this.http.get(string + cardName).map((res: Response) => res.json());
 	}
+
+	getCardsFromObject (searchObject) {
+		let string = this.mtgUrls.url + this.mtgUrls.cards;
+
+		for (const key in searchObject) {
+			if (searchObject[key]) {
+				console.log('key', key);
+				console.log('text', searchObject[key]);
+				string += this.cardsFields[key] + searchObject[key];
+				string += '&';
+			}
+		}
+
+		string = string.substring(0, string.length - 1);
+		console.log(string);
+
+		return this.http.get(string).map((res: Response) => res.json());
+	}
+
+
 }

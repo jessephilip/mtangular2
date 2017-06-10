@@ -132,8 +132,6 @@ export class ModalService {
 			modalFrame.details
 		);
 
-		console.log(modal);
-
 		return modal;
 
 	}

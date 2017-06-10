@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
 	// variable to control modals
 	private _modals: Modal[] = [];
 	public get modals(): Modal[] { return this._modals; }
-	public set modals(value: Modal[] ) { console.log(value); this._modals = value; }
+	public set modals(value: Modal[] ) { this._modals = value; }
 
 	// controls the veil. defaults to not shown.
 	public showMtgVeil = 'out';
@@ -56,7 +56,6 @@ export class AppComponent implements OnInit {
 
 	private toggleVeil (): void {
 		this.modalService.updateShowVeil.subscribe((value) => {
-			console.log(value);
 			this.showMtgVeil = value;
 		});
 	}

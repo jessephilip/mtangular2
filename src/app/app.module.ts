@@ -43,16 +43,25 @@ import { MtgApiService } from './services/mtgApi.service';
 import { FocusHighlightDirective } from 'app/directives/focus-highlight.directive';
 import { GiveFocusDirective } from 'app/directives/give-focus.directive';
 
+// import pipes
+import { IdToNamePipe } from 'app/pipes/id-to-name.pipe';
+import { CapitalizePipe } from './pipes/capitalize.pipe';
+import { TextToSymbolPipe } from './pipes/text-to-symbol.pipe';
+
 // import environment
 import { environment } from '../environments/environment';
-import { IdToNamePipe } from 'app/pipes/id-to-name.pipe';
 
 // modules
 import { AppRoutingModule } from 'app/routing/appRouting.module';
 import { DecksComponent } from './components/deck-manager/decks/decks.component';
 import { DeckComponent } from './components/deck-manager/decks/deck/deck.component';
-import { TextToSymbolPipe } from './pipes/text-to-symbol.pipe';
 import { InputHasFocusDirective } from './directives/input-has-focus.directive';
+import { WhiteTextToSymbolPipe } from './pipes/white-text-to-symbol.pipe';
+import { BlueTextToSymbolPipe } from './pipes/blue-text-to-symbol.pipe';
+import { BlackTextToSymbolPipe } from './pipes/black-text-to-symbol.pipe';
+import { RedTextToSymbolPipe } from './pipes/red-text-to-symbol.pipe';
+import { GreenTextToSymbolPipe } from './pipes/green-text-to-symbol.pipe';
+import { GreyTextToSymbolPipe } from './pipes/grey-text-to-symbol.pipe';
 
 @NgModule({
 	declarations: [
@@ -82,6 +91,13 @@ import { InputHasFocusDirective } from './directives/input-has-focus.directive';
 		DeckComponent,
 		TextToSymbolPipe,
 		InputHasFocusDirective,
+		CapitalizePipe,
+		WhiteTextToSymbolPipe,
+		BlueTextToSymbolPipe,
+		BlackTextToSymbolPipe,
+		RedTextToSymbolPipe,
+		GreenTextToSymbolPipe,
+		GreyTextToSymbolPipe,
 	],
 	imports: [
 		AngularFireModule.initializeApp(environment.firebaseConfig),

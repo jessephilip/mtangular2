@@ -7,12 +7,6 @@
 h4 {
 	margin: 0;
 }
-pre {
-	margin: 0;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
 
 img {
 	max-height: 50px;
@@ -38,10 +32,15 @@ img {
 			&:hover {
 				background-color: #ddd;
 			}
+
+			div p {
+				margin: 0;
+			}
 		}
 	}
 
 	.deck-list {
+		list-style: none;
 		width: 30%;
 
 	}
@@ -65,14 +64,83 @@ img {
 
 .input-section {
 	display: flex;
-	align-items: center;
-	flex-direction: row;
-
-	* {
-		margin: 10px;
-	}
+	flex-direction: column;
 
 	button.search {
 		@include coloredButton($mtgGreen, white);
 	}
+}
+
+span.fa-minus, span.fa-trash {
+	color: $mtgRed;
+	margin-left: 5px;
+}
+
+.flex-column {
+	display: flex;
+	flex-direction: column;
+	margin: 0;
+
+	&.align-center {
+		align-items: center;
+	}
+
+	&.justify-center {
+		justify-content: center;
+	}
+}
+
+.flex-row {
+	display: flex;
+	flex-direction: row;
+	margin: 0;
+
+	&.align-center {
+		align-items: center;
+	}
+
+	&.justify-center {
+		justify-content: center;
+	}
+}
+
+button.btn-green, button.btn-red {
+	border-radius: 0;
+	height: 20px;
+	width: 50px;
+}
+
+input[type='checkbox'] {
+	margin: 10px !important;
+}
+
+label {
+	transition: all .1s;
+
+	&.selected {
+
+		&.White {
+			color: $mtgWhite;
+		}
+
+		&.Blue {
+			color: $mtgBlue;
+		}
+
+		&.Black {
+			color: $mtgBlack;
+		}
+
+		&.Red {
+			color: $mtgRed;
+		}
+
+		&.Green {
+			color: $mtgGreen;
+		}
+	}
+}
+
+.rarity-row {
+	margin: 10px;
 }

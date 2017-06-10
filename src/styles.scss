@@ -131,3 +131,12 @@ mtg-veil {
 .ccGrey {
 	@include mtgSymbol(#bbb, black, 18px);
 }
+
+/* Buttons */
+.btn-red {
+	@include coloredButton($mtgRed, white);
+}
+
+.btn-green {
+	@include coloredButton($mtgGreen, white);
+}
