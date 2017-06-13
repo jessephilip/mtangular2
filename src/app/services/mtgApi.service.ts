@@ -60,7 +60,7 @@ export class MtgApiService {
 	};
 
 
-	private cards = 'https://api.magicthegathering.io/v1/cards';
+	private cards = 'https://api.magicthegathering.io/v1/cards&pageSize=25';
 
 	constructor (private http: Http) { }
 
@@ -76,8 +76,10 @@ export class MtgApiService {
 		return this.http.get(string + cardName).map((res: Response) => res.json());
 	}
 
-	getCardsFromObject (searchObject) {
-		let string = this.mtgUrls.url + this.mtgUrls.cards;
+	getCardsFromObject (searchObject, pageNumber: number) {
+		console.log(pageNumber);
+		let string =
+			this.mtgUrls.url + this.mtgUrls.cards + this.cardsFields.page + pageNumber + '&';
 
 		for (const key in searchObject) {
 			if (searchObject[key]) {
@@ -88,7 +90,21 @@ export class MtgApiService {
 			}
 		}
 
-		string = string.substring(0, string.length - 1);
+		if (string.charAt(string.length) === '&') {
+			string = string.substring(0, string.length - 1);
+		}
+		console.log(string);
+
+		return this.http.get(string).map((res: Response) => res.json());
+	}
+
+	/**
+	 * The following functions get specific cards and card sets.
+	 */
+
+	public getSchemes () {
+		const string = this.mtgUrls.url + this.mtgUrls.cards + this.cardsFields.type + 'scheme';
+
 		console.log(string);
 
 		return this.http.get(string).map((res: Response) => res.json());

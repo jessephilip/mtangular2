@@ -47,8 +47,13 @@ img {
 	}
 
 	.deck-list {
+		display: block;
+		position: fixed;
+		top: 50px;
+		right: 0px;
 		list-style: none;
-		width: 30%;
+		overflow-y: auto;
+		width: 25%;
 
 	}
 }
@@ -115,7 +120,7 @@ span.fa-minus, span.fa-trash, span.fa-star {
 	}
 }
 
-button.btn-green, button.btn-red {
+button.btn-green, button.btn-red, button.btn-blue {
 	border-radius: 0;
 	height: 20px;
 	width: 50px;

@@ -11,8 +11,11 @@ import { PointManagerComponent } from 'app/components/point-manager/point-manage
 import { StoryComponent } from 'app/components/story/story.component';
 import { SettingsComponent } from 'app/components/settings/settings.component';
 import { NotFoundComponent } from 'app/components/not-found/not-found.component';
-import { DecksComponent } from 'app/components/deck-manager/decks/decks.component';
-import { DeckComponent } from 'app/components/deck-manager/decks/deck/deck.component';
+import { DeckCreateComponent } from 'app/components/deck-manager/deck-create/deck-create.component';
+import { DeckMaintainComponent } from 'app/components/deck-manager/deck-maintain/deck-maintain.component';
+import { DeckUseComponent } from 'app/components/deck-manager/deck-use/deck-use.component';
+import { SearchComponent } from 'app/components/deck-manager/deck-create/search/search.component';
+import { ResultsComponent } from 'app/components/deck-manager/deck-create/results/results.component';
 
 const appRoutes: Routes = [
 	{ path: '', component: WelcomeComponent },
@@ -20,9 +23,12 @@ const appRoutes: Routes = [
 	{ path: 'host', component: HostGameComponent },
 	{ path: 'join', component: JoinGameComponent },
 	{ path: 'deckmanager', component: DeckManagerComponent, children: [
-		{ path: ':uid', component: DecksComponent, children: [
-			{ path: ':deckid', component: DeckComponent }
-		]}
+		{ path: 'create', component: DeckCreateComponent, children: [
+			{ path: 'search', component: SearchComponent },
+			{ path: 'results', component: ResultsComponent },
+		]},
+		{ path: 'maintain', component: DeckMaintainComponent },
+		{ path: 'use', component: DeckUseComponent },
 	]},
 	{ path: 'points', component: PointManagerComponent },
 	{ path: 'story', component: StoryComponent },

@@ -50,6 +50,17 @@
 	<aside>
 		<div class="addPlayer">
 			<button
+				*ngIf="currentScheme"
+				(click)="showCurrentScheme()"
+				class="tool-button">
+				Current Scheme
+			</button>
+			<button
+				(click)="nextScheme()"
+				class="tool-button">
+				Next Scheme
+			</button>
+			<button
 				(click)="addPlayer()"
 				class="tool-button">
 				Add Player

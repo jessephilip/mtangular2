@@ -38,6 +38,7 @@ import { SlidersService } from 'app/services/sliders.service';
 import { ModalService } from 'app/services/modal.service';
 import { PlayerService } from 'app/services/player.service';
 import { MtgApiService } from './services/mtgApi.service';
+import { HelperService } from './services/helper.service';
 
 // directives
 import { FocusHighlightDirective } from 'app/directives/focus-highlight.directive';
@@ -53,8 +54,6 @@ import { environment } from '../environments/environment';
 
 // modules
 import { AppRoutingModule } from 'app/routing/appRouting.module';
-import { DecksComponent } from './components/deck-manager/decks/decks.component';
-import { DeckComponent } from './components/deck-manager/decks/deck/deck.component';
 import { InputHasFocusDirective } from './directives/input-has-focus.directive';
 import { WhiteTextToSymbolPipe } from './pipes/white-text-to-symbol.pipe';
 import { BlueTextToSymbolPipe } from './pipes/blue-text-to-symbol.pipe';
@@ -62,6 +61,11 @@ import { BlackTextToSymbolPipe } from './pipes/black-text-to-symbol.pipe';
 import { RedTextToSymbolPipe } from './pipes/red-text-to-symbol.pipe';
 import { GreenTextToSymbolPipe } from './pipes/green-text-to-symbol.pipe';
 import { GreyTextToSymbolPipe } from './pipes/grey-text-to-symbol.pipe';
+import { DeckCreateComponent } from './components/deck-manager/deck-create/deck-create.component';
+import { DeckMaintainComponent } from './components/deck-manager/deck-maintain/deck-maintain.component';
+import { DeckUseComponent } from './components/deck-manager/deck-use/deck-use.component';
+import { SearchComponent } from './components/deck-manager/deck-create/search/search.component';
+import { ResultsComponent } from './components/deck-manager/deck-create/results/results.component';
 
 @NgModule({
 	declarations: [
@@ -87,8 +91,6 @@ import { GreyTextToSymbolPipe } from './pipes/grey-text-to-symbol.pipe';
 		StoryComponent,
 		SettingsComponent,
 		NotFoundComponent,
-		DecksComponent,
-		DeckComponent,
 		TextToSymbolPipe,
 		InputHasFocusDirective,
 		CapitalizePipe,
@@ -98,6 +100,11 @@ import { GreyTextToSymbolPipe } from './pipes/grey-text-to-symbol.pipe';
 		RedTextToSymbolPipe,
 		GreenTextToSymbolPipe,
 		GreyTextToSymbolPipe,
+		DeckCreateComponent,
+		DeckMaintainComponent,
+		DeckUseComponent,
+		SearchComponent,
+		ResultsComponent,
 	],
 	imports: [
 		AngularFireModule.initializeApp(environment.firebaseConfig),

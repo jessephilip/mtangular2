@@ -1,6 +1,9 @@
+<router-outlet></router-outlet>
 <div class="deck-manager">
 	<main>
-		<div class="input-section">
+		<div
+			*ngIf="results.length === 0"
+			class="input-section">
 			<div class="flex-row">
 				<div class="flex-column">
 					<div class="labelAndInput" mtgInputHasFocus>
@@ -102,9 +105,11 @@
 				</button>
 			</div>
 		</div>
-		<div class="results-section">
+		<div
+			*ngIf="results.length > 0"
+			class="results-section">
 			<ul class="card-row">
-				<h3 *ngIf="results">Results:</h3>
+				<h3 *ngIf="results.length > 0">Results:</h3>
 				<li *ngFor="let result of results; let i = index">
 					<div class="flex-column">
 						<img
@@ -122,7 +127,7 @@
 						(click)="resultClick(result)">
 						<header class="flex-row align-center">
 							<h4>
-								<span>{{ result.name }}</span>
+								<span>{{ i + 1 }}: {{ result.name }}</span>
 								<span class="flex-row align-center justify-between" *ngIf="result.manaCost">
 									<div
 										class="ccGrey">
@@ -168,9 +173,17 @@
 						</main>
 					</div>
 				</li>
+				<li>
+					<button
+						*ngIf="results.length > 0"
+						class="btn-blue"
+						(click)="moreResults()">
+						More
+					</button>
+				</li>
 			</ul>
 			<ul class="deck-list">
-				<div *ngIf="results">
+				<div *ngIf="results.length > 0">
 					<h3>
 						Deck:
 						<input [(ngModel)]="deckName" placeholder="Deck Name"/>

@@ -137,6 +137,10 @@ mtg-veil {
 	@include coloredButton($mtgRed, white);
 }
 
+.btn-blue {
+	@include coloredButton($mtgBlue, white);
+}
+
 .btn-green {
 	@include coloredButton($mtgGreen, white);
 }

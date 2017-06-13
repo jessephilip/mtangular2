@@ -1,4 +1,4 @@
-import {PlayerService} from '../../services/player.service';
+import { PlayerService } from '../../services/player.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { MtgApiService } from '../../services/mtgApi.service';
 import { ModalService } from '../../services/modal.service';
@@ -6,11 +6,13 @@ import { DatabaseService } from '../../services/database.service';
 
 import { DeckCard } from 'app/types/deckCard.model';
 import { Deck } from 'app/types/deck.model';
+import { HelperService } from 'app/services/helper.service';
 
 @Component({
 	selector: 'mtg-deck-manager',
 	templateUrl: './deck-manager.component.html',
-	styleUrls: ['./deck-manager.component.scss']
+	styleUrls: ['./deck-manager.component.scss'],
+	providers: [HelperService]
 })
 export class DeckManagerComponent implements OnInit {
 
@@ -53,6 +55,15 @@ export class DeckManagerComponent implements OnInit {
 		{ value: 'Green', selected: false }
 	];
 
+	private _searchCounter: number;
+	public get searchCounter(): number { return this._searchCounter; }
+	public set searchCounter(value: number) { this._searchCounter = value; }
+
+
+	private _searchObject: any;
+	public get searchObject(): any { return this._searchObject; }
+	public set searchObject(value: any) { this._searchObject = value; }
+
 	/**
 	 * Commander Rules
 	 *	Must have a commander
@@ -77,18 +88,23 @@ export class DeckManagerComponent implements OnInit {
 		private api: MtgApiService,
 		private modalService: ModalService,
 		private dbService: DatabaseService,
-		private playerService: PlayerService) {}
+		private playerService: PlayerService,
+		private helperService: HelperService) {}
 
 	ngOnInit () {
 		this.deck = new Deck ([], []);
+		this.results = [];
 		this.dbService.getPlayerDecks('mvtYmiQpf0ai0Bes5jJRuIuEyaD2').then(decks => {
 			console.log(decks);
 		});
+		this.searchCounter = 0;
+		this.searchObject = {};
 	}
 
 
 	public search (): void {
-		const searchObject = {};
+		this.searchCounter = 1;
+		this.searchObject = {};
 		const rarityCheck = this.rarityInputs.find(value => {
 				return value.selected;
 		});
@@ -96,18 +112,33 @@ export class DeckManagerComponent implements OnInit {
 			return value.selected;
 		});
 
-		if (this.nameSearch) { searchObject['name'] = this.nameSearch; }
-		if (this.typeSearch) { searchObject['type'] = this.typeSearch; }
-		if (this.subtypesSearch) { searchObject['subtypes'] = this.subtypesSearch; }
-		if (this.supertypesSearch) { searchObject['supertypes'] = this.supertypesSearch; }
-		if (this.textSearch) { searchObject['text'] = this.textSearch; }
-		if (rarityCheck) { searchObject['rarity'] = this.stringBuilder('rarity'); }
-		if (colorCheck) { searchObject['colors'] = this.stringBuilder('color'); }
+		if (this.nameSearch) { this.searchObject['name'] = this.nameSearch; }
+		if (this.typeSearch) { this.searchObject['type'] = this.typeSearch; }
+		if (this.subtypesSearch) { this.searchObject['subtypes'] = this.subtypesSearch; }
+		if (this.supertypesSearch) { this.searchObject['supertypes'] = this.supertypesSearch; }
+		if (this.textSearch) { this.searchObject['text'] = this.textSearch; }
+		if (rarityCheck) { this.searchObject['rarity'] = this.stringBuilder('rarity'); }
+		if (colorCheck) { this.searchObject['colors'] = this.stringBuilder('color'); }
 
-		this.api.getCardsFromObject(searchObject).subscribe(value => {
+		this.api.getCardsFromObject(this.searchObject, this.searchCounter).subscribe(value => {
 			this.results = value.cards.sort((x, y) => {
 				if (x.name < y.name) { return -1; }
 				if (x.name > y.name) { return 1; }
+			});
+		});
+	}
+
+	public moreResults () {
+		this.searchCounter++;
+		console.log(this.searchCounter);
+		this.api.getCardsFromObject(this.searchObject, this.searchCounter).subscribe(value => {
+			console.log(value);
+			value = value.cards.sort((x, y) => {
+				if (x.name < y.name) { return -1; }
+				if (x.name > y.name) { return 1; }
+			});
+			value.forEach(card => {
+					if (this.results.indexOf(card) === -1) { this.results.push(card); }
 			});
 		});
 	}
@@ -202,6 +233,7 @@ export class DeckManagerComponent implements OnInit {
 
 	public resultClick (result) {
 		console.log('result', result);
+		const prevDeck = this.deck.totals.deck;
 
 		let helperObject = {};
 		helperObject['commander'] = result;
@@ -218,11 +250,14 @@ export class DeckManagerComponent implements OnInit {
 		} else if (!this.deckStyleInputs[0].selected || result.type.indexOf('Basic Land') >= 0) { this.deck.cards[match].amount++; }
 
 		this.deck.totals.deck = this.calculateTotal();
-		this.calculateTypeTotals(result, 'add');
+		if (prevDeck !== this.deck.totals.deck) {
+			this.calculateTypeTotals(result, 'add');
+		}
 	}
 
 	public subtractCard (deckCard: DeckCard) {
 		console.log('deckCard', deckCard);
+		const prevDeck = this.deck.totals.deck;
 		const loc = this.deck.cards.findIndex((value) => {
 			return value.card.id === deckCard.card.id;
 		});
@@ -231,7 +266,9 @@ export class DeckManagerComponent implements OnInit {
 		if (deckCard.amount <= 0) { this.deck.cards.splice(loc, 1); }
 
 		this.deck.totals.deck = this.calculateTotal();
-		this.calculateTypeTotals(deckCard.card, 'subtract');
+		if (prevDeck !== this.deck.totals.deck) {
+			this.calculateTypeTotals(deckCard.card, 'subtract');
+		}
 	}
 
 	/**
@@ -518,17 +555,17 @@ export class DeckManagerComponent implements OnInit {
 	}
 
 	/**
+	 * @name SaveDeck
+	 * @memberof DeckManagerComponent
 	 * Saves the deck to the database. Generates a random id number to identify the deck.
 	 *
-	 *
-	 * @memberof DeckManagerComponent
 	 */
 
 	// TODO: Establish the properties that will be common to all decks.
 		// name, id, type, valid-to-type, number of cards, colorIdentity
 	public saveDeck () {
 		// things to save: Deck, Deck Name
-		const deckId = Date.now() + Math.floor(Math.random() * 1000000) + 1;
+		const deckId = this.helperService.createId();
 
 		const savedDeck = {
 			deck: this.deck,

@@ -4,6 +4,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 // services
 import { RandomizerService } from '../../services/randomizer.service';
 import { ModalService } from '../../services/modal.service';
+import { MtgApiService } from '../../services/mtgApi.service';
 
 // types
 import { Modal } from '../../types/modal.model';
@@ -159,14 +160,22 @@ export class MtgFooterComponent implements OnInit {
 	public get isMulti(): boolean { return this._isMulti; }
 	public set isMulti(value: boolean) { this._isMulti = value; }
 
+	private schemesWorking;
+	public currentScheme;
+
 	constructor (
 		private randomizer: RandomizerService,
 		private modalService: ModalService,
-		private playerService: PlayerService) {}
+		private playerService: PlayerService,
+		private apiService: MtgApiService) {}
 
 	ngOnInit () {
 		// TODO: get life from the database
 		this.me = this.playerService.players[0];
+		this.apiService.getSchemes().subscribe(schemes => {
+			this.schemesWorking = schemes.cards;
+			console.log(this.schemesWorking);
+		});
 	}
 
 	private toggleInputLifeTotal () {
@@ -241,5 +250,57 @@ export class MtgFooterComponent implements OnInit {
 		this.playerService.addPlayer(new Player('Opponent ' + num, 40));
 	}
 
+	public nextScheme (): void {
+		if (this.schemesWorking.length > 0) {
+			const random = this.randomizer.randomNumber(this.schemesWorking.length);
+			console.log('random', random);
+			this.currentScheme = this.schemesWorking[random - 1];
+			this.schemesWorking.splice(random - 1, 1);
+			console.log(this.currentScheme);
 
+			this.modalService.destroyModal();
+
+			const details = {
+				type: 'image',
+				imgUrl: this.currentScheme.imageUrl
+			};
+
+			const modalFrame = {
+				event: event,
+				details: details,
+				type: details.type
+			};
+
+			// send modal object to the modal service
+			this.modalService.receiveModal(modalFrame);
+
+		} else {
+			this.schemesWorking = this.apiService.getSchemes().subscribe(schemes => {
+				this.schemesWorking = schemes.cards;
+			});
+		}
+	}
+
+	public showCurrentScheme (): void {
+		if (this.currentScheme) {
+
+			this.modalService.destroyModal();
+
+			const details = {
+				type: 'image',
+				imgUrl: this.currentScheme.imageUrl
+			};
+
+			const modalFrame = {
+				event: event,
+				details: details,
+				type: details.type
+			};
+
+			// send modal object to the modal service
+			this.modalService.receiveModal(modalFrame);
+		} else {
+			alert('No scheme currently selected.');
+		}
+	}
 }
