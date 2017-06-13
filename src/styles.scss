@@ -140,3 +140,25 @@ mtg-veil {
 .btn-green {
 	@include coloredButton($mtgGreen, white);
 }
+
+.btn-gold {
+	@include coloredButton($california, white);
+}
+
+/* common css quickies */
+.flat {
+	margin: 0;
+	padding: 0;
+}
+
+.align-center {
+	align-content: center;
+}
+
+.justify-between {
+	justify-content: space-between;
+}
+
+.justify-end {
+	justify-content: flex-end;
+}

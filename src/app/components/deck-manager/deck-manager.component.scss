@@ -5,11 +5,17 @@
 }
 
 h4 {
+	align-content: center;
+	display: flex;
 	margin: 0;
+
+	span:nth-child(2) {
+		margin-left: 10px;
+	}
 }
 
 img {
-	max-height: 50px;
+	max-height: 75px;
 	padding-right: 10px;
 	cursor: zoom-in;
 }
@@ -33,7 +39,8 @@ img {
 				background-color: #ddd;
 			}
 
-			div p {
+			div pre {
+				white-space: pre-wrap;
 				margin: 0;
 			}
 		}
@@ -69,9 +76,13 @@ img {
 	button.search {
 		@include coloredButton($mtgGreen, white);
 	}
+
+	button.reset {
+		@include coloredButton($mtgRed, white);
+	}
 }
 
-span.fa-minus, span.fa-trash {
+span.fa-minus, span.fa-trash, span.fa-star {
 	color: $mtgRed;
 	margin-left: 5px;
 }
@@ -110,8 +121,12 @@ button.btn-green, button.btn-red {
 	width: 50px;
 }
 
-input[type='checkbox'] {
-	margin: 10px !important;
+button.btn-gold {
+	border-radius: 0;
+	font-weight: normal;
+	height: 20px;
+	padding: 0 5px;
+	width: 50px;
 }
 
 label {
@@ -143,4 +158,20 @@ label {
 
 .rarity-row {
 	margin: 10px;
+
+	input[type='checkbox'] {
+		margin: 10px;
+	}
+}
+
+.deckstyle-row {
+	margin-top: 10px;
+
+	input[type='checkbox'] {
+		margin-right: 10px;
+	}
+}
+
+.deckCommander {
+	background-color: $california;
 }

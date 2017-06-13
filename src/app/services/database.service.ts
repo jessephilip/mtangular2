@@ -1,3 +1,4 @@
+import {DeckCard} from '../types/deckCard.model';
 import {Player} from '../types/player.model';
 /**
  * Service for accessing the Firebase database.
@@ -46,6 +47,22 @@ export class DatabaseService {
 
 	public removeGame (game: Game): void {
 		this.af.object(`/games/${game.id}`).remove();
+	}
+
+	public saveDeck (playerId: string, deck): void {
+		this.af.object(`/players/${playerId}/decks/${deck.id}`).update(deck);
+	}
+
+	public readDeck (deck: any): Promise<Game> {
+		return new Promise ((resolve, reject) => {
+			this.af.object(`/decks/${deck.id}`).subscribe(value => {
+				resolve(value);
+			});
+		});
+	}
+
+	public removeDeck (deck: any): void {
+		this.af.object(`/decks/${deck.id}`).remove();
 	}
 
 	// CRUD for players
@@ -102,6 +119,14 @@ export class DatabaseService {
 		return new Promise ((resolve, reject) => {
 			this.af.object(`/players`).subscribe(value => {
 				resolve(value);
+			});
+		});
+	}
+
+	public getPlayerDecks (playerId: string): any {
+		return new Promise ((resolve, reject) => {
+			this.af.object(`/players/${playerId}/decks`).subscribe(decks => {
+				resolve(decks);
 			});
 		});
 	}

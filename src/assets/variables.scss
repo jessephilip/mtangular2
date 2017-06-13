@@ -9,6 +9,8 @@ $mtgBlack: #3f4038;
 $mtgWhite: #d9bfa0;
 $mtgRed: #d94e4e;
 
+$california: #F89406;
+
 $veil: rgba(0,0,0,0.6);
 
 /* Gradients */
@@ -106,5 +108,6 @@ $basicButtonWidth: 100px;
 	font-size: ($diameter / 2);
 	height: $diameter;
 	justify-content: center;
+	margin: 1px;
 	width: $diameter;
 }
