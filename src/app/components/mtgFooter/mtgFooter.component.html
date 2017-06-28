@@ -51,13 +51,14 @@
 		<div class="addPlayer">
 			<button
 				*ngIf="currentScheme"
-				(click)="showCurrentScheme()"
+				[routerLink]="'schemes'"
 				class="tool-button">
 				Current Scheme
 			</button>
 			<button
-				(click)="nextScheme()"
-				class="tool-button">
+				[routerLink]="'schemes'"
+				class="tool-button"
+				(click)="nextScheme()">
 				Next Scheme
 			</button>
 			<button

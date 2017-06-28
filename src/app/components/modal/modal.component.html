@@ -21,4 +21,9 @@
 	<div *ngSwitchCase="'image'">
 		<img [src]="modalObject.details.imgUrl"/>
 	</div>
+	<div *ngSwitchCase="'images'" class="modalImages">
+		<span *ngFor="let image of modalObject.details.images">
+			<img [src]="image.imageUrl"/>
+		</span>
+	</div>
 </main>

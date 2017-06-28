@@ -83,8 +83,6 @@ export class MtgApiService {
 
 		for (const key in searchObject) {
 			if (searchObject[key]) {
-				console.log('key', key);
-				console.log('text', searchObject[key]);
 				string += this.cardsFields[key] + searchObject[key];
 				string += '&';
 			}
@@ -93,7 +91,6 @@ export class MtgApiService {
 		if (string.charAt(string.length) === '&') {
 			string = string.substring(0, string.length - 1);
 		}
-		console.log(string);
 
 		return this.http.get(string).map((res: Response) => res.json());
 	}
@@ -110,5 +107,11 @@ export class MtgApiService {
 		return this.http.get(string).map((res: Response) => res.json());
 	}
 
+	public getPlanes () {
+		const string = this.mtgUrls.url + this.mtgUrls.cards + this.cardsFields.type + 'plane&' + this.cardsFields.layout + 'plane';
 
+		console.log(string);
+
+		return this.http.get(string).map((res: Response) => res.json());
+	}
 }

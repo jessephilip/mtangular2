@@ -47,7 +47,7 @@ export class ModalComponent implements OnChanges {
 		private render: Renderer2) {}
 
 	ngOnChanges (changes: SimpleChanges): void {
-		// console.log('changes: ', changes);
+		console.log('changes: ', changes);
 			this.width = changes.modalObject.currentValue.width;
 			this.height = changes.modalObject.currentValue.height;
 			this.left = changes.modalObject.currentValue.domX;
@@ -65,10 +65,4 @@ export class ModalComponent implements OnChanges {
 	public destroy () {
 		this.modalService.destroyModal();
 	}
-
-	// test function to be used as a callback
-	public submit () {
-		console.log('this is the callback');
-	}
-
 }

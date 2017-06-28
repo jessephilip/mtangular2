@@ -39,6 +39,7 @@ import { ModalService } from 'app/services/modal.service';
 import { PlayerService } from 'app/services/player.service';
 import { MtgApiService } from './services/mtgApi.service';
 import { HelperService } from './services/helper.service';
+import { SchemesService } from './services/schemes.service';
 
 // directives
 import { FocusHighlightDirective } from 'app/directives/focus-highlight.directive';
@@ -66,6 +67,7 @@ import { DeckMaintainComponent } from './components/deck-manager/deck-maintain/d
 import { DeckUseComponent } from './components/deck-manager/deck-use/deck-use.component';
 import { SearchComponent } from './components/deck-manager/deck-create/search/search.component';
 import { ResultsComponent } from './components/deck-manager/deck-create/results/results.component';
+import { SchemesComponent } from './components/schemes/schemes.component';
 
 @NgModule({
 	declarations: [
@@ -105,6 +107,7 @@ import { ResultsComponent } from './components/deck-manager/deck-create/results/
 		DeckUseComponent,
 		SearchComponent,
 		ResultsComponent,
+		SchemesComponent,
 	],
 	imports: [
 		AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -123,7 +126,8 @@ import { ResultsComponent } from './components/deck-manager/deck-create/results/
 		RandomizerService,
 		SlidersService,
 		PlayerService,
-		MtgApiService
+		MtgApiService,
+		SchemesService
 	],
 	bootstrap: [AppComponent]
 })

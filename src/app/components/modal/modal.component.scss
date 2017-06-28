@@ -45,3 +45,11 @@ button {
 	margin-left: 2.5px;
 	outline-color: $mtgGreen;
 }
+
+.modalImages {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	flex-basis: auto;
+}

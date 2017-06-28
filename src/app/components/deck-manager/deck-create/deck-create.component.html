@@ -1,4 +1,264 @@
 <router-outlet></router-outlet>
-<p>
-  deck-create works!
-</p>
+<div class="deck-manager">
+	<main>
+		<div
+			*ngIf="results.length === 0"
+			class="input-section">
+			<div class="flex-row">
+				<div class="flex-column">
+					<div class="labelAndInput" mtgInputHasFocus>
+						<label for="nameSearch">Name</label>
+						<input
+							name="nameSearch"
+							class="card-search"
+							type="text"
+							placeholder="ex: Serra Angel"
+							[(ngModel)]="nameSearch"
+							(keyup.enter)="search()">
+					</div>
+					<div class="labelAndInput" mtgInputHasFocus>
+						<label for="textSearch">Text</label>
+						<input
+							name="textSearch"
+							class="card-search"
+							type="text"
+							placeholder="ex: Catch all"
+							[(ngModel)]="textSearch"
+							(keyup.enter)="search()">
+					</div>
+				</div>
+				<div class="flex-column">
+					<!-- perhaps convert this to a radio, checkbox, or dropdown -->
+					<div class="flex-column">
+						<div class="labelAndInput" mtgInputHasFocus>
+							<label for="typeSearch">Type</label>
+							<input
+								name="typeSearch"
+								class="card-search"
+								type="text"
+								placeholder="ex: Creature"
+								[(ngModel)]="typeSearch"
+								(keyup.enter)="search()">
+						</div>
+						<div class="labelAndInput" mtgInputHasFocus>
+							<label for="subtypesSearch">SubType</label>
+							<input
+								name="subtypesSearch"
+								class="card-search"
+								type="text"
+								placeholder="ex: Angel"
+								[(ngModel)]="subtypesSearch"
+								(keyup.enter)="search()">
+						</div>
+						<div class="labelAndInput" mtgInputHasFocus>
+							<label for="supertypesSearch">SuperType</label>
+							<input
+								name="supertypesSearch"
+								class="card-search"
+								type="text"
+								placeholder="ex: Legendary"
+								[(ngModel)]="supertypesSearch"
+								(keyup.enter)="search()">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="flex-row">
+				<div *ngFor="let input of rarityInputs; let i = index">
+					<div class="flex-column align-center justify-center rarity-row">
+						<label
+							[for]="input.value"
+							[ngClass]="{selected: input.selected}">{{ input.value | capitalize }}
+						</label>
+						<input
+							name="rarity"
+							type="checkbox"
+							[checked]="input.selected"
+							(change)="changeCheckbox('rarity', i)"/>
+					</div>
+				</div>
+			</div>
+			<div class="flex-row">
+				<div *ngFor="let input of colorInputs; let i = index">
+					<div class="flex-column align-center justify-center rarity-row">
+						<label
+							[for]="input.value"
+							[ngClass]="{selected: input.selected}"
+							[class]="input.value">
+							{{ input.value }}
+						</label>
+						<input
+							name="rarity"
+							type="checkbox"
+							[checked]="input.selected"
+							(change)="changeCheckbox('color', i)"/>
+					</div>
+				</div>
+				<div class="flex-column align-center justify-center rarity-row">
+					<label
+						[for]="excludeColors">
+						Exclude other colors
+					</label>
+					<input
+						name="excludeColors"
+						type="checkbox"
+						[checked]="excludeColors.selected"
+						(change)="changeCheckbox('exclude')"/>
+				</div>
+			</div>
+			<div class="flex-row">
+				<button class="reset" (click)="reset()">
+					<i class="fa fa-ban"></i>
+					Reset
+				</button>
+				<button class="search" (click)="search()">
+					<i class="fa fa-search"></i>
+					Search
+				</button>
+			</div>
+		</div>
+		<div
+			*ngIf="results.length > 0"
+			class="results-section">
+			<ul class="card-row">
+				<h3 *ngIf="results.length > 0">Results:</h3>
+				<li *ngFor="let result of results; let i = index">
+					<div class="flex-column">
+						<img
+							[src]="result.imageUrl || 'src/assets/images/mtg_card_back.png'"
+							(click)="showCard(result.imageUrl)"/>
+						<button
+							*ngIf="(deck.cards && commanderCheck(result) || deckStyleInputs[0].selected && commanderCheck(result)) && deckStyleInputs[0].selected"
+							class="btn-gold"
+							(click)="promoteCommander(result)">
+							<i class="fa fa-star"></i>
+						</button>
+					</div>
+					<div
+						class="card-details"
+						(click)="resultClick(result)">
+						<header class="flex-row align-center">
+							<h4>
+								<span>{{ i + 1 }}: {{ result.name }}</span>
+								<span class="flex-row align-center justify-between" *ngIf="result.manaCost">
+									<div
+										class="ccGrey">
+										{{ result.manaCost | greyTextToSymbol }}
+									</div>
+									<div
+										*ngIf="result.manaCost.indexOf('W') > 0"
+										class="ccWhite">
+										{{ result.manaCost | whiteTextToSymbol }}
+									</div>
+									<div
+										*ngIf="result.manaCost.indexOf('U') > 0"
+										class="ccBlue">
+										{{ result.manaCost | blueTextToSymbol }}
+									</div>
+									<div
+										*ngIf="result.manaCost.indexOf('B') > 0"
+										class="ccBlack">
+										{{ result.manaCost | blackTextToSymbol }}
+									</div>
+									<div
+										*ngIf="result.manaCost.indexOf('R') > 0"
+										class="ccRed">
+										{{ result.manaCost | redTextToSymbol }}
+									</div>
+									<div
+										*ngIf="result.manaCost.indexOf('G') > 0"
+										class="ccGreen">
+										{{ result.manaCost | greenTextToSymbol }}
+									</div>
+								</span>
+							</h4>
+						</header>
+						<main>
+							<h5
+								class="flat">
+								<span *ngIf="result.power || result.toughness">
+									{{ result.power }}/{{ result.toughness }}
+								</span>
+								{{ result.type }}
+							</h5>
+							<pre>{{ result.text | textToSymbol }}</pre>
+						</main>
+					</div>
+				</li>
+				<li>
+					<button
+						*ngIf="results.length > 0"
+						class="btn-blue"
+						(click)="moreResults()">
+						More
+					</button>
+				</li>
+			</ul>
+			<ul class="deck-list">
+				<div *ngIf="results.length > 0">
+					<h3>
+						Deck:
+						<input [(ngModel)]="deckName" placeholder="Deck Name"/>
+					</h3>
+					<li *ngFor="let deckCard of deck.cards">
+						<span [ngClass]="{deckCommander: deckCard.commander}">{{ deckCard.amount }} x {{ deckCard.card.name }}</span>
+						<span
+							class="fa fa-picture-o"
+							(click)="showCard(deckCard.card.imageUrl)"
+							style="cursor: pointer">
+						</span>
+						<span
+							class="fa fa-minus"
+							(click)="subtractCard(deckCard)"
+							style="cursor: pointer">
+						</span>
+						<span
+							class="fa fa-trash"
+							(click)="removeCard(deckCard)"
+							style="cursor: pointer">
+						</span>
+						<span
+							*ngIf="deckCard.commander"
+							class="fa fa-star"
+							(click)="demote(deckCard)"
+							style="cursor: pointer">
+						</span>
+					</li>
+					<h3>Total: {{ deck.totals.deck }}</h3>
+					<h4 *ngIf="deck.totals.creature">Creatures: {{ deck.totals.creature }}</h4>
+					<h4 *ngIf="deck.totals.sorcery">Sorceries: {{ deck.totals.sorcery }}</h4>
+					<h4 *ngIf="deck.totals.instant">Instants: {{ deck.totals.instant }}</h4>
+					<h4 *ngIf="deck.totals.enchantment">Enchantments: {{ deck.totals.enchantment }}</h4>
+					<h4 *ngIf="deck.totals.artifact">Artifacts: {{ deck.totals.artifact }}</h4>
+					<h4 *ngIf="deck.totals.planeswalker">Planeswalkers: {{ deck.totals.planeswalker }}</h4>
+					<h4 *ngIf="deck.totals.land">Lands: {{ deck.totals.land }}</h4>
+					<button
+						class="btn-red"
+						(click)="clearDeck()">Clear</button>
+					<button
+						class="btn-green"
+						(click)="saveDeck()">Save</button>
+					<div class="flex-column">
+						<div *ngFor="let input of deckStyleInputs; let i = index">
+							<div class="flex-row align-center deckstyle-row">
+								<input
+									class="flat"
+									name="deckStyle"
+									type="checkbox"
+									[checked]="input.selected"
+									(change)="changeCheckbox('deckStyle', i)"/>
+								<label
+									[for]="input.value"
+									[ngClass]="{selected: input.selected}">{{ input.value | capitalize }}
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</ul>
+		</div>
+	</main>
+	<footer>
+	</footer>
+</div>
+

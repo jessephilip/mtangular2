@@ -1,0 +1,25 @@
+<div class="flex-row justify-around">
+	<h3 class="grow-1 center-text">Ongoing</h3>
+	<h3 class="grow-1 center-text">Current</h3>
+</div>
+<div class="flex-row justify-around">
+	<div class="flex-row flex-wrap grow-1">
+		<div *ngFor="let scheme of ongoing">
+			<div class="scheme-card">
+				<h4>{{ scheme.name }}</h4>
+				<img
+					[src]="scheme.imageUrl"
+					(click)="removeScheme(scheme.id)"
+					style="cursor: pointer"/>
+			</div>
+		</div>
+	</div>
+	<div class="flex-column grow-1">
+		<div *ngFor="let scheme of temporary">
+			<div class="scheme-card">
+				<h4>{{ scheme.name || 'ongoing' }}</h4>
+				<img [src]="scheme.imageUrl"/>
+			</div>
+		</div>
+	</div>
+</div>

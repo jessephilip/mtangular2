@@ -125,7 +125,7 @@ export class DatabaseService {
 
 	public getPlayerDecks (playerId: string): any {
 		return new Promise ((resolve, reject) => {
-			this.af.object(`/players/${playerId}/decks`).subscribe(decks => {
+			this.af.list(`/players/${playerId}/decks`).subscribe(decks => {
 				resolve(decks);
 			});
 		});

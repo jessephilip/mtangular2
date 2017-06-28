@@ -150,13 +150,35 @@ mtg-veil {
 }
 
 /* common css quickies */
+.center-text {
+	text-align: center;
+}
+
+.flex-wrap {
+	flex-wrap: wrap;
+}
+
+.flex-row {
+	display: flex;
+	flex-direction: row;
+}
+
+.flex-column {
+	display: flex;
+	flex-direction: column;
+}
+
+.grow-1 {
+	flex-grow: 1;
+}
+
 .flat {
 	margin: 0;
 	padding: 0;
 }
 
 .align-center {
-	align-content: center;
+	align-items: center;
 }
 
 .justify-between {

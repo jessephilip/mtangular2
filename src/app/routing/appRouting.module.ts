@@ -16,23 +16,24 @@ import { DeckMaintainComponent } from 'app/components/deck-manager/deck-maintain
 import { DeckUseComponent } from 'app/components/deck-manager/deck-use/deck-use.component';
 import { SearchComponent } from 'app/components/deck-manager/deck-create/search/search.component';
 import { ResultsComponent } from 'app/components/deck-manager/deck-create/results/results.component';
+import { SchemesComponent } from 'app/components/schemes/schemes.component';
 
 const appRoutes: Routes = [
 	{ path: '', component: WelcomeComponent },
 	{ path: 'table', component: TableComponent },
 	{ path: 'host', component: HostGameComponent },
 	{ path: 'join', component: JoinGameComponent },
-	{ path: 'deckmanager', component: DeckManagerComponent, children: [
-		{ path: 'create', component: DeckCreateComponent, children: [
-			{ path: 'search', component: SearchComponent },
-			{ path: 'results', component: ResultsComponent },
-		]},
-		{ path: 'maintain', component: DeckMaintainComponent },
-		{ path: 'use', component: DeckUseComponent },
+	{ path: 'deckmanager', component: DeckManagerComponent },
+	{ path: 'deckmanager/create', component: DeckCreateComponent, children: [
+		{ path: 'search', component: SearchComponent },
+		{ path: 'results', component: ResultsComponent },
 	]},
+	{ path: 'deckmanager/maintain/:id', component: DeckMaintainComponent },
+	{ path: 'deckmanager/use', component: DeckUseComponent },
 	{ path: 'points', component: PointManagerComponent },
 	{ path: 'story', component: StoryComponent },
 	{ path: 'settings', component: SettingsComponent },
+	{ path: 'schemes', component: SchemesComponent },
 	{ path: '**', component: NotFoundComponent },
 ];
 

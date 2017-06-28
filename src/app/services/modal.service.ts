@@ -56,6 +56,9 @@ export class ModalService {
 			case 'image':
 				modal = this.imageModal(modalFrame);
 				break;
+			case 'images':
+				modal = this.imagesModal(modalFrame);
+				break;
 			default:
 				console.log('modal service switch went wrong!');
 		}
@@ -128,6 +131,24 @@ export class ModalService {
 			'20%',
 			null,
 			null,
+			true,
+			modalFrame.details
+		);
+
+		return modal;
+
+	}
+
+	private imagesModal (modalFrame) {
+
+		const modal = new Modal(
+			'images',
+			['modal', 'imageModal'],
+			null,
+			'0%',
+			'20%',
+			'null',
+			'null',
 			true,
 			modalFrame.details
 		);
