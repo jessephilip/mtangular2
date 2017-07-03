@@ -14,6 +14,11 @@ h1,h2,h3,h4,h5,h6,button {
 	font-family: 'Kreon', serif;
 }
 
+
+a:link, a:visited, a:hover, a:active {
+  color: initial;
+}
+
 mtg-veil {
 	background-color: $veil;
 	cursor: default;
@@ -105,31 +110,127 @@ mtg-veil {
 	}
 }
 
+/* Rarity Background Classes */
+.specialBackground {
+	@include gradient2Background($specialGradientColor1, $specialGradientColor2);
+}
+
+.mythicBackground {
+	@include gradient2Background($mythicGradientColor1, $mythicGradientColor2);
+}
+
+.rareBackground {
+	@include gradient2Background($rareGradientColor1, $rareGradientColor2);
+}
+
+.uncommonBackground {
+	@include gradient2Background($uncommonGradientColor1, $uncommonGradientColor2);
+}
+
+.commonBackground {
+	@include gradient2Background($commonGradientColor1, $commonGradientColor2);
+}
+
 /* MTG Symbos */
 
 // white circle
 .ccWhite {
-	@include mtgSymbol($mtgWhite, black, 18px);
+	@include mtgSymbol($mtgWhite, black, 16px);
 }
 
 .ccBlue {
-	@include mtgSymbol($mtgBlue, white, 18px);
+	@include mtgSymbol($mtgBlue, white, 16px);
 }
 
 .ccBlack {
-	@include mtgSymbol($mtgBlack, white, 18px);
+	@include mtgSymbol($mtgBlack, white, 16px);
 }
 
 .ccRed {
-	@include mtgSymbol($mtgRed, white, 18px);
+	@include mtgSymbol($mtgRed, white, 16px);
 }
 
 .ccGreen {
-	@include mtgSymbol($mtgGreen, white, 18px);
+	@include mtgSymbol($mtgGreen, white, 16px);
 }
 
 .ccGrey {
-	@include mtgSymbol(#bbb, black, 18px);
+	@include mtgSymbol(#bbb, black, 16px);
+}
+
+.ccWhiteBlue {
+	@include mtgSymbol($mtgWhite, white, 16px);
+	@include gradient2Background($mtgWhite, $mtgBlue);
+}
+
+.ccWhiteBlack {
+	@include mtgSymbol($mtgWhite, white, 16px);
+	@include gradient2Background($mtgWhite, $mtgBlack);
+}
+
+.ccWhiteRed {
+	@include mtgSymbol($mtgWhite, white, 16px);
+	@include gradient2Background($mtgWhite, $mtgRed);
+}
+
+.ccWhiteGreen {
+	@include mtgSymbol($mtgWhite, white, 16px);
+	@include gradient2Background($mtgWhite, $mtgGreen);
+}
+
+.ccBlueBlack {
+	@include mtgSymbol($mtgBlue, white, 16px);
+	@include gradient2Background($mtgBlue, $mtgBlack);
+}
+
+.ccBlueRed {
+	@include mtgSymbol($mtgBlue, white, 16px);
+	@include gradient2Background($mtgBlue, $mtgRed);
+}
+
+.ccBlueGreen {
+	@include mtgSymbol($mtgBlue, white, 16px);
+	@include gradient2Background($mtgBlue, $mtgGreen);
+}
+
+.ccBlackRed {
+	@include mtgSymbol($mtgBlack, white, 16px);
+	@include gradient2Background($mtgBlack, $mtgRed);
+}
+
+.ccBlackGreen {
+	@include mtgSymbol($mtgBlack, white, 16px);
+	@include gradient2Background($mtgBlack, $mtgGreen);
+}
+
+.ccRedGreen {
+	@include mtgSymbol($mtgRed, white, 16px);
+	@include gradient2Background($mtgRed, $mtgGreen);
+}
+
+.ccLifeWhite {
+	@include mtgSymbol($mtgWhite, black, 16px);
+	@include gradient2Background(#bbb, $mtgWhite);
+}
+
+.ccLifeBlue {
+	@include mtgSymbol($mtgBlue, white, 16px);
+	@include gradient2Background(#bbb, $mtgBlue);
+}
+
+.ccLifeBlack {
+	@include mtgSymbol($mtgBlack, white, 16px);
+	@include gradient2Background(#bbb, $mtgBlack);
+}
+
+.ccLifeRed {
+	@include mtgSymbol($mtgRed, white, 16px);
+	@include gradient2Background(#bbb, $mtgRed);
+}
+
+.ccLifeGreen {
+	@include mtgSymbol($mtgGreen, white, 16px);
+	@include gradient2Background(#bbb, $mtgGreen);
 }
 
 /* Buttons */

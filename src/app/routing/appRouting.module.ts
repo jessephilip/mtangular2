@@ -14,35 +14,35 @@ import { NotFoundComponent } from 'app/components/not-found/not-found.component'
 import { DeckCreateComponent } from 'app/components/deck-manager/deck-create/deck-create.component';
 import { DeckMaintainComponent } from 'app/components/deck-manager/deck-maintain/deck-maintain.component';
 import { DeckUseComponent } from 'app/components/deck-manager/deck-use/deck-use.component';
-import { SearchComponent } from 'app/components/deck-manager/deck-create/search/search.component';
-import { ResultsComponent } from 'app/components/deck-manager/deck-create/results/results.component';
 import { SchemesComponent } from 'app/components/schemes/schemes.component';
+import { EditDeckComponent } from 'app/components/deck-manager/deck-maintain/edit-deck/edit-deck.component';
+import { TestComponent } from 'app/components/testing/test/test.component';
 
 const appRoutes: Routes = [
-	{ path: '', component: WelcomeComponent },
-	{ path: 'table', component: TableComponent },
-	{ path: 'host', component: HostGameComponent },
-	{ path: 'join', component: JoinGameComponent },
-	{ path: 'deckmanager', component: DeckManagerComponent },
-	{ path: 'deckmanager/create', component: DeckCreateComponent, children: [
-		{ path: 'search', component: SearchComponent },
-		{ path: 'results', component: ResultsComponent },
-	]},
-	{ path: 'deckmanager/maintain/:id', component: DeckMaintainComponent },
-	{ path: 'deckmanager/use', component: DeckUseComponent },
-	{ path: 'points', component: PointManagerComponent },
-	{ path: 'story', component: StoryComponent },
-	{ path: 'settings', component: SettingsComponent },
-	{ path: 'schemes', component: SchemesComponent },
-	{ path: '**', component: NotFoundComponent },
+  { path: '', component: WelcomeComponent },
+  { path: 'table', component: TableComponent },
+  { path: 'host', component: HostGameComponent },
+  { path: 'join', component: JoinGameComponent },
+  { path: 'deckmanager', component: DeckManagerComponent },
+  { path: 'create', component: DeckCreateComponent },
+  { path: 'maintain', component: DeckMaintainComponent, children: [
+    { path: 'edit/:id', component: EditDeckComponent }
+  ] },
+  { path: 'use', component: DeckUseComponent },
+  { path: 'points', component: PointManagerComponent },
+  { path: 'story', component: StoryComponent },
+  { path: 'settings', component: SettingsComponent },
+  { path: 'schemes', component: SchemesComponent },
+  { path: 'test', component: TestComponent },
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({
-	imports: [
-		RouterModule.forRoot(appRoutes)
-	],
-	exports: [
-		RouterModule
-	]
+  imports: [
+    RouterModule.forRoot(appRoutes)
+  ],
+  exports: [
+    RouterModule
+  ]
 })
 export class AppRoutingModule { }

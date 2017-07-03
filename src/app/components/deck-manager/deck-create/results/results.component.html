@@ -1,3 +1,25 @@
-<p>
-  results works!
-</p>
+<div
+  *ngIf="results.length > 0"
+  class="results-section">
+  <mtg-card
+    *ngFor="let result of results; let i = index"
+    [@appear]
+    [card]="result"
+    [expandOnHover]="false"
+    [showCardShadow]="true"
+    [showImageIcon]="true"
+    [showExpandIcon]="true"
+    [showAddIcon]="true"
+    [showTcgIcon]="true"
+    [addButtonFunction]=addToDeck>
+  </mtg-card>
+  <button
+    *ngIf="results"
+    class="btn-blue"
+    (click)="moreResults()">
+    More
+  </button>
+</div>
+<div *ngIf="results.length === 0">
+  <span>No Results</span>
+</div>

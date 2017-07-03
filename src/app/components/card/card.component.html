@@ -1,0 +1,166 @@
+<div
+  [class]="'card ' + rarity + 'Background'"
+  [ngClass]="{ 'card-shadow': showCardShadow }"
+  (mouseover)="expandOnHover ? showContents = true : null"
+  (mouseleave)="expandOnHover ? showContents = false : null">
+  <div>
+    <!--<img
+      *ngIf="showContents"
+      [src]="card.imageUrl || 'src/assets/images/mtg_card_back.png'">-->
+  </div>
+  <div class="card-contents">
+    <header
+      [style.cursor]="expandOnHover ? 'default' : 'pointer'"
+      (click)="!expandOnHover ? showContents = !showContents : null">
+      <div>
+        <span *ngIf="index >= 0">{{ index + 1 }}:</span>
+        <h4 [style.display]="'inline'">{{ card.name }}</h4>
+      </div>
+      <div *ngIf="card.manaCost" class="mana-cost" class="flex-row">
+        <span *ngFor="let mana of manaCost">
+          <div [ngSwitch]="mana" class="flex-row">
+            <div
+              *ngSwitchCase="'{X}'"
+              class="ccGrey">
+              <div>X</div>
+            </div>
+            <div
+              *ngSwitchCase="'{W}'"
+              class="ccWhite">
+            </div>
+            <div
+              *ngSwitchCase="'{U}'"
+              class="ccBlue">
+            </div>
+            <div
+              *ngSwitchCase="'{B}'"
+              class="ccBlack">
+            </div>
+            <div
+              *ngSwitchCase="'{R}'"
+              class="ccRed">
+            </div>
+            <div
+              *ngSwitchCase="'{G}'"
+              class="ccGreen">
+            </div>
+            <div
+              *ngSwitchCase="'{W/U}'"
+              class="ccWhiteBlue">
+            </div>
+            <div
+              *ngSwitchCase="'{W/B}'"
+              class="ccWhiteBlack">
+            </div>
+            <div
+              *ngSwitchCase="'{W/R}'"
+              class="ccWhiteRed">
+            </div>
+            <div
+              *ngSwitchCase="'{W/G}'"
+              class="ccWhiteGreen">
+            </div>
+            <div
+              *ngSwitchCase="'{U/B}'"
+              class="ccBlueBlack">
+            </div>
+            <div
+              *ngSwitchCase="'{U/R}'"
+              class="ccBlueRed">
+            </div>
+            <div
+              *ngSwitchCase="'{U/G}'"
+              class="ccBlueGreen">
+            </div>
+            <div
+              *ngSwitchCase="'{B/R}'"
+              class="ccBlackRed">
+            </div>
+            <div
+              *ngSwitchCase="'{B/G}'"
+              class="ccBlackGreen">
+            </div>
+            <div
+              *ngSwitchCase="'{R/G}'"
+              class="ccRedGreen">
+            </div>
+            <div
+              *ngSwitchCase="'{2/W}'"
+              class="ccLifeWhite">
+            </div>
+            <div
+              *ngSwitchCase="'{2/U}'"
+              class="ccLifeBlue">
+            </div>
+            <div
+              *ngSwitchCase="'{2/B}'"
+              class="ccLifeBlack">
+            </div>
+            <div
+              *ngSwitchCase="'{2/R}'"
+              class="ccLifeRed">
+            </div>
+            <div
+              *ngSwitchCase="'{2/G}'"
+              class="ccLifeGreen">
+            </div>
+            <div
+              *ngSwitchDefault
+              class="ccGrey">
+              <div>{{ mana }}</div>
+            </div>
+          </div>
+        </span>
+      </div>
+    </header>
+    <main
+      [style.cursor]="expandOnHover ? 'default' : 'pointer'"
+      (click)="!expandOnHover ? showContents = !showContents : null">
+      <div class="type">
+        <h5
+          *ngIf="card.power || card.toughness"
+          [style.display]="'inline'">
+          {{ card.power }}/{{ card.toughness }}
+        </h5>
+        <h5
+          [style.display]="'inline'">
+          {{ card.type }}
+        </h5>
+      </div>
+      <pre *ngIf="showContents" [@expand]>{{ card.text }}</pre>
+    </main>
+    <footer>
+      <section class="icon-row flex-row justify-end">
+        <a
+          *ngIf="showTcgIcon"
+          [href]="tcgUrl + card.name"
+          target="_blank">
+          <i
+            class="fa fa-usd">
+          </i>
+        </a>
+        <i
+          *ngIf="showExpandIcon"
+          class="fa fa-expand"
+          (click)="showContents = !showContents">
+        </i>
+        <i
+          *ngIf="showImageIcon && card.imageUrl"
+          class="fa fa-picture-o"
+          (click)="showImage(card.imageUrl)">
+        </i>
+         <i
+          *ngIf="showBannedIcon"
+          class="fa fa-ban"
+          [style.color]="'red'"
+          [style.cursor]="'not-allowed'">
+        </i>
+        <i
+          *ngIf="showAddIcon"
+          class="fa fa-plus"
+          (click)="addButtonFunction(card)">
+        </i>
+      </section>
+    </footer>
+  </div>
+</div>

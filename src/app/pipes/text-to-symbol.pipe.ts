@@ -14,18 +14,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class TextToSymbolPipe implements PipeTransform {
 
-	private regMatch = {
-		white: /\{W\}/g,
-		blue: /\{U\}/g,
-		black: /\{B\}/g,
-		red: /\{R\}/g,
-		green: /\{G\}/g,
-		colorless: /\{(\d*?)\}/g,
-		tap: /\{T\}/g,
-	};
-
 	transform (value: any, args?: any): any {
-
+		if (value) {
+			console.log('textToSymbol', value);
+		}
 
 
 		return value;

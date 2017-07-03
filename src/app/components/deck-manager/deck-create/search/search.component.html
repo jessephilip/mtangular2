@@ -1,3 +1,115 @@
-<p>
-  search works!
-</p>
+<div name="searchComponent">
+  <div>
+    <div name="searchTextInputs">
+      <div mtgInputHasFocus>
+        <label for="nameSearch">
+          Name
+        </label>
+        <input
+          name="nameSearch"
+          type="text"
+          placeholder="ex: Serra Angel"
+          [(ngModel)]="nameSearch"
+          (keyup.enter)="search()"/>
+      </div>
+      <div mtgInputHasFocus>
+          <label for="typeSearch">
+            Type
+          </label>
+          <input
+            name="typeSearch"
+            type="text"
+            placeholder="ex: Creature"
+            [(ngModel)]="typeSearch"
+            (keyup.enter)="search()"/>
+        </div>
+        <div mtgInputHasFocus>
+          <label for="subtypesSearch">
+            SubType
+          </label>
+          <input
+            name="subtypesSearch"
+            type="text"
+            placeholder="ex: Angel"
+            [(ngModel)]="subtypesSearch"
+            (keyup.enter)="search()"/>
+        </div>
+        <div mtgInputHasFocus>
+          <label for="supertypesSearch">
+            SuperType
+          </label>
+          <input
+            name="supertypesSearch"
+            type="text"
+            placeholder="ex: Legendary"
+            [(ngModel)]="supertypesSearch"
+            (keyup.enter)="search()"/>
+        </div>
+      <div mtgInputHasFocus>
+        <label for="textSearch">
+          Text
+        </label>
+        <input
+          name="textSearch"
+          type="text"
+          placeholder="ex: Catch all"
+          [(ngModel)]="textSearch"
+          (keyup.enter)="search()">
+      </div>
+    </div>
+  </div>
+  <div name="searchRarityCheckBoxes" class="flex-row">
+    <div *ngFor="let input of rarityInputs; let i = index">
+      <div class="flex-column align-center justify-center">
+        <label
+          [for]="input.value"
+          [ngClass]="{selected: input.selected}">
+          {{ input.value | capitalize }}
+        </label>
+        <input
+          name="rarity"
+          type="checkbox"
+          [checked]="input.selected"
+          (change)="changeCheckbox('rarity', i)"/>
+      </div>
+    </div>
+  </div>
+  <div name="searchColorCheckBoxes" class="flex-row">
+    <div *ngFor="let input of colorInputs; let i = index">
+      <div class="flex-column align-center justify-center">
+        <label
+          [for]="input.value"
+          [ngClass]="{selected: input.selected}"
+          [class]="input.value">
+          {{ input.value }}
+        </label>
+        <input
+          name="rarity"
+          type="checkbox"
+          [checked]="input.selected"
+          (change)="changeCheckbox('color', i)"/>
+      </div>
+    </div>
+    <div class="flex-column align-center justify-center">
+      <label
+        [for]="excludeColors">
+        Exclude other colors
+      </label>
+      <input
+        name="excludeColors"
+        type="checkbox"
+        [checked]="excludeColors.selected"
+        (change)="changeCheckbox('exclude')"/>
+    </div>
+  </div>
+  <div name ="searchButtons" class="flex-row">
+    <button (click)="reset()">
+      <i class="fa fa-ban"></i>
+      Reset
+    </button>
+    <button (click)="search()">
+      <i class="fa fa-search"></i>
+      Search
+    </button>
+  </div>
+</div>

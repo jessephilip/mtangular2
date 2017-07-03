@@ -1,0 +1,18 @@
+.results-section {
+  mtg-card {
+    display: block;
+    margin: 8px 0;
+  }
+
+  mtg-card:first-of-type {
+    display: block;
+    margin-bottom: 8px;
+    margin-top: 0;
+  }
+
+  mtg-card:last-of-type {
+    display: block;
+    margin-bottom: 0;
+    margin-top: 8px;
+  }
+}

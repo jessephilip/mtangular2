@@ -30,6 +30,10 @@ import { Game } from 'app/types/game.model';
 @Injectable()
 export class DatabaseService {
 
+	private _playerDecks: any[];
+	public get playerDecks(): any[] { return this._playerDecks; }
+	public set playerDecks(value: any[]) { this._playerDecks = value; }
+
 	constructor (private af: AngularFireDatabase) {}
 
 	// CRUD for games

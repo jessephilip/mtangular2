@@ -1,18 +1,15 @@
-<p>deck-manager</p>
-<button [routerLink]="['/deckmanager/create']">
-	Create
-</button>
-<button [routerLink]="['/deckmanager/maintain']">
-	Maintain
-</button>
-<button [routerLink]="['/deckmanager/use']">
-	Use
-</button>
-<div *ngFor="let playerDeck of playerDecks; let i = index">
-	<a [routerLink]="['deckmanager/maintain/']">
-		<img [src]="playerDeck.deck._commander[0].card.imageUrl"
-			[alt]="playerDeck.name"/>
-	</a>
-	<p>{{ playerDeck.name }}</p>
-</div>
+<header>
+	<!-- /deckmanager/create -->
+	<button [routerLink]="['/create']">
+		Create
+	</button>
+	<!-- /deckmanager/maintain -->
+	<button [routerLink]="['/maintain']">
+		Maintain
+	</button>
+	<!-- /deckmanager/use -->
+	<button [routerLink]="['/use']">
+		Use
+	</button>
+</header>
 <router-outlet></router-outlet>

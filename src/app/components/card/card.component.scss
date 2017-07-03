@@ -1,0 +1,54 @@
+@import '../../../assets/variables.scss';
+
+// height: 310px;
+// width: 223px;
+
+.card {
+	border: 1px solid black;
+	display: flex;
+	padding: 5px;
+	width: 300px;
+
+  &.card-shadow {
+    box-shadow: $basicShadow;
+  }
+}
+
+.card-contents {
+	width: 100%;
+
+	header {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	main {
+
+		pre {
+			white-space: pre-wrap;       /* Since CSS 2.1 */
+			white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+			white-space: -pre-wrap;      /* Opera 4-6 */
+			white-space: -o-pre-wrap;    /* Opera 7 */
+			word-wrap: break-word;
+			text-align: justify
+			;
+		}
+	}
+
+  footer {
+
+    .icon-row {
+
+      i {
+        cursor: pointer;
+        margin: 0 5px;
+        transition: all 0.1s;
+
+        &:hover {
+          // color: $mtgGreen;
+          transform: scale(1.2);
+        }
+      }
+    }
+  }
+}

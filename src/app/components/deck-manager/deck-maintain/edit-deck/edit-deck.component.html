@@ -1,0 +1,9 @@
+<h2>{{ currentDeck.name }}</h2>
+<div *ngFor="let type of types">
+	<div *ngIf="type.cards.length > 0">
+		<h4>{{ type.type }} ({{ type.cards.length }})</h4>
+		<div *ngFor="let card of type.cards; let i = index">
+			<p>{{ i + 1 }}: {{ card.card.name }}</p>
+		</div>
+	</div>
+</div>

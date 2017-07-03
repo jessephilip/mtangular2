@@ -1,0 +1,15 @@
+div[name='build-list'] {
+
+  ul.deck-list li {
+    list-style: none;
+  }
+
+  span:hover {
+    transition: all 0.1s;
+    transform: scale(1.2);
+  }
+
+  .selected {
+    color: blue;
+  }
+}

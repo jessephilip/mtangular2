@@ -20,6 +20,21 @@ $mainGradientColor2: #cfd9df;
 $altGradientColor1: #CB356B;
 $altGradientColor2: #CB356B;
 
+$specialGradientColor1: #deaee0;
+$specialGradientColor2: #ffeaf5;
+
+$mythicGradientColor1: #ed302a;
+$mythicGradientColor2: #fcbc3e;
+
+$rareGradientColor1: #ffeb00;
+$rareGradientColor2: #fffab9;
+
+$uncommonGradientColor1: #ccc;
+$uncommonGradientColor2: #fff;
+
+$commonGradientColor1: #fff;
+$commonGradientColor2: #fff;
+
 $clouds1: #ECE9E6;
 $clouds2: white;
 
@@ -77,7 +92,6 @@ $basicButtonWidth: 100px;
 	&:active {
 		box-shadow: $buttonPress;
 	}
-
 }
 
 @mixin coloredButton($bgColor, $textColor) {
@@ -102,10 +116,11 @@ $basicButtonWidth: 100px;
 @mixin mtgSymbol($bgColor, $textColor, $diameter) {
 	align-items: center;
 	background-color: $bgColor;
+  border: 1px solid black;
 	border-radius: $diameter / 2;
 	color: $textColor;
 	display: inline-flex;
-	font-size: ($diameter / 2);
+	font-size: ($diameter / 1.3);
 	height: $diameter;
 	justify-content: center;
 	margin: 1px;

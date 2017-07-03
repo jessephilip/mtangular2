@@ -1,3 +1,11 @@
-<p>
-  deck-maintain works!
-</p>
+<router-outlet></router-outlet>
+<main class="flex-row align-center">
+	<div *ngFor="let playerDeck of playerDecks; let i = index">
+		<!-- /deckmanager/maintain/edit/:id -->
+		<a [routerLink]="['/deckmanager/maintain/edit', i]">
+			<img [src]="playerDeck.deck._commander[0].card.imageUrl"
+				[alt]="playerDeck.name"/>
+			{{ playerDeck.name }}
+		</a>
+	</div>
+</main>

@@ -1,0 +1,80 @@
+<div name="build-list">
+  <ul class="deck-list">
+    <div *ngIf="results">
+      <span *ngIf="deck.types[0] === 'commander'">Commander</span>
+      <h3>Deck:
+        <input [(ngModel)]="deckName" placeholder="Deck Name"/>
+      </h3>
+      <li *ngFor="let deckCard of deck.cards">
+        <span [ngClass]="{ deckCommander: deckCard.commander }">
+          {{ deckCard.amount }} x {{ deckCard.card.name }}
+        </span>
+        <a
+          [href]="tcgUrl + deckCard.name"
+          target="_blank">
+          <span class="fa fa-usd"></span>
+        </a>
+        <span
+          class="fa fa-picture-o"
+          [style.cursor]="'pointer'"
+          (click)="showImage(deckCard.card.imageUrl)">
+        </span>
+        <span
+          class="fa fa-minus"
+          [style.cursor]="'pointer'"
+          (click)="subtractCard(deckCard)">
+        </span>
+        <span
+          class="fa fa-trash"
+          [style.cursor]="'pointer'"
+          (click)="removeCard(deckCard)">
+        </span>
+        <span
+          *ngIf="deckCard.commander"
+          class="fa fa-star"
+          [style.cursor]="'pointer'"
+          (click)="demote(deckCard)">
+        </span>
+      </li>
+      <h3>Total: {{ deck.calculateNumberOfCards() || '0' }}</h3>
+      <div *ngFor="let total of deck.typeTotals">
+        <div *ngIf="total.amount > 0">
+          <span>{{ total.type | capitalize | pluralize }}: </span>
+          <span>{{ total.amount }}</span>
+        </div>
+      </div>
+      <button
+        class="btn-red"
+        (click)="clearDeck()">
+        Clear
+      </button>
+      <button
+        class="btn-green"
+        (click)="saveDeck()">
+        Save
+      </button>
+      <!--<button
+        class="btn-green"
+        (click)="test()">
+        Test
+      </button>-->
+      <div class="flex-column">
+        <div *ngFor="let input of deckStyleInputs; let i = index">
+          <div class="flex-row align-center deckstyle-row">
+            <input
+              class="flat"
+              name="deckStyle"
+              type="checkbox"
+              [checked]="input.selected"
+              (change)="changeDeckStyleInputs(i)"/>
+            <label
+              [for]="input.value"
+              [ngClass]="{ selected: input.selected }">
+              {{ input.value | capitalize }}
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ul>
+</div>
