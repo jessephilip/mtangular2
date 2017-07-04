@@ -112,4 +112,8 @@ export class MtgApiService {
 
     return this.http.get(string).map((res: Response) => res.json());
   }
+
+  public getSavedDatabase () {
+    return 'src/assets/allCards.json';
+  }
 }

@@ -32,6 +32,14 @@ export class CardComponent implements OnInit {
    */
   @Input() card;
 
+    /**
+   * The MTG.io card object with the information to be displayed
+   *
+   * @required
+   * @memberof CardComponent
+   */
+  @Input() showContents: boolean;
+
   /**
    * The position this card has in a list
    *
@@ -80,6 +88,14 @@ export class CardComponent implements OnInit {
    * @memberof CardComponent
    */
   @Input() showTcgIcon: boolean;
+
+      /**
+   * Controls whether the ban icon appears on the card
+   *
+   * @type {boolean}
+   * @memberof CardComponent
+   */
+  @Input() showBannedIcon = false;
 
   /**
    * Controls whether the card has a box shadow

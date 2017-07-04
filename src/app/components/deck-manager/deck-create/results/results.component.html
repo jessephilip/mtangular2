@@ -1,21 +1,23 @@
 <div
   *ngIf="results.length > 0"
   class="results-section">
-  <mtg-card
-    *ngFor="let result of results; let i = index"
-    [@appear]
-    [card]="result"
-    [expandOnHover]="false"
-    [showCardShadow]="true"
-    [showImageIcon]="true"
-    [showExpandIcon]="true"
-    [showAddIcon]="true"
-    [showTcgIcon]="true"
-    [addButtonFunction]=addToDeck>
-  </mtg-card>
+  <div *ngFor="let result of results; let i = index" class="flex-row align-center" >
+    <div name="card-index">{{ i + 1}}</div>
+    <mtg-card
+      [@appear]
+      [card]="result"
+      [expandOnHover]="false"
+      [showCardShadow]="true"
+      [showImageIcon]="true"
+      [showExpandIcon]="true"
+      [showAddIcon]="true"
+      [showTcgIcon]="true"
+      [addButtonFunction]=addToDeck>
+    </mtg-card>
+  </div>
   <button
     *ngIf="results"
-    class="btn-blue"
+    class="btn-blue w100"
     (click)="moreResults()">
     More
   </button>

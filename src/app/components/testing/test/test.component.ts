@@ -8,7 +8,7 @@ import { MtgApiService } from 'app/services/mtgApi.service';
 })
 export class TestComponent implements OnInit {
 
-  private cards;
+  public cards;
 
   constructor (private api: MtgApiService) { }
 

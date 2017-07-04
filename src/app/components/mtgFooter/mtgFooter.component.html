@@ -1,71 +1,71 @@
 <!-- mtgFooter.component.html -->
 <footer>
-	<aside>
-		<div *ngIf="!showTools">
-			<button
-				(click)="toggleTools()"
-				class="tool-button">
-				Flips / Rolls
-			</button>
-		</div>
-		<div *ngIf="showTools" class="tool-panel">
-			<div [@tool-slide]="toolSlideState">
-				<button
-					*ngFor="let tool of toolButtons"
-					(click)="tool.tool($event)"
-					class="tool-button"
-					[name]="tool.name"
-					[ngClass]="{'pressed': isMulti}">
-					{{tool.name}}
-				</button>
-			</div>
-		</div>
-	</aside>
-	<div>
-		<main *ngIf="!showTools" [@life-slide]="lifeSlider" class="life-panel">
-			<!--<mtg-life-button
-				*ngFor="let value of neg"
-				[value]="value"
-				[player]="me">
-			</mtg-life-button>
-			<div class="inputLifeTotal">
-				<input
-					[(ngModel)]="me.lifeTotal"
-					*ngIf="inputLifeTotal"
-					(keyup.enter)="toggleInputLifeTotal()"
-					mtgFocusHighlight/>
-				<h1
-					*ngIf="!inputLifeTotal"
-					(click)="toggleInputLifeTotal()">
-					{{ me.lifeTotal }}
-				</h1>
-			</div>
-			<mtg-life-button
-				*ngFor="let value of pos"
-				[value]="value"
-				[player]="me">
-			</mtg-life-button>-->
-		</main>
-	</div>
-	<aside>
-		<div class="addPlayer">
-			<button
-				*ngIf="currentScheme"
-				[routerLink]="'schemes'"
-				class="tool-button">
-				Current Scheme
-			</button>
-			<button
-				[routerLink]="'schemes'"
-				class="tool-button"
-				(click)="nextScheme()">
-				Next Scheme
-			</button>
-			<button
-				(click)="addPlayer()"
-				class="tool-button">
-				Add Player
-			</button>
-		</div>
-	</aside>
+  <aside>
+    <div *ngIf="!showTools">
+      <button
+        (click)="toggleTools()"
+        class="tool-button">
+        Flips / Rolls
+      </button>
+    </div>
+    <div *ngIf="showTools" class="tool-panel">
+      <div [@tool-slide]="toolSlideState">
+        <button
+          *ngFor="let tool of toolButtons"
+          (click)="tool.tool($event)"
+          class="tool-button"
+          [name]="tool.name"
+          [ngClass]="{'pressed': isMulti}">
+          {{tool.name}}
+        </button>
+      </div>
+    </div>
+  </aside>
+  <div>
+    <main *ngIf="!showTools" [@life-slide]="lifeSlider" class="life-panel">
+      <!--<mtg-life-button
+        *ngFor="let value of neg"
+        [value]="value"
+        [player]="me">
+      </mtg-life-button>
+      <div class="inputLifeTotal">
+        <input
+          [(ngModel)]="me.lifeTotal"
+          *ngIf="inputLifeTotal"
+          (keyup.enter)="toggleInputLifeTotal()"
+          mtgFocusHighlight/>
+        <h1
+          *ngIf="!inputLifeTotal"
+          (click)="toggleInputLifeTotal()">
+          {{ me.lifeTotal }}
+        </h1>
+      </div>
+      <mtg-life-button
+        *ngFor="let value of pos"
+        [value]="value"
+        [player]="me">
+      </mtg-life-button>-->
+    </main>
+  </div>
+  <aside>
+    <div class="addPlayer">
+      <button
+        *ngIf="currentScheme"
+        [routerLink]="'schemes'"
+        class="tool-button">
+        Current Scheme
+      </button>
+      <button
+        [routerLink]="'schemes'"
+        class="tool-button"
+        (click)="nextScheme()">
+        Next Scheme
+      </button>
+      <button
+        (click)="addPlayer()"
+        class="tool-button">
+        Add Player
+      </button>
+    </div>
+  </aside>
 </footer>

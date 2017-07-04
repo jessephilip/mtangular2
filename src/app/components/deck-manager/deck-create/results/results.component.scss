@@ -1,4 +1,12 @@
 .results-section {
+
+  div[name="card-index"] {
+    width: 100px;
+    font-size: 3em;
+    color: grey;
+    text-align: center;
+  }
+
   mtg-card {
     display: block;
     margin: 8px 0;
