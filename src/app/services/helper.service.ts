@@ -4,14 +4,10 @@ export class HelperService {
 
   public tcgUrl = 'http://shop.tcgplayer.com/magic/product/show?newSearch=false&IsProductNameExact=false&ProductName=';
 
-  public createId (): number {
-    return Date.now() + Math.floor(Math.random() * 1000000) + 1;
-  }
+  public createId = (): number => Date.now() + Math.floor(Math.random() * 1000000) + 1;
 
   /** STRING HELPERS */
-  public emDash () {
-    return String.fromCharCode(8212);
-  }
+  public emDash =  () => String.fromCharCode(8212);
 
   /** API HELPERS */
   public stringBuilder (input: string[]): string {

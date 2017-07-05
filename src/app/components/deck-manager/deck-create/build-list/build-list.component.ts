@@ -1,4 +1,6 @@
+import {PlayerService} from '../../../../services/player.service';
 import { Component, OnInit } from '@angular/core';
+import { DatabaseService } from '../../../../services/database.service';
 import { SearchService } from 'app/services/search.service';
 import { HelperService } from '../../../../services/helper.service';
 import { DeckCard } from '../../../../types/deckCard.model';
@@ -42,7 +44,11 @@ export class BuildListComponent implements OnInit {
     .filter(style => style.selected)
     .map(styleValue => styleValue.value.toLowerCase());
 
-  constructor (private searchService: SearchService, private helpers: HelperService) { }
+  constructor (
+    private searchService: SearchService,
+    private helpers: HelperService,
+    private db: DatabaseService,
+    private playerService: PlayerService) { }
 
   ngOnInit () {
     this.results = false;
@@ -83,6 +89,11 @@ export class BuildListComponent implements OnInit {
 
   public test () {
     console.log(this.searchService.allTypesInDeck());
+  }
+
+  public saveDeck () {
+    this.deck.name = this.deckName ? this.deckName : 'Unnamed';
+    this.db.saveDeck(this.playerService.me, this.deck);
   }
 
   // private calculateTotal (): number {
@@ -231,32 +242,5 @@ export class BuildListComponent implements OnInit {
   public clearDeck () {
     this.searchService.deck = new Deck();
   }
-
-  // /**
-  //  * @name SaveDeck
-  //  * @memberof DeckCreateComponent
-  //  * Saves the deck to the database. Generates a random id number to identify the deck.
-  //  *
-  //  */
-
-  // // TODO: Establish the properties that will be common to all decks.
-  //   // name, id, type, valid-to-type, number of cards, colorIdentity
-  // public saveDeck () {
-  //   // things to save: Deck, Deck Name
-  //   const deckId = this.helperService.createId();
-
-  //   const savedDeck = {
-  //     deck: this.deck,
-  //     id: deckId,
-  //     // name: this.deckName,
-  //   };
-
-  //   if (this.playerService.me) {
-  //     this.dbService.saveDeck(this.playerService.me.id, savedDeck);
-  //   } else {
-  //     alert('You must be logged in to save decks.');
-  //   }
-
-  // }
 
 }
