@@ -102,7 +102,64 @@
         (change)="changeCheckbox('exclude')"/>
     </div>
   </div>
-  <div name ="searchButtons" class="flex-row">
+  <div name="searchPower">
+    <label for="power">Power</label>
+    <button
+      class="button mathSymbols"
+      (click)="mathSymbols.increment(0)">
+      {{ mathSymbols.symbols[mathSymbols.indices[0]] }}
+    </button>
+    <section name="power" class="sliderSection">
+      <div>{{ powerRange[0] }}</div>
+      <nouislider
+        [connect]="true"
+        [step]="1"
+        [min]="0"
+        [max]="currentMaxPower"
+        [(ngModel)]="powerRange">
+      </nouislider>
+      <div>{{ powerRange[1] }}</div>
+    </section>
+  </div>
+  <div name="searchToughness">
+    <label for="toughness">Toughness</label>
+    <button
+      class="button mathSymbols"
+      (click)="mathSymbols.increment(1)">
+      {{ mathSymbols.symbols[mathSymbols.indices[1]] }}
+    </button>
+    <section name="toughness" class="sliderSection">
+      <div>{{ toughnessRange[0] }}</div>
+      <nouislider
+        [connect]="true"
+        [step]="1"
+        [min]="0"
+        [max]="currentMaxToughness"
+        [(ngModel)]="toughnessRange">
+      </nouislider>
+      <div>{{ toughnessRange[1] }}</div>
+    </section>
+  </div>
+  <div name="searchCMC">
+    <label for="cmc">Converted Mana Cost</label>
+    <button
+      class="button mathSymbols"
+      (click)="mathSymbols.increment(2)">
+      {{ mathSymbols.symbols[mathSymbols.indices[2]] }}
+    </button>
+    <section name="castingCost" class="sliderSection">
+      <div>{{ cmcRange[0] }}</div>
+      <nouislider
+        [connect]="true"
+        [step]="1"
+        [min]="0"
+        [max]="currentMaxCMC"
+        [(ngModel)]="cmcRange">
+      </nouislider>
+      <div>{{ cmcRange[1] }}</div>
+    </section>
+  </div>
+  <div name ="searchButtons">
     <button (click)="reset()">
       <i class="fa fa-ban"></i>
       Reset

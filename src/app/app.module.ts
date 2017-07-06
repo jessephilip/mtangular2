@@ -8,6 +8,7 @@ import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { NouisliderModule } from 'ng2-nouislider';
 
 // custom components
 import { AppComponent } from 'app/app.component';
@@ -108,7 +109,7 @@ import { AppRoutingModule } from 'app/routing/appRouting.module';
     EditDeckComponent,
     CardComponent,
     TestComponent,
-    BuildListComponent,
+    BuildListComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -118,7 +119,8 @@ import { AppRoutingModule } from 'app/routing/appRouting.module';
     BrowserAnimationsModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NouisliderModule
   ],
   providers: [
     DatabaseService,

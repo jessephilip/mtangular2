@@ -18,6 +18,15 @@ export class SearchComponent implements OnInit {
   @Input() supertypesSearch: string;
   @Input() raritySearch: any;
 
+  // these three values represent the current max's (not counting joke sets)
+  // as of July 5, 2017
+  public currentMaxPower = 15;
+  public currentMaxToughness = 15;
+  public currentMaxCMC = 16;
+
+  public powerRange = [0, this.currentMaxPower];
+  public toughnessRange = [0, this.currentMaxToughness];
+  public cmcRange = [0, this.currentMaxCMC];
   /**
    * RarityInputs is the set of objects tied to the DOM and checkboxes
    * for card rarity.
@@ -42,6 +51,19 @@ export class SearchComponent implements OnInit {
     { value: 'Green', selected: false }
   ];
 
+  public mathSymbols = {
+    // greater than, greater than or equal, less than, less than or equal
+    'symbols': ['\u003E', '\u2265', '\u003C', '\u2264'],
+    'indices': [0, 0, 0],
+    'increment': (type: number) => {
+      if (this.mathSymbols.indices[type] === this.mathSymbols.symbols.length - 1) {
+        this.mathSymbols.indices[type] = 0;
+      } else {
+        this.mathSymbols.indices[type]++;
+      }
+    }
+  };
+
   public excludeColors = { selected: false };
 
   private _searchCounter: number;
@@ -61,6 +83,7 @@ export class SearchComponent implements OnInit {
   ngOnInit () {
     this.searchCounter = 0;
     this.searchObject = {};
+    this.mathSymbols.indices = [0, 0, 0];
   }
 
     // these functions return string[]
@@ -83,6 +106,9 @@ export class SearchComponent implements OnInit {
     if (this.selectedColors().length >= 0) {
       this.searchObject['colors'] = this.helpers.stringBuilder(this.selectedColors());
     }
+
+    // use info in power, toughness, and cmc sliders?
+    this.useSlidersInSearch();
 
     this.api.getCardsFromObject(this.searchObject, this.searchCounter).subscribe(value => {
 
@@ -163,5 +189,23 @@ export class SearchComponent implements OnInit {
     this.rarityInputs.forEach(value => value.selected = false);
     this.colorInputs.forEach(value => value.selected = false);
     this.excludeColors.selected = false;
+  }
+
+  // rework this. the terms don't seem to accept both gte and lte at the same time.
+  // gt (>), lt (<), gte (>=) lte (<=), equals (just the number
+  // use a box that simply toggles through the symbols)
+  private useSlidersInSearch () {
+    if (this.powerRange[0] > 0 || this.powerRange[1] < this.currentMaxPower) {
+      this.searchObject['power'] = `gte${this.powerRange[0]},lte${this.powerRange[1]}`;
+      this.searchObject['power'] = `lte${this.powerRange[1]}`;
+    }
+
+    if (this.toughnessRange[0] > 0 || this.toughnessRange[1] < this.currentMaxToughness) {
+      this.searchObject['toughness'] = `gte${this.toughnessRange[0]},lte${this.toughnessRange[1]}`;
+    }
+
+    if (this.cmcRange[0] > 0 || this.cmcRange[1] < this.currentMaxCMC) {
+      this.searchObject['cmc'] = `gte${this.cmcRange[0]},lte${this.cmcRange[1]}`;
+    }
   }
 }

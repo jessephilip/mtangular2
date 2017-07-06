@@ -86,7 +86,7 @@ export class MtgApiService {
       }
     }
 
-    if (string.charAt(string.length) === '&') {
+    if (string.charAt(string.length - 1) === '&') {
       string = string.substring(0, string.length - 1);
     }
 
