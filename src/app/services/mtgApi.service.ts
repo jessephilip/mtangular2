@@ -60,11 +60,16 @@ export class MtgApiService {
   };
 
   private cards = 'https://api.magicthegathering.io/v1/cards&pageSize=25';
+  private allSets = 'https://api.magicthegathering.io/v1/sets';
 
   constructor (private http: Http) { }
 
   getCards () {
     return this.http.get(this.cards).map((res: Response) => res.json());
+  }
+
+  getAllSets () {
+    return this.http.get(this.allSets).map((res: Response) => res.json());
   }
 
   getCardByName (cardName: string) {

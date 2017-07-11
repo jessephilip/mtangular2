@@ -1,0 +1,27 @@
+@import "../../../assets/variables";
+
+section {
+  background-color: $mtgBlack;
+  flex-grow: 1;
+  text-align: center;
+  transition: all 0.5s;
+
+  &:hover {
+    background-color: $mtgGreen;
+
+    p {
+      transform: scale(1.2);
+    }
+  }
+
+  p {
+    transition: all 0.5s;
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+    letter-spacing: 3.5px;
+    font-size: 2em;
+  }
+}

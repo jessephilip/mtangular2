@@ -103,7 +103,7 @@ export class DatabaseService {
 
   public getPlayerFromGame (player: Player, game: Game): Promise<Player[]> {
     return new Promise ((resolve, reject) => {
-      this.af.object(`/games/${game.id}/players/${player.id}`).subscribe(value => {
+      this.af.list(`/games/${game.id}/players/${player.id}`).subscribe(value => {
         resolve(value);
       });
     });
@@ -133,7 +133,7 @@ export class DatabaseService {
     });
   }
 
-  public getPlayerDecks (playerId: string): any {
+  public getPlayerDecks (playerId: string): Promise<Deck[]> {
     return new Promise ((resolve, reject) => {
       this.af.list(`/players/${playerId}/decks`).subscribe(decks => {
         resolve(decks);

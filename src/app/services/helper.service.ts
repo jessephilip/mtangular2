@@ -2,6 +2,7 @@ import { Keywords } from '../../assets/keywords';
 
 export class HelperService {
 
+  public blankCard = 'src/assets/images/mtg_card_back.png'; // 226px x 311px
   public tcgUrl = 'http://shop.tcgplayer.com/magic/product/show?newSearch=false&IsProductNameExact=false&ProductName=';
 
   public createId = (): number => Date.now() + Math.floor(Math.random() * 1000000) + 1;

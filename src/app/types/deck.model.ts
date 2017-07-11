@@ -1,13 +1,29 @@
+  /**
+   * The deck model is the type used for a player deck of MTG.io cards.
+   * It's primary property is its cards property which contains the array
+   * of DeckCards that comprise the deck.
+   *
+   * Properties include:
+   *  1. Ways to identify the deck (Ex: id, name, cards, featureCard),
+   *  2. The rules governing the deck (Ex: types, commander),
+   *  3. Summaries of information contained in the deck (cardTypeTotals, deckSize).
+   *
+   * Methods should include ways to create, update, modify, and delete the deck.
+   * Methods should include ways to provide information about the deck.
+   * As well as the functions utilized by those functions.
+   *
+   */
+
 import { EventEmitter } from '@angular/core';
 import { HelperService } from '../services/helper.service';
 import { DeckCard } from './deckCard.model';
+import { NameValue } from './nameValue.model';
 
 export class Deck {
 
   /**
    * The deck's unique id number. Used for saving it to the database.
    *
-   * @private
    * @type {number}
    * @memberof Deck
    */
@@ -18,7 +34,6 @@ export class Deck {
   /**
    * The deck's user-given name.
    *
-   * @private
    * @type {string}
    * @memberof Deck
    */
@@ -31,18 +46,16 @@ export class Deck {
    * the deck. Keeps track of anything listed in the type property of an MTG.io
    * card.
    *
-   * @private
-   * @type {*}
+   * @type {NewValue[]}
    * @memberof Deck
    */
-  private _typeTotals: any;
-  public get typeTotals (): any { return this._typeTotals; }
-  public set typeTotals (value: any) { this._typeTotals = value; }
+  private _cardTypeTotals: NameValue[];
+  public get cardTypeTotals (): NameValue[] { return this._cardTypeTotals; }
+  public set cardTypeTotals (value: NameValue[]) { this._cardTypeTotals = value; }
 
   /**
    * The cards the user has chosen to be included in this deck.
    *
-   * @private
    * @type {DeckCard[]}
    * @memberof Deck
    */
@@ -56,7 +69,6 @@ export class Deck {
    * Otherwise, only one commander per deck, and that commander must be a legendary
    * creature or a planeswalker specifically labeled to be a commander.
    *
-   * @private
    * @type {DeckCard[]}
    * @memberof Deck
    */
@@ -64,10 +76,19 @@ export class Deck {
   public get commander(): DeckCard[] { return this._commander; }
   public set commander(value: DeckCard[]) { this._commander = value; }
 
+    /**
+   * Feature card is the property controlling which image to use for the deck.
+   *
+   * @type {DeckCard}
+   * @memberof Deck
+   */
+  private _featureCard: DeckCard | string;
+  public get featureCard(): DeckCard | string { return this._featureCard; }
+  public set featureCard(value: DeckCard | string) { this._featureCard = value; }
+
   /**
    * Lists out the type of deck this deck is: Commander, Legacy, or Vintage.
    *
-   * @private
    * @type {string[]}
    * @memberof Deck
    */
@@ -78,39 +99,420 @@ export class Deck {
   // TODO: create another property and implement its use that would govern the play style of the deck
   // (AKA: Singleton, 5-color, Pauper, Cube, custom, Standard, Modern, etc.)
 
-  private _numberOfCards: number;
-  public get numberOfCards(): number { return this._numberOfCards; }
-  public set numberOfCards(value: number) { this._numberOfCards = value; }
+  /**
+   * The deckSize property contains the number of cards in the deck.
+   *
+   * @type {number}
+   * @memberof Deck
+   */
+  private _deckSize: number;
+  public get deckSize(): number { return this._deckSize; }
+  public set deckSize(value: number) { this._deckSize = value; }
 
-  constructor () {
+  constructor (name?: string) {
     this.id = Date.now() + Math.floor(Math.random() * 1000000) + 1;
-    this.typeTotals = [];
+    this.name = name || 'Nameless';
+    this.cardTypeTotals = [];
     this.cards = [];
     this.commander = [];
     this.types = [];
-    this.numberOfCards = this.calculateNumberOfCards();
+    this.deckSize = this.numberOfCardsInDeck();
+    this.featureCard = 'src/assets/images/mtg_card_back.png';
   }
 
   /**
-   * Dynamically keeps track of the amount of cards in the deck.
+   * !!!!! CRUD METHODS !!!!!
    *
-   * @returns {number}
+   * This section of methods includes methods that modify or delete the deck.
+   */
+
+  /**
+   * Add card to deck. Perform rule checks and subsequent calculations.
+   * If card is successfully added or amount incremented, return true.
+   *
+   * @public
+   * @param {DeckCard} deckCard
+   * @returns {boolean}
    * @memberof Deck
    */
-  public calculateNumberOfCards (): number {
-    let sum = 0;
-    this.cards.forEach(card => sum += card.amount);
-    return sum;
+  public addCardToDeck (deckCard: DeckCard): boolean {
+    // check to see if card is legal in deck
+    const isLegal = deckCard.isLegalInDeck(this);
+
+    if (!isLegal) { return false; }
+
+    // check to see if card is already in deck
+    const loc = this.isCardInDeck(deckCard);
+
+    // if block if card is not in deck, else block if it is
+    if (loc === -1) {
+      this.cards.push(deckCard);
+    } else {
+      // is deck commander? if so, card does not get added nor amount incremented
+      if (this.isCommander()) { return false; }
+      this.cards[loc].amount++;
+    }
+
+    // since a card has been added to the deck (or amount incremented), recalculate
+    // deck statistics: such as number of cards and number of card types.
+    const cardTypes = deckCard.getCardTypes();
+    cardTypes.forEach(type => this.addTypeToCardTypeTotals(type));
+    this.deckSize = this.numberOfCardsInDeck();
+    return true;
   }
 
+  /**
+   * Subtract card from deck. Remove a card from the deck and perform subsequent
+   * calculations. If card is successfully removed or amount decremented, return true.
+   *
+   * @public
+   * @param {DeckCard} deckCard
+   * @returns {boolean}
+   * @memberof Deck
+   */
+  public subtractCardFromDeck (deckCard: DeckCard): boolean {
+
+    // get location of card in the deck
+    const loc = this.isCardInDeck(deckCard);
+
+    // throw error if card is not in deck, else subtract card.amount
+    if (loc === -1) {
+      throw new Error(`${deckCard.card.name} cannot be subtracted because it is not in this deck.`);
+    } else {
+      this.cards[loc].amount--;
+    }
+
+    if (this.cards[loc].amount <= 0) {
+      this.cards.splice(loc, 1);
+    }
+
+    // since a card has been subtracted from the deck (or amount decremented), recalculate
+    // deck statistics: such as number of cards and number of card types.
+    const cardTypes = deckCard.getCardTypes();
+    cardTypes.forEach(type => this.subtractCardTypeFromTypeTotals(type));
+    this.deckSize = this.numberOfCardsInDeck();
+    return true;
+  }
+
+    /**
+   * Remove a card from the deck and perform subsequent calculations.
+   * If card is successfully removed, return true.
+   *
+   * @public
+   * @param {DeckCard} deckCard
+   * @returns {boolean}
+   * @memberof Deck
+   */
+  public removeCardFromDeck (deckCard: DeckCard): boolean {
+
+    // get location of card in the deck
+    const loc = this.isCardInDeck(deckCard);
+    const numberToRemove = this.cards[loc].amount;
+
+    // throw error if card is not in deck, else subtract card.amount
+    if (loc === -1) {
+      throw new Error(`${deckCard.card.name} cannot be removed because it is not in this deck.`);
+    } else {
+      this.cards.splice(loc, 1);
+    }
+
+    // since a card has been subtracted from the deck (or amount decremented), recalculate
+    // deck statistics: such as number of cards and number of card types.
+    const cardTypes = deckCard.getCardTypes();
+    cardTypes.forEach(type => {
+      for (let i = 0; i < numberToRemove; i++) {
+        this.subtractCardTypeFromTypeTotals(type);
+      }
+    });
+    this.deckSize = this.numberOfCardsInDeck();
+    return true;
+  }
+
+  private addTypeToCardTypeTotals (text: string) {
+    // check to see if the type is already in the typeTotals property
+    const loc = this.cardTypeTotals
+      .findIndex(type => type.name.toLowerCase()  === text.toLowerCase());
+
+    // if type is not already in cardTypeTotals, add it, else, increment it
+    if (loc === -1) {
+      this.cardTypeTotals.push(new NameValue(text, 1));
+    } else {
+      this.cardTypeTotals[loc].amount++;
+    }
+  }
+
+  private subtractCardTypeFromTypeTotals (text: string) {
+    // check to see if the type is already in the cardTypeTotals property
+    const loc = this.cardTypeTotals
+      .findIndex(type => type.name.toLowerCase() === text.toLowerCase());
+
+    // if type is not in property, throw error, else , subtract amount from property
+    if (loc === -1) {
+      throw new Error(`You tried to remove a type: ${text} from this deck that was not in the typeTotals property`);
+    } else {
+      this.cardTypeTotals[loc].amount--;
+    }
+
+    if (this.cardTypeTotals[loc].amount <= 0) {
+      this.cardTypeTotals.splice(loc, 1);
+    }
+  }
+
+  /**
+   * Add a deck type to this deck.
+   * Deck types currently include: Commander, Legacy, Vintage
+   *
+   * @param {string} type
+   * @returns {string[]}
+   * @memberof Deck
+   */
   public addDeckType (type: string): string[] {
     this.types.push(type.toLowerCase());
     return this.types;
   }
 
-  public removeDeckType (type: string): string[] {
+  /**
+   * Subtract a deck type from this deck.
+   * Deck types currently include: Commander, Legacy, Vintage.
+   *
+   * @param {string} type
+   * @returns {string[]}
+   * @memberof Deck
+   */
+  public subtractDeckType (type: string): string[] {
     const loc = this.types.findIndex(element => element.toLowerCase() === type.toLowerCase());
     this.types.splice(loc, 1);
     return this.types;
+  }
+
+    /**
+   * AddAsCommander checks the given card against the deck in its current state and adds the deckCard to the commander property
+   * if the state of the current deck would allow the commander
+   *
+   * @param {DeckCard} deckCard
+   * @returns {boolean}
+   * @memberof Deck
+   */
+  public addAsCommander (deckCard: DeckCard): boolean {
+    if (this.commander.length >= 2) { return false; }
+    if (!deckCard.canBeCommander()) { return false; }
+    const partnerText = 'you can have two commanders if both have partner';
+    if (this.commander.length === 1 && this.commander[0].card.text.toLowerCase().indexOf(partnerText) === -1) { return false; }
+    if (this.commander.length === 1 && deckCard.card.text.toLowerCase().indexOf(partnerText) === -1) { return false; }
+
+    this.commander.push(deckCard);
+    return true;
+  }
+
+  /**
+   * RemoveAsCommander removes the given card from the commander property.
+   *
+   * @param {DeckCard} deckCard
+   * @returns {boolean}
+   * @memberof Deck
+   */
+  public removeAsCommander (deckCard: DeckCard): boolean {
+    const loc = this.commander.findIndex(element => element.card.name === deckCard.card.name);
+    if (loc === -1) {
+      throw new Error(`${deckCard.card.name} cannot be removed as a commander because it is not already designated as a commander).`);
+    } else {
+      this.commander.splice(loc, 1);
+    }
+    return true;
+  }
+
+  /**
+   * !!!!! ANSWER METHODS !!!!!
+   *
+   * This section of methods includes methods that answer questions about the deck.
+   */
+
+  /**
+   * Checks the deck to see if provided card is already in the deck.
+   * Returns card location in array.
+   *
+   * @private
+   * @param {DeckCard} deckCard
+   * @returns {number}
+   * @memberof Deck
+   */
+  private isCardInDeck (deckCard: DeckCard): number {
+    return this.cards.findIndex(card => card.card.name = deckCard.card.name);
+  }
+
+  /**
+   * Calculate the amount of cards in the deck.
+   *
+   * @public
+   * @returns {number}
+   * @memberof Deck
+   */
+  public numberOfCardsInDeck (): number {
+    let sum = 0;
+    this.cards.forEach(card => sum += card.amount);
+    this.deckSize = sum;
+    return sum;
+  }
+
+  /**
+   * Answers the question of whether the deck, in its current state,
+   * meets all rules for a valid commander type deck.
+   *
+   * Rules:
+   *  1. Exactly 100 cards in deck.
+   *  2. Only 1 copy of a card in the deck for all but basic land types.
+   *  3. All cards in deck must be legal for the commander format.
+   *  4. Deck must have 1-2 commanders.
+   *  5. Commanders must be a legendary creature or a planeswalker with text
+   *      specifically stating it can be a commander.
+   *  6. If the deck has two commanders, both must have the keyword 'Partner'
+   *      in their text.
+   *  7. Each card in the deck must be in the deck's color identity.
+   *
+   * @public
+   * @returns {boolean}
+   * @memberof Deck
+   */
+  public isCommanderLegal (): boolean {
+    // Rule 1: deckSize check
+    if (this.deckSize !== 100) { return false; }
+    // Rule 2: Singleton check
+    if (!this.isSingletonLegal()) { return false; }
+    // Rule 3: Each card legal in commander format
+    this.cards.forEach(deckCard => {
+      if (!deckCard.isLegalInCommander()) { return false; }
+    });
+    // Rule 4: 1-2 commanders
+    if (this.commander.length === 0 || this.commander.length > 2) { return false; }
+    // Rule 5: Designated commanders are commander legal
+    this.commander.forEach(commander => {
+      if (!commander.canBeCommander()) { return false; }
+    });
+    // Rule 6: if 2 commanders, both are partners
+    if (this.commander.length === 2) {
+      const partnerText = 'you can have two commanders if both have partner';
+      this.commander.forEach(commander => {
+        if (commander.card.text.toLowerCase().indexOf(partnerText) === -1) { return false; }
+      });
+    }
+    // Rule 7: Match color identity
+    if (!colorIdentityCheck) { return false; }
+
+    return true;
+
+    // get the deck's color identity by getting the color identity of each commander card
+    function colorIdentityCheck (): boolean {
+      const deckColorIdentity: string[] = [];
+      const commanderColorIdentity: string[] = [];
+      this.cards.forEach(card => {
+        card.colorIdentity.forEach(color => {
+          if (deckColorIdentity.indexOf(color.toLowerCase()) === -1) { deckColorIdentity.push(color.toLowerCase()); }
+        });
+      });
+      this.commander.forEach(commander => {
+        commander.colorIdentity.forEach(color => {
+          if (commanderColorIdentity.indexOf(color.toLowerCase()) === -1) { commanderColorIdentity.push(color.toLowerCase()); }
+        });
+      });
+
+      if (deckColorIdentity.sort() !== commanderColorIdentity.sort()) { return false; }
+
+      return true;
+    }
+  }
+
+  /**
+   * Answers the question of whether the deck, in its current state,
+   * meets all the rules for a valid singleton deck
+   *
+   * Rules:
+   *  1. Only 1 copy of a card in the deck for all but basic land types.
+   *
+   * @public
+   * @returns {boolean}
+   * @memberof Deck
+   */
+  public isSingletonLegal (): boolean {
+    this.cards.forEach(deckCard => {
+      // is card a basic land?
+      const isBasicLand = deckCard.card.type.toLowerCase().indexOf('basic land');
+      // if card is not basic land and if there is more than one copy in the deck, return false
+      if (!isBasicLand && deckCard.amount !== 1) { return false; }
+    });
+    return true;
+  }
+
+  /**
+   * Returns whether this deck is user-designated as a commander deck.
+   *
+   * @public
+   * @returns {boolean}
+   * @memberof Deck
+   */
+  public isCommander (): boolean {
+    return this.types.indexOf('commander') !== -1;
+  }
+
+  /**
+   * Returns whether this deck is user-designated as a legacy deck.
+   *
+   * @public
+   * @returns {boolean}
+   * @memberof Deck
+   */
+  public isLegacy (): boolean {
+    return this.types.indexOf('legacy') === -1;
+  }
+
+  /**
+   * Returns whether this deck is user-designated as a vintage deck.
+   *
+   * @public
+   * @returns {boolean}
+   * @memberof Deck
+   */
+  public isVintage (): boolean {
+    return this.types.indexOf('vintage') === -1;
+  }
+
+  // TODO: create function that checks the deck to specific rules and returns whether
+  // the deck is legal for that type of deck.
+  // Example: provided string 'singleton' checks to see if only one card of all cards
+  // except basic lands.
+
+  /**
+   * Evaluates the deck and returns all cards of a given type.
+   * Ex: Returns all creature cards in a deck
+   *
+   * @param {string} type
+   * @returns {DeckCard[]}
+   * @memberof Deck
+   */
+  public getType (type: string): DeckCard[] {
+    return this.cards.filter(card => card.card.type.toLowerCase().indexOf(type.toLowerCase) !== -1);
+  }
+
+  public getCreatures (): DeckCard[] {
+    return this.getType('creature');
+  }
+
+  public getLands (): DeckCard[] {
+    return this.getType('land');
+  }
+
+  public getInstants (): DeckCard[] {
+    return this.getType('instant');
+  }
+
+  public getSorceries (): DeckCard[] {
+    return this.getType('sorcery');
+  }
+
+  public getEnchantments (): DeckCard[] {
+    return this.getType('enchantment');
+  }
+
+  public getArtifacts (): DeckCard[] {
+    return this.getType('artifact');
   }
 }

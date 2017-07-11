@@ -188,9 +188,9 @@ mtg-veil {
 	@include gradient2Background($mtgBlue, $mtgRed);
 }
 
-.ccBlueGreen {
-	@include mtgSymbol($mtgBlue, white, 16px);
-	@include gradient2Background($mtgBlue, $mtgGreen);
+.ccGreenBlue {
+	@include mtgSymbol($mtgGreen, white, 16px);
+	@include gradient2Background($mtgGreen, $mtgBlue);
 }
 
 .ccBlackRed {
@@ -288,6 +288,10 @@ mtg-veil {
 
 .justify-between {
 	justify-content: space-between;
+}
+
+.justify-around {
+	justify-content: space-around;
 }
 
 .justify-center {

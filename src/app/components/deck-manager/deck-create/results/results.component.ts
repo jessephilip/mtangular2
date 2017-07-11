@@ -40,6 +40,7 @@ export class ResultsComponent implements OnInit {
   }
 
   public addToDeck (card) {
-    this.searchService.addCardToDeck(new DeckCard(card, false));
+    console.log('card: ', card);
+    this.searchService.cardEmitter.emit(new DeckCard(card));
   }
 }

@@ -5,10 +5,6 @@ import { AuthService } from 'app/services/auth.service';
 @Injectable()
 export class PlayerService {
 
-  private _me: Player;
-  public get me(): Player { return this._me; }
-  public set me(value: Player) { this._me = value; }
-
   // FIXME: Currently housing the me player variable. fix this so that I can get rid of the me variable.
   private _players: Player[] = [];
   public get players(): Player[] { return this._players; }
@@ -22,10 +18,14 @@ export class PlayerService {
   }
   public commanderWatch = new EventEmitter<Player>();
 
-  constructor (private af: AuthService) {
-    this.af.user.subscribe(value => {
-      this.me = new Player(value.displayName, 40, value.uid);
-      this.players.push(this.me);
+  constructor (private af: AuthService) {}
+
+  public getMe (): Promise<Player> {
+    return new Promise((resolve, reject) => {
+        this.af.user.subscribe(value => {
+          const player = new Player(value.displayName, 40, value.uid);
+          resolve (player);
+        });
     });
   }
 

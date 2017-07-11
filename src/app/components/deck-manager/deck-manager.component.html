@@ -1,15 +1,25 @@
-<header>
+<!--<router-outlet></router-outlet>-->
+<header class="flex-row justify-around align-center">
 	<!-- /deckmanager/create -->
-	<button [routerLink]="['/create']">
-		Create
-	</button>
+  <section
+    name="create">
+    <a
+      [routerLink]="['/create']">
+      <p>Create</p>
+    </a>
+  </section>
 	<!-- /deckmanager/maintain -->
-	<button [routerLink]="['/maintain']">
-		Maintain
-	</button>
+  <section name="maintain">
+    <a
+      [routerLink]="['/maintain']">
+      <p>Maintain</p>
+    </a>
+  </section>
 	<!-- /deckmanager/use -->
-	<button [routerLink]="['/use']">
-		Use
-	</button>
+  <section name="use">
+    <a
+      [routerLink]="['/use']">
+      <p>Use</p>
+    </a>
+  </section>
 </header>
-<router-outlet></router-outlet>

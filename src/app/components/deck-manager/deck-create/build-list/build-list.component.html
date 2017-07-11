@@ -30,16 +30,16 @@
           (click)="removeCard(deckCard)">
         </span>
         <span
-          *ngIf="deckCard.commander"
           class="fa fa-star"
           [style.cursor]="'pointer'"
-          (click)="demote(deckCard)">
+          [ngClass]="{'featured': deckCard.featureCard}"
+          (click)="setAsFeatureCard(deckCard)">
         </span>
       </li>
-      <h3>Total: {{ deck.calculateNumberOfCards() || '0' }}</h3>
-      <div *ngFor="let total of deck.typeTotals">
+      <h3>Total: {{ deck.numberOfCardsInDeck() || '0' }}</h3>
+      <div *ngFor="let total of deck.cardTypeTotals">
         <div *ngIf="total.amount > 0">
-          <span>{{ total.type | capitalize | pluralize }}: </span>
+          <span>{{ total.name | capitalize | pluralize }}: </span>
           <span>{{ total.amount }}</span>
         </div>
       </div>

@@ -1,8 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
+
 import { HelperService } from '../../../../services/helper.service';
 import { MtgApiService } from '../../../../services/mtgApi.service';
 import { ModalService } from '../../../../services/modal.service';
-import { SearchService } from "app/services/search.service";
+import { SearchService } from 'app/services/search.service';
+
+import { Sets } from '../../../../../assets/sets';
 
 @Component({
   selector: 'mtg-search',
@@ -20,20 +23,33 @@ export class SearchComponent implements OnInit {
 
   // these three values represent the current max's (not counting joke sets)
   // as of July 5, 2017
-  public currentMaxPower = 15;
-  public currentMaxToughness = 15;
-  public currentMaxCMC = 16;
+  public power = {
+    'max': 15,
+    'name': 'power',
+    'selected': false,
+    'value': 0
+  };
 
-  public powerRange = [0, this.currentMaxPower];
-  public toughnessRange = [0, this.currentMaxToughness];
-  public cmcRange = [0, this.currentMaxCMC];
+  public toughness = {
+    'max': 15,
+    'name': 'power',
+    'selected': false,
+    'value': 0
+  };
+
+  public cmc = {
+    'max': 16,
+    'name': 'power',
+    'selected': false,
+    'value': 0
+  };
+
   /**
    * RarityInputs is the set of objects tied to the DOM and checkboxes
    * for card rarity.
    *
-   * @private
-   *
-   * @memberof DeckCreateComponent
+   * @public
+   * @memberof SearchComponent
    */
   public rarityInputs = [
     { value: 'Common', selected: false },
@@ -43,6 +59,13 @@ export class SearchComponent implements OnInit {
     { value: 'Special', selected: false }
   ];
 
+  /**
+   * ColorInputs is the set of objects tied to the DOM and checkboxes
+   * for card colors.
+   *
+   * @public
+   * @memberof SearchComponent
+   */
   public colorInputs = [
     { value: 'White', selected: false },
     { value: 'Blue', selected: false },
@@ -51,9 +74,24 @@ export class SearchComponent implements OnInit {
     { value: 'Green', selected: false }
   ];
 
+  /**
+   * Controls the checkbox for exclude colors
+   *
+   * @public
+   * @memberof SearchComponent
+   */
+  public excludeColors = { selected: false };
+
+
+  /**
+   * Contains the value to display and the functions to cycle through the
+   * various mathematical operators associated with power, toughness, and cmc
+   *
+   * @public
+   * @memberof SearchComponent
+   */
   public mathSymbols = {
-    // greater than, greater than or equal, less than, less than or equal
-    'symbols': ['\u003E', '\u2265', '\u003C', '\u2264'],
+    'symbols': ['\u003D', '\u003E', '\u2265', '\u003C', '\u2264'],
     'indices': [0, 0, 0],
     'increment': (type: number) => {
       if (this.mathSymbols.indices[type] === this.mathSymbols.symbols.length - 1) {
@@ -64,12 +102,20 @@ export class SearchComponent implements OnInit {
     }
   };
 
-  public excludeColors = { selected: false };
-
+  // FIXME: the property that keeps track with the number of searches conducted with
+  // a given set of parameters. Necessary because the response from MTG.io is limited to 100
+  // items, and multiple api calls may be required to see all cards that match a given criteria.
   private _searchCounter: number;
   public get searchCounter(): number { return this._searchCounter; }
   public set searchCounter(value: number) { this._searchCounter = value; }
 
+  /**
+   * The object built upon to send information to the mtgApiService
+   *
+   * @private
+   * @type {*}
+   * @memberof SearchComponent
+   */
   private _searchObject: any;
   public get searchObject(): any { return this._searchObject; }
   public set searchObject(value: any) { this._searchObject = value; }
@@ -90,6 +136,14 @@ export class SearchComponent implements OnInit {
   private selectedColors = () => this.colorInputs.filter(color => color.selected).map(colorValue => colorValue.value.toLowerCase());
   private selectedRarities = () => this.rarityInputs.filter(rarity => rarity.selected).map(rarityValue => rarityValue.value.toLowerCase());
 
+  /**
+   * Tied to the DOM. Gathers and organizes the searchObject data to send to the mtgApiService
+   * and initiates the call to the mtgApiService to perform a card search.
+   *
+   * @public
+   * @returns {void}
+   * @memberof SearchComponent
+   */
   public search (): void {
 
     this.searchCounter = 1;
@@ -107,7 +161,6 @@ export class SearchComponent implements OnInit {
       this.searchObject['colors'] = this.helpers.stringBuilder(this.selectedColors());
     }
 
-    // use info in power, toughness, and cmc sliders?
     this.useSlidersInSearch();
 
     this.api.getCardsFromObject(this.searchObject, this.searchCounter).subscribe(value => {
@@ -122,6 +175,14 @@ export class SearchComponent implements OnInit {
     });
   }
 
+  /**
+   * FIXME: the method that manages the number of searches conducted with
+   * a given set of parameters. Necessary because the response from MTG.io is limited to 100
+  .* items, and multiple api calls may be required to see all cards that match a given criteria.
+   *
+   * @public
+   * @memberof SearchComponent
+   */
   public moreResults () {
     this.searchCounter++;
     this.api.getCardsFromObject(this.searchObject, this.searchCounter).subscribe(value => {
@@ -134,29 +195,39 @@ export class SearchComponent implements OnInit {
 
   public changeCheckbox (type: string, num?: number): void {
     switch (type) {
+      case 'cmc':
+        this.cmc.selected = !this.cmc.selected;
+        break;
       case 'color':
         this.colorInputs[num].selected = !this.colorInputs[num].selected;
-      break;
+        break;
+      case 'power':
+        this.power.selected = !this.power.selected;
+        break;
       case 'rarity':
         this.rarityInputs[num].selected = !this.rarityInputs[num].selected;
-      break;
+        break;
+      case 'toughness':
+        this.toughness.selected = !this.toughness.selected;
+        break;
       // case 'deckStyle':
       //   this.deckStyleInputs[num].selected = !this.deckStyleInputs[num].selected;
       // break;
       case 'exclude':
         this.excludeColors.selected = !this.excludeColors.selected;
-      break;
+        break;
     }
   }
 
     /**
    * Displays a modal of the selected card on the DOM
    *
+   * @public
    * @param {string} imgUrl
-   *
-   * @memberof DeckCreateComponent
+   * @returns {void}
+   * @memberof SearchComponent
    */
-  public showCard (imgUrl: string) {
+  public showCard (imgUrl: string): void {
     this.modalService.destroyModal();
 
     const details = {
@@ -177,8 +248,9 @@ export class SearchComponent implements OnInit {
   /**
    * Removes the text from the search inputs on the DOM
    *
-   *
-   * @memberof DeckCreateComponent
+   * @public
+   * @returns {void}
+   * @memberof SearchComponent
    */
   public reset (): void {
     this.nameSearch = '';
@@ -189,23 +261,65 @@ export class SearchComponent implements OnInit {
     this.rarityInputs.forEach(value => value.selected = false);
     this.colorInputs.forEach(value => value.selected = false);
     this.excludeColors.selected = false;
+    this.power.selected = false;
+    this.power.value = 0;
+    this.toughness.selected = false;
+    this.toughness.value = 0;
+    this.cmc.selected = false;
+    this.cmc.value = 0;
   }
 
-  // rework this. the terms don't seem to accept both gte and lte at the same time.
-  // gt (>), lt (<), gte (>=) lte (<=), equals (just the number
-  // use a box that simply toggles through the symbols)
+
+  /**
+   * Collected conditional statements used to build the search string for an api call to MTG.io
+   *
+   * @private
+   * @memberof SearchComponent
+   */
   private useSlidersInSearch () {
-    if (this.powerRange[0] > 0 || this.powerRange[1] < this.currentMaxPower) {
-      this.searchObject['power'] = `gte${this.powerRange[0]},lte${this.powerRange[1]}`;
-      this.searchObject['power'] = `lte${this.powerRange[1]}`;
+    if (this.power.selected) {
+      // do something, mathSymbols[0]
+      this.searchObject['power'] = `${this.returnMathSymbolString(this.mathSymbols.indices[0])}${this.power.value}`;
+
     }
 
-    if (this.toughnessRange[0] > 0 || this.toughnessRange[1] < this.currentMaxToughness) {
-      this.searchObject['toughness'] = `gte${this.toughnessRange[0]},lte${this.toughnessRange[1]}`;
+    if (this.toughness.selected) {
+      // do something, mathSymbols[1]
+      this.searchObject['toughness'] = `${this.returnMathSymbolString(this.mathSymbols.indices[1])}${this.toughness.value}`;
+
     }
 
-    if (this.cmcRange[0] > 0 || this.cmcRange[1] < this.currentMaxCMC) {
-      this.searchObject['cmc'] = `gte${this.cmcRange[0]},lte${this.cmcRange[1]}`;
+    if (this.cmc.selected) {
+      // do something
+      this.searchObject['cmc'] = `${this.returnMathSymbolString(this.mathSymbols.indices[2])}${this.cmc.value}`;
+
+    }
+  }
+
+
+  /**
+   * Evaluates the number provided and compares it to the mathematical symbol it coincides with in
+   * this.mathSymbols to return the appropriate string for an api call to MTG.io
+   *
+   * @private
+   * @param {number} index
+   * @returns {string}
+   * @memberof SearchComponent
+   */
+  private returnMathSymbolString (index: number): string {
+    switch (index) {
+      case 0:
+        return '';
+      case 1:
+        return 'gt';
+      case 2:
+        return 'gte';
+      case 3:
+        return 'lt';
+      case 4:
+        return 'lte';
+      default:
+        throw new Error ('Invalid number sent to returnMathSymbolString on search.component.ts');
     }
   }
 }

@@ -1,11 +1,21 @@
 <router-outlet></router-outlet>
-<main class="flex-row align-center">
-	<div *ngFor="let playerDeck of playerDecks; let i = index">
-		<!-- /deckmanager/maintain/edit/:id -->
-		<a [routerLink]="['/deckmanager/maintain/edit', i]">
-			<img [src]="playerDeck.deck._commander[0].card.imageUrl"
-				[alt]="playerDeck.name"/>
-			{{ playerDeck.name }}
-		</a>
-	</div>
+<main *ngIf="playerDecks.length > 0" class="flex-row align-center">
+  <div *ngFor="let deck of playerDecks; let i = index">
+    <!-- /deckmanager/maintain/edit/:id -->
+    <div class="container">
+      <img
+          class="cardImage"
+          [src]="deck._featureCard || blankCard"
+          [alt]="deck._name"/>
+      <div class="title">
+        <a [routerLink]="['/deckmanager/maintain/edit', i]">
+          <h3>{{ deck._name || 'something did not work'}}</h3>
+          <span *ngIf="deck.isCommander()">Commander</span>
+        </a>
+      </div>
+      <div class="details">
+        <h5>{{ deck._numberOfCards || '# of cards did not work'}}</h5>
+      </div>
+    </div>
+  </div>
 </main>

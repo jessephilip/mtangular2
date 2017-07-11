@@ -1,3 +1,5 @@
+@import "../../../../../assets/variables";
+
 div[name='build-list'] {
 
   ul.deck-list li {
@@ -11,5 +13,9 @@ div[name='build-list'] {
 
   .selected {
     color: blue;
+  }
+
+  .fa-star.featured {
+    color: $goldGradient1;
   }
 }

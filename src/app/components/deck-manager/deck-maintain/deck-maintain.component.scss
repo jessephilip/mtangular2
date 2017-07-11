@@ -1,0 +1,36 @@
+.cardImage {
+  height: 311px;
+  width: 226px;
+  opacity: 0.2;
+  transition: all 0.2s;
+}
+
+.container {
+  margin: 0 20px;
+  position: relative;
+
+  .title, .details {
+    background-color: white;
+    color: black;
+    left: 0;
+    position: absolute;
+    text-align: center;
+    top: 65px;
+    width: 100%;
+  }
+
+  .details {
+    top: 216px;
+  }
+
+  &:hover {
+
+    .cardImage {
+      opacity: 0.5;
+    }
+  }
+}
+
+a {
+  text-decoration: none;
+}

@@ -128,25 +128,29 @@ export class CardComponent implements OnInit {
     if (this.card.type) {
       this.cardTypes = this.helpers.getCardTypes(this.card.type.toLowerCase());
     } else {
-      throw new Error(`Cannot get types for ${this.card.name} because this card does not have a type property.`);
+      // throw new Error(`Cannot get types for ${this.card.name} because this card does not have a type property.`);
+      console.log(`Cannot get types for ${this.card.name} because this card does not have a type property.`);
     }
 
     if (this.card.text) {
       this.keywords = this.helpers.keywordSearch(this.card.text.toLowerCase());
     } else {
-      throw new Error(`Cannot get keywords for ${this.card.name} because this card does not have any text.`);
+      // throw new Error(`Cannot get keywords for ${this.card.name} because this card does not have any text.`);
+      console.log(`Cannot get keywords for ${this.card.name} because this card does not have any text.`);
     }
 
     if (this.card.manaCost) {
       this.manaCost = this.helpers.manaCostTextToSymbol(this.card.manaCost);
     } else {
-      throw new Error(`Cannot get symbols for ${this.card.name} because this card does not have a mana cost.`);
+      // throw new Error(`Cannot get symbols for ${this.card.name} because this card does not have a mana cost.`);
+      console.log(`Cannot get symbols for ${this.card.name} because this card does not have a mana cost.`);
     }
 
     if (this.card.rarity) {
       this.rarity = this.getRarity(this.card.rarity.toLowerCase());
     } else {
-      throw new Error(`Cannot get rarity for ${this.card.name} because this card does not have a rarity property.`);
+      // throw new Error(`Cannot get rarity for ${this.card.name} because this card does not have a rarity property.`);
+      console.log(`Cannot get rarity for ${this.card.name} because this card does not have a rarity property.`);
     }
   }
 

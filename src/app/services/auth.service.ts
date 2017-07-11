@@ -13,36 +13,36 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class AuthService {
 
-	// _user variable to hold the information about the user of this application
-	/**
-	 * Usable properties in _user:
-	 *	displayName: string
-	 *	email: string
-	 *	emailVerified: boolean
-	 *	identifierNumber: unknown
-	 *	isAnonymous: boolean
-	 *	photoURL: string
-	 *	refreshToken: string
-	 *	uid: string (userId)
-	 *	v: string (firebase name of app)
-	 *
-	 * @private
-	 * @type {Observable<firebase.User>}
-	 * @memberof AuthService
-	 */
-	private _user: Observable<firebase.User>;
-	public get user(): Observable<firebase.User> { return this._user; }
-	public set user(value: Observable<firebase.User>) { this._user = value; }
+  // _user variable to hold the information about the user of this application
+  /**
+   * Usable properties in _user:
+   *	displayName: string
+   *	email: string
+   *	emailVerified: boolean
+   *	identifierNumber: unknown
+   *	isAnonymous: boolean
+   *	photoURL: string
+   *	refreshToken: string
+   *	uid: string (userId)
+   *	v: string (firebase name of app)
+   *
+   * @private
+   * @type {Observable<firebase.User>}
+   * @memberof AuthService
+   */
+  private _user: Observable<firebase.User>;
+  public get user(): Observable<firebase.User> { return this._user; }
+  public set user(value: Observable<firebase.User>) { this._user = value; }
 
-	constructor (private af: AngularFireAuth) {
-		this.user = af.authState;
-	}
+  constructor (private af: AngularFireAuth) {
+    this.user = af.authState;
+  }
 
-	public loginGoogle () {
-		this.af.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
-	}
+  public loginGoogle () {
+    this.af.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+  }
 
-	public logout () {
-		this.af.auth.signOut();
-	}
+  public logout () {
+    this.af.auth.signOut();
+  }
 }
