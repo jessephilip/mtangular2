@@ -38,9 +38,4 @@ export class ResultsComponent implements OnInit {
     this.searchService.resultsEmitter
       .subscribe(value => this.results = value);
   }
-
-  public addToDeck (card) {
-    console.log('card: ', card);
-    this.searchService.cardEmitter.emit(new DeckCard(card));
-  }
 }

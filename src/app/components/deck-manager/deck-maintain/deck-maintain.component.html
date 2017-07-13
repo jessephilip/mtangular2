@@ -10,11 +10,11 @@
       <div class="title">
         <a [routerLink]="['/deckmanager/maintain/edit', i]">
           <h3>{{ deck._name || 'something did not work'}}</h3>
-          <span *ngIf="deck.isCommander()">Commander</span>
+          <!--<span *ngIf="deck.isCommander()">Commander</span>-->
         </a>
       </div>
       <div class="details">
-        <h5>{{ deck._numberOfCards || '# of cards did not work'}}</h5>
+        <h5>Cards: {{ deck._numberOfCards || '# of cards did not work'}}</h5>
       </div>
     </div>
   </div>

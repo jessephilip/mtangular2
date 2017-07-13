@@ -84,10 +84,38 @@
           {{ input.value }}
         </label>
         <input
-          name="rarity"
+          name="colors"
           type="checkbox"
           [checked]="input.selected"
           (change)="changeCheckbox('color', i)"/>
+      </div>
+    </div>
+    <div class="flex-column align-center justify-center">
+      <label
+        [for]="excludeColors">
+        Exclude other colors
+      </label>
+      <input
+        name="excludeColors"
+        type="checkbox"
+        [checked]="excludeColors.selected"
+        (change)="changeCheckbox('exclude')"/>
+    </div>
+  </div>
+  <div name="searchFormatCheckBoxes" class="flex-row">
+    <div *ngFor="let input of formatInputs; let i = index">
+      <div class="flex-column align-center justify-center">
+        <label
+          [for]="input.value"
+          [ngClass]="{selected: input.selected}"
+          [class]="input.value">
+          {{ input.value }}
+        </label>
+        <input
+          name="formats"
+          type="checkbox"
+          [checked]="input.selected"
+          (change)="changeCheckbox('format', i)"/>
       </div>
     </div>
     <div class="flex-column align-center justify-center">

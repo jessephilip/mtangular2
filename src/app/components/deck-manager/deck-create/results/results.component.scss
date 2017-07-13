@@ -10,6 +10,11 @@
   mtg-card {
     display: block;
     margin: 8px 0;
+    transition: all 0.1s;
+
+    &:hover {
+      transform: scale(1.03);
+    }
   }
 
   mtg-card:first-of-type {

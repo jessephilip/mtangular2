@@ -95,6 +95,8 @@ export class MtgApiService {
       string = string.substring(0, string.length - 1);
     }
 
+    console.log('API call to MTG.IO: ', string);
+
     return this.http.get(string).map((res: Response) => res.json());
   }
 

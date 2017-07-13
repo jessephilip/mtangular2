@@ -1,9 +1,16 @@
 @import "../../../../../assets/variables";
 
 div[name='build-list'] {
+  position: fixed;
+  top: 5%;
+  right: 5%;
 
   ul.deck-list li {
     list-style: none;
+  }
+
+  a {
+    text-decoration: none;
   }
 
   span:hover {

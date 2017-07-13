@@ -82,6 +82,18 @@ export class SearchComponent implements OnInit {
    */
   public excludeColors = { selected: false };
 
+  /**
+   * FormatInputs is the set of objects tied to the DOM and checkboxes
+   * for searching for cards that are legal in the given format.
+   *
+   * @public
+   * @memberof SearchComponent
+   */
+  public formatInputs = [
+    { value: 'Commander', selected: false },
+    { value: 'Legacy', selected: false },
+    { value: 'Vintage', selected: false }
+  ];
 
   /**
    * Contains the value to display and the functions to cycle through the
@@ -133,8 +145,12 @@ export class SearchComponent implements OnInit {
   }
 
     // these functions return string[]
-  private selectedColors = () => this.colorInputs.filter(color => color.selected).map(colorValue => colorValue.value.toLowerCase());
-  private selectedRarities = () => this.rarityInputs.filter(rarity => rarity.selected).map(rarityValue => rarityValue.value.toLowerCase());
+  private selectedColors = () => this.colorInputs
+    .filter(color => color.selected).map(colorValue => colorValue.value.toLowerCase());
+  private selectedRarities = () => this.rarityInputs
+    .filter(rarity => rarity.selected).map(rarityValue => rarityValue.value.toLowerCase());
+  private selectedFormats = () => this.formatInputs
+    .filter(format => format.selected).map(formatValue => formatValue.value.toLowerCase());
 
   /**
    * Tied to the DOM. Gathers and organizes the searchObject data to send to the mtgApiService
@@ -160,6 +176,10 @@ export class SearchComponent implements OnInit {
     if (this.selectedColors().length >= 0) {
       this.searchObject['colors'] = this.helpers.stringBuilder(this.selectedColors());
     }
+    if (this.selectedFormats().length >= 0) {
+      this.searchObject['gameFormat'] = this.helpers.stringBuilder(this.selectedFormats());
+    }
+
 
     this.useSlidersInSearch();
 
@@ -201,6 +221,12 @@ export class SearchComponent implements OnInit {
       case 'color':
         this.colorInputs[num].selected = !this.colorInputs[num].selected;
         break;
+      case 'exclude':
+        this.excludeColors.selected = !this.excludeColors.selected;
+        break;
+      case 'format':
+        this.formatInputs[num].selected = !this.formatInputs[num].selected;
+        break;
       case 'power':
         this.power.selected = !this.power.selected;
         break;
@@ -209,12 +235,6 @@ export class SearchComponent implements OnInit {
         break;
       case 'toughness':
         this.toughness.selected = !this.toughness.selected;
-        break;
-      // case 'deckStyle':
-      //   this.deckStyleInputs[num].selected = !this.deckStyleInputs[num].selected;
-      // break;
-      case 'exclude':
-        this.excludeColors.selected = !this.excludeColors.selected;
         break;
     }
   }

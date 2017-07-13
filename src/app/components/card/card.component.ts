@@ -3,6 +3,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { HelperService } from 'app/services/helper.service';
 import { ModalService } from 'app/services/modal.service';
 import { SearchService } from 'app/services/search.service';
+import { DeckCard } from '../../types/deckCard.model';
 
 @Component({
   animations: [
@@ -105,14 +106,6 @@ export class CardComponent implements OnInit {
    */
   @Input() showCardShadow: boolean;
 
-  /**
-   * The function to perform when the add icon is clicked.
-   *
-   * @type {*}
-   * @memberof CardComponent
-   */
-  @Input() addButtonFunction: any;
-
   private cardTypes: string[];
   private keywords: string[];
   private tcgUrl = this.helpers.tcgUrl;
@@ -161,5 +154,9 @@ export class CardComponent implements OnInit {
 
   public showImage (imgUrl: string) {
     this.searchService.showCardImage(imgUrl);
+  }
+
+  public addButton (card) {
+    this.searchService.cardEmitter.emit(new DeckCard(card));
   }
 }

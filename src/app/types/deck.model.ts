@@ -337,7 +337,7 @@ export class Deck {
    * @memberof Deck
    */
   private isCardInDeck (deckCard: DeckCard): number {
-    return this.cards.findIndex(card => card.card.name = deckCard.card.name);
+    return this.cards.findIndex(card => card.card.name === deckCard.card.name);
   }
 
   /**
