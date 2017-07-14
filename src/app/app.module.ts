@@ -8,7 +8,6 @@ import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { NouisliderModule } from 'ng2-nouislider';
 
 // custom components
 import { AppComponent } from 'app/app.component';
@@ -57,6 +56,7 @@ import { SearchService } from 'app/services/search.service';
 import { FocusHighlightDirective } from 'app/directives/focus-highlight.directive';
 import { GiveFocusDirective } from 'app/directives/give-focus.directive';
 import { InputHasFocusDirective } from './directives/input-has-focus.directive';
+import { MtgHighlightLabelOnFocusDirective } from './directives/highlight-label-on-focus.directive';
 
 // import pipes
 import { IdToNamePipe } from 'app/pipes/id-to-name.pipe';
@@ -109,7 +109,8 @@ import { AppRoutingModule } from 'app/routing/appRouting.module';
     EditDeckComponent,
     CardComponent,
     TestComponent,
-    BuildListComponent
+    BuildListComponent,
+    MtgHighlightLabelOnFocusDirective
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -119,8 +120,7 @@ import { AppRoutingModule } from 'app/routing/appRouting.module';
     BrowserAnimationsModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule,
-    NouisliderModule
+    AppRoutingModule
   ],
   providers: [
     DatabaseService,

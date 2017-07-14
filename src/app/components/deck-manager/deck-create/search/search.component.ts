@@ -280,6 +280,7 @@ export class SearchComponent implements OnInit {
     this.textSearch = '';
     this.rarityInputs.forEach(value => value.selected = false);
     this.colorInputs.forEach(value => value.selected = false);
+    this.formatInputs.forEach(value => value.selected = false);
     this.excludeColors.selected = false;
     this.power.selected = false;
     this.power.value = 0;

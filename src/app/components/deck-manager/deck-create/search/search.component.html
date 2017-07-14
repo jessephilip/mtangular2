@@ -1,60 +1,65 @@
 <div name="searchComponent">
   <div>
     <div name="searchTextInputs">
-      <div mtgInputHasFocus>
+      <div class="textSearch" mtgInputHasFocus>
         <label for="nameSearch">
-          Name
+          Name:
         </label>
         <input
           name="nameSearch"
           type="text"
           placeholder="ex: Serra Angel"
           [(ngModel)]="nameSearch"
-          (keyup.enter)="search()"/>
+          (keyup.enter)="search()"
+          mtgHighlightLabelOnFocus/>
       </div>
-      <div mtgInputHasFocus>
+      <div class="textSearch" mtgInputHasFocus>
           <label for="typeSearch">
-            Type
+            Type:
           </label>
           <input
             name="typeSearch"
             type="text"
             placeholder="ex: Creature"
             [(ngModel)]="typeSearch"
-            (keyup.enter)="search()"/>
+            (keyup.enter)="search()"
+            mtgHighlightLabelOnFocus/>
         </div>
-        <div mtgInputHasFocus>
-          <label for="subtypesSearch">
-            SubType
-          </label>
-          <input
-            name="subtypesSearch"
-            type="text"
-            placeholder="ex: Angel"
-            [(ngModel)]="subtypesSearch"
-            (keyup.enter)="search()"/>
-        </div>
-        <div mtgInputHasFocus>
-          <label for="supertypesSearch">
-            SuperType
-          </label>
-          <input
-            name="supertypesSearch"
-            type="text"
-            placeholder="ex: Legendary"
-            [(ngModel)]="supertypesSearch"
-            (keyup.enter)="search()"/>
-        </div>
-      <div mtgInputHasFocus>
+      <div class="textSearch" mtgInputHasFocus>
+        <label for="subtypesSearch">
+          SubType:
+        </label>
+        <input
+          name="subtypesSearch"
+          type="text"
+          placeholder="ex: Angel"
+          [(ngModel)]="subtypesSearch"
+          (keyup.enter)="search()"
+          mtgHighlightLabelOnFocus/>
+      </div>
+      <div class="textSearch" mtgInputHasFocus>
+        <label for="supertypesSearch">
+          SuperType:
+        </label>
+        <input
+          name="supertypesSearch"
+          type="text"
+          placeholder="ex: Legendary"
+          [(ngModel)]="supertypesSearch"
+          (keyup.enter)="search()"
+          mtgHighlightLabelOnFocus/>
+      </div>
+      <div class="textSearch" mtgInputHasFocus>
         <label for="textSearch">
-          Text
+          Text:
         </label>
         <input
           name="textSearch"
           type="text"
           placeholder="ex: Catch all"
           [(ngModel)]="textSearch"
-          (keyup.enter)="search()">
+          (keyup.enter)="search()"
+          mtgHighlightLabelOnFocus/>
       </div>
     </div>
   </div>
@@ -117,17 +122,6 @@
           [checked]="input.selected"
           (change)="changeCheckbox('format', i)"/>
       </div>
-    </div>
-    <div class="flex-column align-center justify-center">
-      <label
-        [for]="excludeColors">
-        Exclude other colors
-      </label>
-      <input
-        name="excludeColors"
-        type="checkbox"
-        [checked]="excludeColors.selected"
-        (change)="changeCheckbox('exclude')"/>
     </div>
   </div>
   <div name="searchPower" class="sliderSection">
