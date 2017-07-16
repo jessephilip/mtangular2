@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'mtg-deck-manager',
@@ -7,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DeckManagerComponent implements OnInit {
 
-  constructor () {}
+  constructor (private router: Router) {}
 
   ngOnInit () {}
+
+  public loadPage (page: string) {
+    this.router.navigate([page]);
+  }
 }

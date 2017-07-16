@@ -21,6 +21,8 @@ export class SearchComponent implements OnInit {
   @Input() supertypesSearch: string;
   @Input() raritySearch: any;
 
+  public showColor = false;
+
   // these three values represent the current max's (not counting joke sets)
   // as of July 5, 2017
   public power = {

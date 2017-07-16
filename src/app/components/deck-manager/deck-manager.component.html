@@ -2,24 +2,20 @@
 <header class="flex-row justify-around align-center">
 	<!-- /deckmanager/create -->
   <section
-    name="create">
-    <a
-      [routerLink]="['/create']">
-      <p>Create</p>
-    </a>
+    name="create"
+    (click)="loadPage('create')">
+    <p>Create</p>
   </section>
 	<!-- /deckmanager/maintain -->
-  <section name="maintain">
-    <a
-      [routerLink]="['/maintain']">
-      <p>Maintain</p>
-    </a>
+  <section
+    name="maintain"
+    (click)="loadPage('maintain')">
+    <p>Maintain</p>
   </section>
 	<!-- /deckmanager/use -->
-  <section name="use">
-    <a
-      [routerLink]="['/use']">
-      <p>Use</p>
-    </a>
+  <section
+    name="use"
+    (click)="loadPage('use')">
+    <p>Use</p>
   </section>
 </header>

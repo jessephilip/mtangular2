@@ -63,64 +63,47 @@
       </div>
     </div>
   </div>
-  <div name="searchRarityCheckBoxes" class="flex-row">
-    <div *ngFor="let input of rarityInputs; let i = index">
-      <div class="flex-column align-center justify-center">
-        <label
-          [for]="input.value"
-          [ngClass]="{selected: input.selected}">
-          {{ input.value | capitalize }}
-        </label>
-        <input
-          name="rarity"
-          type="checkbox"
-          [checked]="input.selected"
-          (change)="changeCheckbox('rarity', i)"/>
+  <div name="searchRarityCheckBoxes">
+    <label for="rarities">Rarities: </label>
+    <div class="rarityRow">
+      <div
+        *ngFor="let input of rarityInputs; let i = index"
+        [ngClass]="{'selected' : input.selected}"
+        (click)="input.selected = !input.selected">
+        {{ input.value }}
       </div>
     </div>
   </div>
-  <div name="searchColorCheckBoxes" class="flex-row">
-    <div *ngFor="let input of colorInputs; let i = index">
-      <div class="flex-column align-center justify-center">
-        <label
-          [for]="input.value"
-          [ngClass]="{selected: input.selected}"
-          [class]="input.value">
-          {{ input.value }}
-        </label>
-        <input
-          name="colors"
-          type="checkbox"
-          [checked]="input.selected"
-          (change)="changeCheckbox('color', i)"/>
+  <div name="searchColorCheckBoxes">
+    <label for="colors">Colors: </label>
+    <div class="colorRow">
+      <div
+        *ngFor="let input of colorInputs; let i = index"
+        [class]="'colorBox ' + input.value.toLowerCase()"
+        [ngClass]="{'selected' : input.selected}"
+        (click)="input.selected = !input.selected">
       </div>
     </div>
-    <div class="flex-column align-center justify-center">
+    <!-- <div class="flex-column align-center justify-center">
       <label
         [for]="excludeColors">
-        Exclude other colors
+        Exclude Other Colors
       </label>
       <input
         name="excludeColors"
         type="checkbox"
         [checked]="excludeColors.selected"
         (change)="changeCheckbox('exclude')"/>
-    </div>
+    </div> -->
   </div>
-  <div name="searchFormatCheckBoxes" class="flex-row">
-    <div *ngFor="let input of formatInputs; let i = index">
-      <div class="flex-column align-center justify-center">
-        <label
-          [for]="input.value"
-          [ngClass]="{selected: input.selected}"
-          [class]="input.value">
-          {{ input.value }}
-        </label>
-        <input
-          name="formats"
-          type="checkbox"
-          [checked]="input.selected"
-          (change)="changeCheckbox('format', i)"/>
+  <div name="searchFormatCheckBoxes">
+    <label for="formats">Formats: </label>
+    <div class="formatRow">
+      <div
+        *ngFor="let input of formatInputs; let i = index"
+        [ngClass]="{'selected' : input.selected}"
+        (click)="input.selected = !input.selected">
+        {{ input.value }}
       </div>
     </div>
   </div>
@@ -188,11 +171,15 @@
     <span>{{ cmc.value }}</span>
   </div>
   <div name ="searchButtons">
-    <button (click)="reset()">
+    <button
+      class="button-red"
+      (click)="reset()">
       <i class="fa fa-ban"></i>
       Reset
     </button>
-    <button (click)="search()">
+    <button
+      class="button-green"
+      (click)="search()">
       <i class="fa fa-search"></i>
       Search
     </button>
