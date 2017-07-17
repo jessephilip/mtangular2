@@ -83,18 +83,13 @@
         [ngClass]="{'selected' : input.selected}"
         (click)="input.selected = !input.selected">
       </div>
+      <div
+        class="excludeBox"
+        [ngClass]="{'selected' : excludeColors.selected}"
+        (click)="excludeColors.selected = !excludeColors.selected">
+        <p>Exclude</p>
+      </div>
     </div>
-    <!-- <div class="flex-column align-center justify-center">
-      <label
-        [for]="excludeColors">
-        Exclude Other Colors
-      </label>
-      <input
-        name="excludeColors"
-        type="checkbox"
-        [checked]="excludeColors.selected"
-        (change)="changeCheckbox('exclude')"/>
-    </div> -->
   </div>
   <div name="searchFormatCheckBoxes">
     <label for="formats">Formats: </label>
